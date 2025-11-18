@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pelindo RegPro</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Konfigurasi kustom untuk Tailwind (jika diperlukan)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        // Menggunakan font Inter seperti instruksi
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Menyesuaikan palet warna agar mirip dengan gambar
+                        'pelindo-nav': '#1e3a8a', // Biru tua untuk sidebar (mirip blue-900)
+                        'pelindo-nav-hover': '#1d4ed8', // Biru lebih cerah (mirip blue-700)
+                        'pelindo-main': '#eef2ff', // Latar belakang utama (mirip indigo-50)
+                        'pelindo-title': '#1e3a8a', // Warna teks judul
+                        'pelindo-send': '#2563eb', // Tombol kirim (mirip blue-600)
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Memuat font Inter dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Menggunakan font Inter sebagai default */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Styling untuk logo */
+        #sidebar img {
+            filter: brightness(1.1);
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        #sidebar:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Memastikan logo tidak terdistorsi */
+        #sidebar img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        /* Background batik untuk sidebar */
+        #sidebar {
+            position: relative;
+            background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, #1e3a8a 100%);
+        }
+
+        #sidebar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background-image: url('images/batik.png');
+            background-position: bottom left;
+            background-repeat: no-repeat;
+            background-size: 80% auto;
+            opacity: 0.12;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #sidebar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #sidebar > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Memastikan dropdown kategori bisa diklik */
+        #kategori-wrapper {
+            position: relative;
+            z-index: 50;
+        }
+
+        #kategori-dropdown {
+            pointer-events: auto !important;
+        }
+
+        #kategori-dropdown a {
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        /* Styling untuk header */
+        header {
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 90% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        header > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Efek hover untuk ikon di header */
+        header button {
+            transition: all 0.2s ease;
+        }
+
+        header button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Styling untuk main area background */
+        main {
+            position: relative;
+            overflow: hidden;
+        }
+
+        main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        main > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Background body yang lebih halus */
+        body {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ff 100%);
+        }
+
+        /* Styling untuk dropdown item */
+        .dropdown-item {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #6366f1, #3b82f6);
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .dropdown-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .dropdown-item:hover {
+            transform: translateX(4px);
+        }
+
+        /* Scrollbar untuk dropdown */
+        #kategori-dropdown::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #kategori-dropdown::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+            margin: 4px 0;
+        }
+
+        #kategori-dropdown::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #cbd5e1, #94a3b8);
+            border-radius: 10px;
+        }
+
+        #kategori-dropdown::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #94a3b8, #64748b);
+        }
+
+        /* Animasi untuk dropdown saat terbuka */
+        #kategori-dropdown:not(.hidden) {
+            animation: dropdownFadeIn 0.3s ease-out;
+        }
+
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Efek untuk tombol dropdown */
+        #kategori-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Styling untuk tombol kategori */
+        .category-button {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .category-button::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #6366f1, #3b82f6);
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .category-button:hover::before {
+            transform: scaleY(1);
+        }
+
+        .category-button:hover {
+            transform: translateX(4px);
+        }
+
+        /* Styling untuk avatar bot */
+        .bot-avatar {
+            animation: avatarPopIn 0.4s ease-out;
+        }
+
+        @keyframes avatarPopIn {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(10deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Animasi untuk pesan bot */
+        .bot-message-container {
+            animation: messageSlideIn 0.3s ease-out;
+        }
+
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Styling untuk gambar avatar bot */
+        .bot-avatar img {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .bot-avatar:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Hover effect untuk bubble bot */
+        .bot-bubble:hover .bot-avatar {
+            transform: scale(1.05);
+        }
+
+        /* Styling untuk avatar user */
+        .user-avatar {
+            animation: avatarPopIn 0.4s ease-out;
+        }
+
+        /* Animasi untuk pesan user */
+        .user-message-container {
+            animation: messageSlideInRight 0.3s ease-out;
+        }
+
+        @keyframes messageSlideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Styling untuk gambar avatar user */
+        .user-avatar img {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .user-avatar:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Hover effect untuk bubble user */
+        .user-message-container:hover .user-avatar {
+            transform: scale(1.05);
+        }
+
+        /* Perbaikan styling untuk tampilan yang lebih indah */
+        #sidebar {
+            box-shadow: 4px 0 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Logo container dengan padding yang lebih baik */
+        #sidebar > div:first-child {
+            padding: 1rem 0;
+            margin-bottom: 1.5rem;
+        }
+
+        #sidebar img {
+            max-height: 80px;
+            height: auto;
+            width: auto;
+            display: block;
+        }
+
+        /* Error handling untuk gambar */
+        img {
+            object-fit: contain;
+        }
+
+        img[src=""], img:not([src]) {
+            opacity: 0;
+        }
+
+        /* Perbaikan tombol chat baru */
+        #chat-baru-btn {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        #chat-baru-btn:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+        }
+
+        #chat-baru-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Perbaikan dropdown kategori */
+        #kategori-button {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #kategori-button:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Perbaikan chat container */
+        #chat-container {
+            scroll-behavior: smooth;
+        }
+
+        #chat-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #chat-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #chat-container::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+        }
+
+        #chat-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.5);
+        }
+
+        /* Perbaikan initial state */
+        #initial-state {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Perbaikan message bubble */
+        .bot-message-container .bg-white {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95) !important;
+        }
+
+        /* Perbaikan spacing pada pesan */
+        .bot-message-container,
+        .user-message-container {
+            margin-bottom: 1.5rem;
+            animation-duration: 0.4s;
+        }
+
+        /* Perbaikan tombol pertanyaan */
+        button[data-category][data-index] {
+            transition: all 0.2s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        button[data-category][data-index]:hover {
+            border-color: #6366f1;
+            box-shadow: 0 2px 4px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Perbaikan header */
+        header {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        /* Perbaikan main area */
+        main {
+            backdrop-filter: blur(10px);
+        }
+
+        /* Loading state untuk gambar */
+        img {
+            transition: opacity 0.3s ease;
+        }
+
+        img.loading {
+            opacity: 0.5;
+        }
+
+        img.loaded {
+            opacity: 1;
+        }
+
+        /* Fallback untuk gambar yang error */
+        img[onerror] {
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            #sidebar {
+                width: 100%;
+                max-width: 320px;
+            }
+
+            #chat-container {
+                padding: 1rem;
+            }
+
+            .bot-message-container,
+            .user-message-container {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Smooth scroll untuk chat */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Perbaikan shadow pada card message */
+        .bot-message-container .bg-white,
+        .user-message-container .bg-gradient-to-r {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Perbaikan hover pada kategori button di chat */
+        .category-button {
+            cursor: pointer;
+        }
+
+        .category-button:active {
+            transform: translateX(2px) !important;
+        }
+
+        /* Perbaikan prose styling */
+        .prose {
+            max-width: 100%;
+        }
+
+        .prose p {
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .prose p:first-child {
+            margin-top: 0;
+        }
+
+        .prose p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+    <div class="flex h-screen">
+        <!-- Overlay untuk mobile saat sidebar terbuka -->
+        <div id="overlay" class="fixed inset-0 bg-black opacity-50 z-10 hidden md:hidden"></div>
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class
+="w-72 bg-pelindo-nav text-white p-4 flex flex-col h-full fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-20">
+            
+            <!-- Logo Pelindo Multi Terminal -->
+            <div class="mb-6 pt-2 pb-4 border-b border-blue-800/30 flex items-center justify-center">
+                <img 
+                    src="images/logo spmt fc (1).png" 
+                    alt="Pelindo Multi Terminal" 
+                    class="h-20 w-auto object-contain max-w-full"
+                    onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'80\'%3E%3Crect fill=\'%23ffffff\' width=\'200\' height=\'80\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%231e3a8a\' font-family=\'Arial\' font-size=\'14\'%3EPelindo Logo%3C/text%3E%3C/svg%3E';"
+                    loading="lazy"
+                >
+            </div>
+
+            <!-- Tombol Chat Baru -->
+            <button id="chat-baru-btn" class="bg-pelindo-nav-hover hover:bg-blue-600 text-white font-semibold py-2.5 px-4 rounded-lg mb-4 w-full text-left flex items-center gap-3">
+                <!-- Ikon Chat Baru (Mirip di gambar: gelembung + plus) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"></path>
+                    <line x1="12" y1="7" x2="12" y2="13"></line>
+                    <line x1="9" y1="10" x2="15" y2="10"></line>
+                </svg>
+                Chat Baru
+            </button>
+
+            <!-- Pilihan Kategori (Modern Custom Dropdown) -->
+            <div class="relative mb-4" id="kategori-wrapper">
+                <!-- Tombol yang terlihat -->
+                <button id="kategori-button" class="appearance-none bg-gradient-to-r from-blue-900 to-blue-800 border border-blue-700 text-white text-sm rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none block w-full p-3 pr-10 flex justify-between items-center text-left shadow-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-200">
+                    <span id="kategori-selected-text" class="truncate font-medium">Pilih Kategori...</span>
+                    <!-- Ikon panah dropdown kustom -->
+                    <svg id="kategori-arrow" class="w-5 h-5 text-blue-200 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                
+                <!-- Panel Dropdown (Tersembunyi) -->
+                <div id="kategori-dropdown" class="hidden absolute z-50 w-full mt-2 bg-white rounded-xl shadow-2xl max-h-64 overflow-y-auto transition-all duration-300 ease-out transform opacity-0 scale-95 border border-gray-100" style="pointer-events: auto;">
+                    <div class="p-2">
+                        <!-- Opsi-opsi -->
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="A">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">A.</span>
+                                <span>DASAR KPI (Basic – Untuk Semua Pekerja)</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="B">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">B.</span>
+                                <span>PENYUSUNAN & CASCADING KPI</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="C">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">C.</span>
+                                <span>PORTAVERSE</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="D">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">D.</span>
+                                <span>FORMULA, POLARITAS, & PERHITUNGAN KPI</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="E">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">E.</span>
+                                <span>BOUNDARY INDICATOR</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="F">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">F.</span>
+                                <span>ADDITIONAL POINT</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="G">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">G.</span>
+                                <span>PENILAIAN & REVIEW KPI</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="H">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">H.</span>
+                                <span>KHUSUS PEKERJA OPERASIONAL & NON-OPERASIONAL</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="I">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">I.</span>
+                                <span>PEKERJA BARU / MUTASI / PROMOSI</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="J">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">J.</span>
+                                <span>MASALAH UMUM</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Riwayat Chat -->
+            <nav class="flex-grow overflow-y-auto space-y-4">
+                <!-- Bagian Today dan Yesterday telah dihapus -->
+            </nav>
+
+        </aside>
+
+        <!-- Konten Utama -->
+        <main class="flex-1 flex flex-col h-full bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+            
+            <!-- Header Konten Utama -->
+            <header class="h-16 flex justify-between md:justify-end items-center p-4 bg-gradient-to-r from-white via-blue-50 to-indigo-50 border-b border-indigo-100 shadow-md">
+                <!-- Tombol Buka Sidebar (hanya di mobile) -->
+                <button id="open-sidebar-btn" class="p-2 text-gray-700 md:hidden">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+                
+                <!-- Ikon di Kanan Atas -->
+                <div class="flex items-center gap-4">
+                    <!-- Ikon Grid -->
+                    <button class="text-gray-600 hover:text-black">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </button>
+                    <!-- Ikon User -->
+                    <button class="text-gray-600 hover:text-black">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Area Konten Dinamis (Diubah menjadi Chat Interface) -->
+            <div class="flex-grow p-4 md:p-8 overflow-y-auto" id="chat-container">
+                
+                <!-- 1. Tampilan Awal (Initial State) -->
+                <div id="initial-state" class="flex flex-col justify-center items-center h-full text-center px-4">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full">
+                        <div class="mb-6">
+                            <svg class="w-20 h-20 text-indigo-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-pelindo-title mb-3">Selamat Datang di FAQ RegPro</h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed">Silakan pilih kategori pada panel di sebelah kiri untuk memulai percakapan atau gunakan dropdown kategori di atas.</p>
+                        <div class="flex items-center justify-center gap-2 text-sm text-gray-500">
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m4.5 0a12.05 12.05 0 003.478-.397 9 9 0 00-.397-12.72m-3.081 9.397a9 9 0 01-9 0m9 0a9 9 0 00-9 0m9 0v5.25" />
+                            </svg>
+                            <span>Pusat bantuan KPI Pelindo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pesan-pesan chat akan ditambahkan di sini oleh JavaScript -->
+
+            </div>
+            
+        </main>
+    </div>
+
+    <!-- JavaScript untuk fungsionalitas -->
+    <script>
+        // --- Skrip Sidebar Mobile (Tetap Sama) ---
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const openBtn = document.getElementById('open-sidebar-btn');
+        const closeBtn = document.getElementById('close-sidebar-btn');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        if (openBtn) {
+            openBtn.addEventListener('click', toggleSidebar);
+        }
+        if (closeBtn) {
+            closeBtn.addEventListener('click', toggleSidebar);
+        }
+        if (overlay) {
+            overlay.addEventListener('click', toggleSidebar);
+        }
+
+        // --- DATA FAQ MOCKUP ---
+        // Anda bisa mengganti ini dengan data Anda
+        const mockFaqData = {
+            "A": {
+                title: "A. DASAR KPI",
+                questions: [
+                    { q: "Apa itu KPI?", a: "<p>KPI (Key Performance Indicator) adalah indikator kinerja utama yang digunakan untuk mengukur pencapaian target kinerja individu sesuai sasaran organisasi.</p>" },
+                    { q: "Apa tujuan penilaian KPI di SPMT/Pelindo?", a: "<p>Penilaian KPI bertujuan memastikan kontribusi individu selaras dengan strategi organisasi serta sebagai dasar evaluasi kinerja dan pengembangan pekerja.</p>" },
+                    { q: "Siapa yang menentukan KPI saya?", a: "<p>KPI ditetapkan oleh atasan langsung melalui proses cascading berdasarkan target unit kerja dan arahan manajemen.</p>" },
+                    { q: "Berapa jumlah minimal dan maksimal KPI individu?", a: "<p>Jumlah KPI individu antara 3–10 item dengan total bobot 100%.</p>" },
+                    { q: "Apa itu KPI Utama dan KPI Tambahan?", a: "<p>KPI Utama adalah indikator utama yang berdampak langsung pada sasaran organisasi. KPI Tambahan merupakan indikator pendukung yang melengkapi KPI utama.</p>" },
+                    { q: "Apa itu KPI Perilaku (Behavioral)?", a: "<p>KPI Perilaku adalah penilaian terhadap perilaku kerja sesuai nilai AKHLAK dengan bobot 20% dari total penilaian.</p>" },
+                    { q: "Kapan periode penetapan KPI dilakukan?", a: "<p>Penetapan KPI dilakukan pada awal tahun melalui tahap Performance Planning.</p>" },
+                    { q: "Kapan periode evaluasi KPI dilakukan?", a: "<p>Evaluasi akhir dilakukan pada tahap Performance Evaluation di akhir tahun.</p>" },
+                    { q: "Apa perbedaan KPI Triwulan dan KPI Tahunan?", a: "<p>KPI Triwulan memiliki target penilaian setiap 3 bulan, sedangkan KPI Tahunan dinilai pada akhir tahun.</p>" },
+                    { q: "Apa itu BSC (Balanced Scorecard)?", a: "<p>BSC adalah kerangka penyusunan KPI berdasarkan empat perspektif: Financial, Customer, Internal Process, dan Learning & Growth.</p>" },
+                    { q: "Apakah setiap pekerja wajib memiliki KPI?", a: "<p>Ya, seluruh pekerja wajib memiliki KPI sesuai jabatan masing-masing.</p>" },
+                    { q: "Apakah pekerja operasional juga punya KPI yang sama dengan non-operasional?", a: "<p>Tidak. KPI disesuaikan dengan karakteristik fungsi dan tanggung jawab setiap jabatan.</p>" },
+                    { q: "Bagaimana cara mengetahui KPI saya sudah disetujui atau belum?", a: "<p>Status persetujuan dapat dilihat pada Portaverse melalui menu KPI Review.</p>" }
+                ]
+            },
+            "B": {
+                title: "B. PENYUSUNAN & CASCADING KPI",
+                questions: [
+                    { q: "Apa itu cascading KPI?", a: "<p>Cascading KPI adalah proses penurunan KPI dari atasan ke bawahan agar sasaran individu selaras dengan sasaran organisasi.</p>" },
+                    { q: "Bagaimana cara KPI atasan diturunkan menjadi KPI bawahan?", a: "<p>KPI diturunkan melalui metode duplikasi, disaggregated, atau indirect sesuai tanggung jawab masing-masing jabatan.</p>" },
+                    { q: "Apa itu duplikasi KPI?", a: "<p>Duplikasi KPI adalah penyalinan KPI atasan secara langsung kepada bawahan tanpa perubahan metrik.</p>" },
+                    { q: "Apa itu disaggregated KPI?", a: "<p>Disaggregated KPI adalah turunan KPI atasan menjadi indikator kuantitatif pada level bawahan.</p>" },
+                    { q: "Apa itu indirect cascade?", a: "<p>Indirect cascade adalah KPI bawahan yang mendukung pencapaian KPI atasan melalui aktivitas pendukung.</p>" },
+                    { q: "Bagaimana menentukan bobot KPI?", a: "<p>Bobot ditentukan berdasarkan prioritas target dan kontribusi masing-masing KPI terhadap sasaran unit kerja.</p>" },
+                    { q: "Apakah bobot KPI harus genap?", a: "<p>Tidak. Bobot dapat bervariasi selama total mencapai 100%.</p>" },
+                    { q: "Bagaimana menentukan target KPI yang realistis?", a: "<p>Target ditentukan berdasarkan historical data, kapasitas unit kerja, dan arahan manajemen.</p>" },
+                    { q: "Apakah KPI boleh diubah setelah disetujui?", a: "<p>Perubahan dapat dilakukan dalam kondisi tertentu dengan persetujuan atasan dan Unit SDM.</p>" },
+                    { q: "Bagaimana prosedur permintaan perubahan KPI?", a: "<p>Pekerja mengajukan perubahan melalui Portaverse disertai alasan serta bukti pendukung untuk validasi atasan.</p>" },
+                    { q: "Apa yang harus dilakukan jika KPI saya tidak sesuai tugas?", a: "<p>Pekerja dapat mengajukan revisi kepada atasan dengan justifikasi yang sesuai.</p>" },
+                    { q: "Apakah KPI saya harus sama dengan rekan satu unit?", a: "<p>Tidak. KPI ditentukan berdasarkan peran masing-masing pekerja.</p>" },
+                    { q: "Apa itu SMART KPI?", a: "<p>KPI yang memenuhi unsur Specific, Measurable, Achievable, Relevant, dan Time-Bound.</p>" },
+                    { q: "Bagaimana memastikan KPI SMART?", a: "<p>KPI harus memiliki definisi jelas, formula, target, satuan, periode, dan bukti data.</p>" },
+                    { q: "Apakah aktivitas rutin bisa dijadikan KPI?", a: "<p>Bisa, apabila aktivitas tersebut berdampak signifikan terhadap sasaran unit.</p>" },
+                    { q: "Apakah proyek khusus bisa menjadi KPI?", a: "<p>Bisa, apabila proyek tersebut merupakan prioritas organisasi.</p>" },
+                    { q: "Bagaimana penyusunan KPI pekerja baru?", a: "<p>KPI pekerja baru disesuaikan dengan masa adaptasi dan tugas utama yang diberikan atasan.</p>" }
+                ]
+            },
+            "C": {
+                title: "C. PORTAVERSE",
+                questions: [
+                    { q: "Bagaimana cara login Portaverse?", a: "<p>Login dilakukan menggunakan akun perusahaan melalui portal Portaverse.</p>" },
+                    { q: "Bagaimana cara melihat KPI saya di Portaverse?", a: "<p>KPI dapat dilihat melalui menu Performance Management → KPI.</p>" },
+                    { q: "Bagaimana cara menginput KPI baru?", a: "<p>Penginputan dilakukan pada menu KPI Planning dengan mengisi formula, bobot, dan target.</p>" },
+                    { q: "Bagaimana cara mengubah KPI yang sudah disubmit?", a: "<p>Perubahan hanya dapat dilakukan melalui menu Request Change sebelum disetujui atasan.</p>" },
+                    { q: "Bagaimana mengetahui status persetujuan KPI?", a: "<p>Status terlihat pada kolom Approval Status di Portaverse.</p>" },
+                    { q: "Bagaimana melihat bobot dan formula KPI?", a: "<p>Informasi bobot dan formula tersedia pada halaman detail KPI di Portaverse.</p>" },
+                    { q: "Apa itu Kamus KPI di Portaverse?", a: "<p>Kamus KPI adalah database indikator KPI yang dapat digunakan sebagai referensi penyusunan KPI.</p>" },
+                    { q: "Apa yang harus dilakukan jika KPI saya tidak ada di Kamus KPI?", a: "<p>Pekerja dapat mengajukan penambahan item melalui atasan dan Unit SDM.</p>" },
+                    { q: "Bagaimana mengunggah bukti data KPI?", a: "<p>Bukti data diunggah pada menu KPI Realization dengan format dokumen yang disyaratkan.</p>" },
+                    { q: "Bagaimana melihat nilai final KPI?", a: "<p>Nilai akhir tersedia setelah proses evaluasi pada menu Performance Result.</p>" }
+                ]
+            },
+            "D": {
+                title: "D. FORMULA, POLARITAS, & PERHITUNGAN KPI",
+                questions: [
+                    { q: "Apa itu polaritas KPI?", a: "<p>Polaritas KPI adalah arah pencapaian target, yaitu: Maximize (semakin tinggi semakin baik), Minimize (semakin rendah semakin baik), atau Maintain (dipertahankan pada level tertentu).</p>" },
+                    { q: "Bagaimana menentukan satuan KPI?", a: "<p>Satuan KPI ditetapkan sesuai metode pengukuran, seperti %, jumlah, hari, jam, atau indeks, berdasarkan karakteristik indikator.</p>" },
+                    { q: "Apa itu baseline KPI?", a: "<p>Baseline adalah nilai awal atau kondisi dasar yang digunakan sebagai acuan penetapan target KPI.</p>" },
+                    { q: "Bagaimana membaca formula KPI di Portaverse?", a: "<p>Formula KPI dapat dilihat pada kolom Formula Description yang menjelaskan cara perhitungan hasil kinerja.</p>" },
+                    { q: "Bagaimana menentukan target KPI berbasis angka?", a: "<p>Target ditentukan berdasarkan data historis, tren kinerja, dan arahan strategis unit kerja.</p>" },
+                    { q: "Bagaimana mengukur KPI berbasis kualitas?", a: "<p>KPI kualitatif diukur menggunakan parameter spesifik seperti checklist, skor evaluasi, atau tingkat pemenuhan standar.</p>" },
+                    { q: "Apa perbedaan leading indicator dan lagging indicator?", a: "<p>Leading indicator mengukur aktivitas yang mendorong hasil. Lagging indicator mengukur hasil akhir setelah aktivitas dilakukan.</p>" },
+                    { q: "Siapa yang menetapkan formula KPI?", a: "<p>Formula KPI ditetapkan oleh atasan bersama Unit SDM sesuai pedoman KPI Pelindo.</p>" },
+                    { q: "Apa itu data producer?", a: "<p>Data producer adalah pihak atau unit yang menghasilkan data yang menjadi dasar penilaian KPI.</p>" },
+                    { q: "Apakah target KPI boleh lebih rendah dari tahun lalu?", a: "<p>Penetapan target mempertimbangkan prioritas organisasi dan justifikasi yang relevan; penurunan target harus disetujui atasan dan SDM.</p>" },
+                    { q: "Bagaimana cara mengukur KPI tanpa data pendukung?", a: "<p>KPI tanpa data pendukung tidak dapat dinilai dan wajib dilengkapi bukti berdasarkan sumber data yang kredibel.</p>" }
+                ]
+            },
+            "E": {
+                title: "E. BOUNDARY INDICATOR",
+                questions: [
+                    { q: "Apa itu Boundary Indicator?", a: "<p>Boundary Indicator adalah indikator wajib yang mempengaruhi nilai akhir kinerja jika tidak dipenuhi.</p>" },
+                    { q: "Berapa besar pengurangan nilai jika boundary tidak terpenuhi?", a: "<p>Pengurangan nilai maksimal sebesar 20% sesuai ketentuan Performance Management Pelindo.</p>" },
+                    { q: "Apa saja jenis boundary KPI di Pelindo/SPMT?", a: "<p>Boundary meliputi: Pelindo Fit 100%, Learning Hour ≥ 50 jam/tahun, pemenuhan mitigasi risiko, serta Survey Pemahaman GCG minimal nilai yang ditetapkan.</p>" },
+                    { q: "Apakah Learning Hour wajib untuk semua pekerja?", a: "<p>Ya, seluruh pekerja wajib memenuhi standar minimal Learning Hour.</p>" },
+                    { q: "Bagaimana menghitung Learning Hour minimal?", a: "<p>Learning Hour dihitung berdasarkan total jam pelatihan yang telah diselesaikan melalui LMS atau pelatihan terverifikasi lainnya.</p>" },
+                    { q: "Apa itu Survey Pemahaman GCG?", a: "<p>Survey Pemahaman GCG adalah penilaian kepatuhan terhadap prinsip tata kelola perusahaan yang wajib diikuti seluruh pekerja.</p>" },
+                    { q: "Bagaimana melaporkan pemenuhan mitigasi risiko?", a: "<p>Pekerja wajib mengunggah bukti pemenuhan mitigasi risiko ke sistem yang ditentukan unit risiko perusahaan.</p>" },
+                    { q: "Bagaimana memastikan Poin Pelindo Fit terpenuhi?", a: "<p>Poin Pelindo Fit dapat dilihat melalui aplikasi Pelindo Fit dan wajib mencapai skor 100%.</p>" },
+                    { q: "Apa yang terjadi jika hanya satu boundary tidak terpenuhi?", a: "<p>Nilai akhir kinerja tetap dikenakan pengurangan sesuai ketentuan.</p>" },
+                    { q: "Apakah boundary berlaku untuk semua level pekerja?", a: "<p>Ya, boundary berlaku untuk seluruh pekerja tanpa pengecualian.</p>" }
+                ]
+            },
+            "F": {
+                title: "F. ADDITIONAL POINT",
+                questions: [
+                    { q: "Apa itu Additional Point?", a: "<p>Additional Point adalah poin tambahan penilaian kinerja yang diberikan atas kontribusi di luar tugas utama.</p>" },
+                    { q: "Apa syarat mendapatkan Additional Point?", a: "<p>Pekerja harus memenuhi seluruh boundary, memiliki nilai kinerja ≥ 95, dan melakukan aktivitas tambahan yang tervalidasi.</p>" },
+                    { q: "Apa jenis aktivitas yang dapat memberi Additional Point?", a: "<p>Aktivitas seperti menjadi internal auditor, SME, relawan Bakti BUMN, pengajar, atau peserta program inovasi.</p>" },
+                    { q: "Bagaimana cara melaporkan aktivitas Additional Point?", a: "<p>Pekerja mengajukan bukti aktivitas melalui Portaverse atau formulir yang ditentukan Unit SDM.</p>" },
+                    { q: "Siapa yang memvalidasi aktivitas Additional Point?", a: "<p>Validasi dilakukan oleh atasan langsung dan Unit SDM.</p>" },
+                    { q: "Apakah Additional Point wajib?", a: "<p>Tidak wajib, tetapi dapat meningkatkan nilai akhir kinerja.</p>" },
+                    { q: "Berapa maksimal nilai tambahan dari Additional Point?", a: "<p>Nilai tambahan maksimal adalah 10 poin.</p>" }
+                ]
+            },
+            "G": {
+                title: "G. PENILAIAN & REVIEW KPI",
+                questions: [
+                    { q: "Kapan review KPI dilakukan?", a: "<p>Review dilakukan setiap triwulan pada periode yang ditetapkan perusahaan.</p>" },
+                    { q: "Apa itu Performance Review Triwulan?", a: "<p>Review Triwulan adalah evaluasi berkala terhadap pencapaian KPI untuk memastikan keselarasan dengan target unit.</p>" },
+                    { q: "Apa yang harus dipersiapkan untuk review KPI?", a: "<p>Pekerja menyiapkan bukti kinerja, data pendukung, dan laporan capaian sesuai target.</p>" },
+                    { q: "Siapa yang menilai KPI saya?", a: "<p>Penilaian dilakukan oleh atasan langsung sesuai struktur organisasi.</p>" },
+                    { q: "Bagaimana membaca nilai KPI triwulan?", a: "<p>Nilai triwulan menunjukkan persentase pencapaian target pada periode tersebut.</p>" },
+                    { q: "Bagaimana perhitungan nilai akhir KPI?", a: "<p>Nilai akhir dihitung berdasarkan pencapaian KPI, bobot, boundary, dan additional point.</p>" },
+                    { q: "Bagaimana penggabungan nilai KPI dan perilaku?", a: "<p>Nilai akhir terdiri dari 80% KPI dan 20% perilaku kerja (AKHLAK).</p>" },
+                    { q: "Apa itu Performance Evaluation?", a: "<p>Performance Evaluation adalah penilaian keseluruhan kinerja pekerja pada akhir tahun.</p>" },
+                    { q: "Apakah pekerja bisa mengajukan keberatan terhadap nilai KPI?", a: "<p>Bisa, melalui mekanisme keberatan resmi kepada atasan dan Unit SDM.</p>" },
+                    { q: "Bagaimana prosedur mengajukan keberatan nilai KPI?", a: "<p>Pekerja menyampaikan bukti pendukung dan argumentasi kepada atasan untuk ditinjau kembali.</p>" },
+                    { q: "Siapa yang memutuskan hasil akhir nilai kinerja?", a: "<p>Penetapan nilai akhir ditentukan oleh atasan bersama Unit SDM dan Manajemen.</p>" }
+                ]
+            },
+            "H": {
+                title: "H. KHUSUS PEKERJA OPERASIONAL & NON-OPERASIONAL",
+                questions: [
+                    { q: "Apakah pekerja operasional memiliki KPI berbeda?", a: "<p>Ya, KPI disesuaikan dengan karakteristik pekerjaan operasional.</p>" },
+                    { q: "Apakah pekerja shift memiliki KPI tambahan?", a: "<p>KPI pekerja shift mengikuti indikator operasional yang relevan dengan pola kerja.</p>" },
+                    { q: "Bagaimana KPI untuk pekerja layanan terminal?", a: "<p>KPI mencakup indikator produktivitas, pelayanan operasional, dan kepatuhan SOP.</p>" },
+                    { q: "Bagaimana KPI untuk pekerja administrasi?", a: "<p>KPI berfokus pada ketepatan proses, kualitas layanan, dan penyelesaian pekerjaan administratif.</p>" },
+                    { q: "Apakah KPI manager berbeda dari staff?", a: "<p>Ya, KPI manager berfokus pada target strategis dan pengelolaan unit, sedangkan staff pada eksekusi operasional.</p>" }
+                ]
+            },
+            "I": {
+                title: "I. PEKERJA BARU / MUTASI / PROMOSI",
+                questions: [
+                    { q: "Bagaimana KPI pekerja baru?", a: "<p>KPI disusun berdasarkan tugas awal dan masa adaptasi pekerja baru.</p>" },
+                    { q: "Bagaimana KPI bagi pekerja mutasi?", a: "<p>KPI disesuaikan dengan fungsi baru yang dijalankan setelah mutasi.</p>" },
+                    { q: "Bagaimana KPI pekerja yang baru dipromosikan?", a: "<p>KPI mengikuti tanggung jawab jabatan baru dan arahan atasan.</p>" },
+                    { q: "Apakah KPI bisa berubah saat pindah jabatan?", a: "<p>Ya, KPI akan diperbarui sesuai jabatan baru pekerja.</p>" }
+                ]
+            },
+            "J": {
+                title: "J. MASALAH UMUM",
+                questions: [
+                    { q: "Bagaimana jika saya tidak menginput KPI tepat waktu?", a: "<p>Keterlambatan dapat mempengaruhi proses penilaian dan merupakan kewajiban pekerja untuk menyelesaikannya sesuai jadwal.</p>" },
+                    { q: "Apa yang terjadi jika KPI tidak disetujui atasan?", a: "<p>KPI harus direvisi sesuai catatan atasan hingga memenuhi ketentuan.</p>" },
+                    { q: "Bagaimana jika target KPI tidak tercapai?", a: "<p>Pekerja wajib memberikan penjelasan berdasarkan data dan upaya perbaikan yang telah dilakukan.</p>" },
+                    { q: "Apakah KPI mempengaruhi bonus atau reward?", a: "<p>Ya, penilaian kinerja menjadi salah satu dasar pemberian reward perusahaan.</p>" },
+                    { q: "Bagaimana jika data pendukung KPI hilang?", a: "<p>Pekerja wajib mengganti atau melengkapi bukti melalui sumber data resmi.</p>" },
+                    { q: "Apakah KPI boleh dikosongkan?", a: "<p>Tidak. Seluruh pekerja wajib memiliki KPI yang lengkap.</p>" },
+                    { q: "Bagaimana jika KPI saya tidak relevan dengan pekerjaan?", a: "<p>Pekerja dapat meminta revisi KPI kepada atasan sesuai tanggung jawab jabatan.</p>" },
+                    { q: "Siapa yang dapat membantu jika saya mengalami kendala dalam KPI?", a: "<p>Kendala dapat dikonsultasikan kepada atasan atau Unit SDM.</p>" }
+                ]
+            }
+        };
+
+        // --- Elemen Tampilan ---
+        const chatContainer = document.getElementById('chat-container');
+        const initialStateHtml = chatContainer.innerHTML; // Simpan tampilan awal
+        const chatBaruBtn = document.getElementById('chat-baru-btn');
+
+        let currentQuestions = []; // Menyimpan sisa pertanyaan di kategori saat ini
+
+        // --- Fungsi-fungsi Chat ---
+
+        // Fungsi untuk scroll ke bawah
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Fungsi untuk menampilkan pilihan kategori
+        function showCategorySelection() {
+            const categories = [
+                { key: 'A', label: 'DASAR KPI (Basic – Untuk Semua Pekerja)' },
+                { key: 'B', label: 'PENYUSUNAN & CASCADING KPI' },
+                { key: 'C', label: 'PORTAVERSE' },
+                { key: 'E', label: 'BOUNDARY INDICATOR' },
+                { key: 'G', label: 'PENILAIAN & REVIEW KPI' },
+                { key: 'H', label: 'KHUSUS PEKERJA OPERASIONAL & NON-OPERASIONAL' },
+                { key: 'I', label: 'PEKERJA BARU / MUTASI / PROMOSI' },
+                { key: 'J', label: 'MASALAH UMUM' }
+            ];
+
+            const buttonsHtml = categories.map(cat => {
+                return `<button class="category-button w-full text-left p-4 border-2 border-gray-200 rounded-xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium text-sm hover:border-indigo-300 shadow-sm hover:shadow-md" data-category="${cat.key}">
+                    <span class="flex items-center gap-3">
+                        <span class="text-indigo-600 font-bold text-lg bg-indigo-50 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">${cat.key}</span>
+                        <span class="flex-1">${cat.label}</span>
+                        <svg class="w-5 h-5 text-indigo-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </span>
+                </button>`;
+            }).join('');
+
+            addBotMessage(`
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-gray-800 mb-2 font-bold text-xl">Selamat Datang di FAQ RegPro!</p>
+                        <p class="text-gray-600 text-sm leading-relaxed">Silakan pilih kategori yang ingin Anda tanyakan di bawah ini:</p>
+                    </div>
+                    <div class="flex flex-col gap-3 mt-4">
+                        ${buttonsHtml}
+                    </div>
+                </div>
+            `);
+        }
+
+        // Fungsi untuk memulai chat baru (dipakai oleh tombol "Chat Baru")
+        function startNewChat() {
+            chatContainer.innerHTML = '';
+            currentQuestions = [];
+            // Reset pilihan dropdown
+            document.getElementById('kategori-selected-text').textContent = 'Pilih Kategori...';
+            // Tampilkan pilihan kategori
+            setTimeout(() => {
+                showCategorySelection();
+            }, 100);
+        }
+
+        // Fungsi untuk menambah gelembung chat Bot (kiri)
+        function addBotMessage(htmlContent) {
+            // Hapus tampilan awal jika masih ada
+            const initialState = document.getElementById('initial-state');
+            if (initialState) {
+                initialState.remove();
+            }
+
+            const botBubble = document.createElement('div');
+            botBubble.className = "flex justify-start mb-6 gap-3 bot-bubble bot-message-container";
+            botBubble.innerHTML = `
+                <!-- Avatar Bot -->
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-indigo-400 bot-avatar overflow-hidden">
+                        <img 
+                            src="images/logo_bot terbaru.png" 
+                            alt="Bot Avatar" 
+                            class="w-10 h-10 object-contain p-1"
+                            onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'18\' fill=\'%236366f1\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'white\' font-family=\'Arial\' font-size=\'16\' font-weight=\'bold\'%3EB%3C/text%3E%3C/svg%3E';"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+                <!-- Pesan Bot -->
+                <div class="flex-1 max-w-2xl">
+                    <div class="bg-white p-5 rounded-2xl shadow-md prose prose-indigo border-l-4 border-indigo-500">
+                    ${htmlContent}
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(botBubble);
+            
+            // Handle image loading untuk semua gambar dalam bubble
+            const images = botBubble.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.classList.add('loaded');
+                    this.classList.remove('loading');
+                });
+                img.addEventListener('error', function() {
+                    this.classList.add('loaded');
+                    this.classList.remove('loading');
+                });
+                if (!img.complete) {
+                    img.classList.add('loading');
+                } else {
+                    img.classList.add('loaded');
+                }
+            });
+            
+            scrollToBottom();
+        }
+
+        // Fungsi untuk menambah gelembung chat User (kanan)
+        function addUserMessage(text) {
+            const userBubble = document.createElement('div');
+            userBubble.className = "flex justify-end mb-6 gap-3 user-message-container";
+            userBubble.innerHTML = `
+                <!-- Pesan User -->
+                <div class="flex-1 max-w-2xl">
+                    <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-5 rounded-2xl shadow-md font-medium">
+                        ${text}
+                    </div>
+                </div>
+                <!-- Avatar User -->
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-blue-400 user-avatar overflow-hidden">
+                        <img 
+                            src="images/user.jpg" 
+                            alt="User Avatar" 
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\'%3E%3Ccircle cx=\'24\' cy=\'24\' r=\'22\' fill=\'%232563eb\'/%3E%3Ccircle cx=\'24\' cy=\'18\' r=\'8\' fill=\'white\'/%3E%3Cpath d=\'M8 42 Q8 32 24 32 Q40 32 40 42\' fill=\'white\'/%3E%3C/svg%3E';"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(userBubble);
+            
+            // Handle image loading untuk avatar user
+            const userImg = userBubble.querySelector('img');
+            if (userImg) {
+                userImg.addEventListener('load', function() {
+                    this.classList.add('loaded');
+                    this.classList.remove('loading');
+                });
+                userImg.addEventListener('error', function() {
+                    this.classList.add('loaded');
+                    this.classList.remove('loading');
+                });
+                if (!userImg.complete) {
+                    userImg.classList.add('loading');
+                } else {
+                    userImg.classList.add('loaded');
+                }
+            }
+            
+            scrollToBottom();
+        }
+
+        // Fungsi untuk menampilkan daftar pertanyaan sebagai tombol
+        function showQuestionButtons(questions, categoryKey, introductoryText) {
+            if (questions.length === 0) {
+                addBotMessage("Semua pertanyaan untuk kategori ini telah terjawab. Silakan pilih kategori baru dari sidebar.");
+                return;
+            }
+
+            // Buat HTML untuk tombol-tombol
+            const buttonsHtml = questions.map((item, index) => {
+                // Cari indeks asli dari pertanyaan ini
+                const originalIndex = mockFaqData[categoryKey].questions.findIndex(q => q.q === item.q);
+                return `<button class="w-full text-left p-4 border rounded-xl hover:bg-indigo-50 hover:border-indigo-300 transition-all text-gray-800 font-medium shadow-sm hover:shadow-md" data-category="${categoryKey}" data-index="${originalIndex}">
+                    <div class="flex items-start gap-2">
+                        <svg class="w-5 h-5 text-indigo-500 mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                        </svg>
+                        <span class="flex-1">${item.q}</span>
+                    </div>
+                </button>`;
+            }).join('');
+
+            addBotMessage(`
+                <div class="space-y-4">
+                    <div class="text-gray-800 leading-relaxed">
+                        ${introductoryText}
+                    </div>
+                    <div class="flex flex-col gap-3 mt-4">
+                        ${buttonsHtml}
+                    </div>
+                </div>
+            `);
+        }
+        
+        // Fungsi yang dipanggil saat tombol pertanyaan diklik
+        function handleQuestionClick(categoryKey, questionIndex) {
+            const questionData = mockFaqData[categoryKey].questions[questionIndex];
+            
+            // 1. Tampilkan pertanyaan user
+            addUserMessage(questionData.q);
+
+            // 2. Hapus pertanyaan ini dari daftar sisa pertanyaan
+            currentQuestions = currentQuestions.filter(q => q.q !== questionData.q);
+
+            // 3. Tampilkan jawaban bot (dengan sedikit jeda)
+            setTimeout(() => {
+                addBotMessage(questionData.a);
+
+                // 4. Tampilkan sisa pertanyaan
+                setTimeout(() => {
+                    showQuestionButtons(currentQuestions, categoryKey, "Apakah ada lagi yang ingin Anda tanyakan dari kategori ini?");
+                }, 500); // Jeda sebelum menampilkan sisa pertanyaan
+
+            }, 700); // Jeda untuk simulasi "berpikir"
+        }
+
+        // --- Event Listeners ---
+
+        // Event listener untuk tombol "Chat Baru"
+        chatBaruBtn.addEventListener('click', startNewChat);
+
+        // Event delegation untuk tombol pertanyaan dan kategori yang dinamis
+        chatContainer.addEventListener('click', function(e) {
+            const targetButton = e.target.closest('button[data-category]');
+            if (targetButton) {
+                const categoryKey = targetButton.dataset.category;
+                const questionIndex = targetButton.dataset.index;
+                
+                // Cek apakah ini tombol kategori atau tombol pertanyaan
+                if (questionIndex === undefined) {
+                    // Ini adalah tombol kategori
+                    const categoryButton = targetButton.closest('.category-button');
+                    if (categoryButton) {
+                        // Hapus gelembung chat yang berisi tombol-tombol kategori
+                        categoryButton.closest('.flex.justify-start').remove();
+                        
+                        // Tampilkan pertanyaan dari kategori yang dipilih
+                        const data = mockFaqData[categoryKey];
+                        if (data) {
+                            currentQuestions = [...data.questions];
+                            showQuestionButtons(currentQuestions, categoryKey, `Anda telah memilih <strong>${data.title}</strong>. Silakan pilih salah satu pertanyaan di bawah ini:`);
+                        }
+                    }
+                } else {
+                    // Ini adalah tombol pertanyaan
+                // Hapus gelembung chat yang berisi tombol-tombol
+                targetButton.closest('.flex.justify-start').remove();
+                    handleQuestionClick(categoryKey, parseInt(questionIndex, 10));
+                }
+            }
+        });
+
+
+        // --- Skrip Dropdown Kategori Modern (Diperbarui) ---
+        const kategoriWrapper = document.getElementById('kategori-wrapper');
+        const kategoriButton = document.getElementById('kategori-button');
+        const kategoriDropdown = document.getElementById('kategori-dropdown');
+        const kategoriSelectedText = document.getElementById('kategori-selected-text');
+        const kategoriArrow = document.getElementById('kategori-arrow');
+        const kategoriOptions = kategoriDropdown.querySelectorAll('a'); // <-- Variabel yang hilang
+
+        // Fungsi untuk menampilkan/menyembunyikan dropdown
+        function toggleDropdown(isOpen) {
+            if (isOpen) {
+                kategoriDropdown.classList.remove('hidden', 'opacity-0', 'scale-95');
+                kategoriDropdown.classList.add('opacity-100', 'scale-100');
+                kategoriArrow.classList.add('rotate-180');
+                kategoriDropdown.style.pointerEvents = 'auto';
+                kategoriDropdown.style.zIndex = '50';
+            } else {
+                kategoriDropdown.classList.add('opacity-0', 'scale-95');
+                kategoriArrow.classList.remove('rotate-180');
+                kategoriDropdown.style.pointerEvents = 'none';
+                // Kasih jeda sebelum 'hidden' agar transisi 'opacity' terlihat
+                setTimeout(() => {
+                    kategoriDropdown.classList.add('hidden');
+                }, 200); // Harus sama dengan durasi transisi
+            }
+        }
+
+        // Event listener untuk tombol
+        kategoriButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Mencegah window.click dieksekusi
+            const isOpen = kategoriDropdown.classList.contains('hidden');
+            toggleDropdown(isOpen);
+        });
+
+        // Event listener untuk setiap opsi
+        kategoriOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation(); // Mencegah event bubbling
+                kategoriSelectedText.textContent = option.textContent; // Update teks tombol
+                toggleDropdown(false); // Sembunyikan dropdown
+                
+                // === INI BAGIAN YANG DIPERBARUI ===
+                const selectedValue = option.dataset.value;
+                const data = mockFaqData[selectedValue];
+                
+                if (data) {
+                    // 1. Bersihkan chat
+                    chatContainer.innerHTML = '';
+                    // 2. Salin daftar pertanyaan
+                    currentQuestions = [...data.questions];
+                    // 3. Mulai percakapan
+                    showQuestionButtons(currentQuestions, selectedValue, `Anda telah memilih <strong>${data.title}</strong>. Silakan pilih salah satu pertanyaan di bawah ini:`);
+                } else {
+                    chatContainer.innerHTML = ''; // Bersihkan chat
+                    addBotMessage(`Maaf, data untuk kategori ${selectedValue} tidak ditemukan.`);
+                }
+            });
+        });
+
+        // Event listener untuk menutup dropdown saat klik di luar
+        window.addEventListener('click', (e) => {
+            if (!kategoriWrapper.contains(e.target)) {
+                if (!kategoriDropdown.classList.contains('hidden')) {
+                    toggleDropdown(false);
+                }
+            }
+        });
+
+        // Tampilkan pilihan kategori saat halaman pertama kali dimuat
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                showCategorySelection();
+            }, 300);
+        });
+
+    </script>
+</body>
+</html>
