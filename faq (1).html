@@ -1,2004 +1,1405 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPMT AskHR</title>
     <!-- Memuat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      // Konfigurasi kustom untuk Tailwind (jika diperlukan)
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              // Menggunakan font Inter seperti instruksi
-              sans: ["Inter", "sans-serif"],
-            },
-            colors: {
-              // Menyesuaikan palet warna agar mirip dengan gambar
-              "pelindo-nav": "#1e3a8a", // Biru tua untuk sidebar (mirip blue-900)
-              "pelindo-nav-hover": "#1d4ed8", // Biru lebih cerah (mirip blue-700)
-              "pelindo-main": "#eef2ff", // Latar belakang utama (mirip indigo-50)
-              "pelindo-title": "#1e3a8a", // Warna teks judul
-              "pelindo-send": "#2563eb", // Tombol kirim (mirip blue-600)
-            },
-          },
-        },
-      };
+        // Konfigurasi kustom untuk Tailwind (jika diperlukan)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        // Menggunakan font Inter seperti instruksi
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Menyesuaikan palet warna agar mirip dengan gambar
+                        'pelindo-nav': '#1e3a8a', // Biru tua untuk sidebar (mirip blue-900)
+                        'pelindo-nav-hover': '#1d4ed8', // Biru lebih cerah (mirip blue-700)
+                        'pelindo-main': '#eef2ff', // Latar belakang utama (mirip indigo-50)
+                        'pelindo-title': '#1e3a8a', // Warna teks judul
+                        'pelindo-send': '#2563eb', // Tombol kirim (mirip blue-600)
+                    }
+                }
+            }
+        }
     </script>
     <!-- Memuat font Inter dari Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      /* Modern Futuristic Background */
-      body {
-        font-family: "Inter", sans-serif;
-        background: linear-gradient(
-          180deg,
-          #0c4a6e 0%,
-          #075985 50%,
-          #0369a1 100%
-        );
-        min-height: 100vh;
-        position: relative;
-        overflow-x: hidden;
-      }
-
-      /* Soft Circular Light Effects - Similar to Login Page */
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(
-            circle at 20% 30%,
-            rgba(14, 165, 233, 0.08) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 80% 70%,
-            rgba(6, 182, 212, 0.06) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 50% 50%,
-            rgba(139, 92, 246, 0.04) 0%,
-            transparent 60%
-          );
-        pointer-events: none;
-        z-index: 0;
-        animation: subtleFloat 20s ease-in-out infinite;
-      }
-
-      @keyframes subtleFloat {
-        0%,
-        100% {
-          opacity: 1;
-          transform: translate(0, 0);
+        /* Modern Futuristic Background */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0c4a6e 0%, #075985 50%, #0369a1 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
-        50% {
-          opacity: 0.8;
-          transform: translate(20px, -15px);
+
+        /* Soft Circular Light Effects - Similar to Login Page */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+            animation: subtleFloat 20s ease-in-out infinite;
         }
-      }
 
-      /* Glow Effect for Background */
-      .glow-effect {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        width: 800px;
-        height: 800px;
-        background: radial-gradient(
-          circle,
-          rgba(14, 165, 233, 0.08) 0%,
-          transparent 70%
-        );
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 0;
-        animation: subtlePulse 8s ease-in-out infinite;
-        pointer-events: none;
-        filter: blur(80px);
-      }
-
-      @keyframes subtlePulse {
-        0%,
-        100% {
-          transform: translate(-50%, -50%) scale(1);
-          opacity: 0.6;
+        @keyframes subtleFloat {
+            0%, 100% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translate(20px, -15px);
+            }
         }
-        50% {
-          transform: translate(-50%, -50%) scale(1.1);
-          opacity: 0.4;
+
+        /* Glow Effect for Background */
+        .glow-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            animation: subtlePulse 8s ease-in-out infinite;
+            pointer-events: none;
+            filter: blur(80px);
         }
-      }
 
-      body > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      /* Modern Sidebar with Glassmorphism - OCEANA Theme */
-      #sidebar {
-        position: relative;
-        background: linear-gradient(
-          180deg,
-          rgba(12, 74, 110, 0.95) 0%,
-          rgba(7, 89, 133, 0.92) 50%,
-          rgba(3, 105, 161, 0.95) 100%
-        );
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        border-right: 1px solid rgba(14, 165, 233, 0.2);
-        box-shadow: 4px 0 32px rgba(0, 0, 0, 0.25),
-          inset 0 0 60px rgba(6, 182, 212, 0.1);
-      }
-
-      #sidebar::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 60%;
-        background: radial-gradient(
-            circle at 30% 80%,
-            rgba(6, 182, 212, 0.15) 0%,
-            transparent 60%
-          ),
-          radial-gradient(
-            circle at 70% 90%,
-            rgba(14, 165, 233, 0.12) 0%,
-            transparent 50%
-          );
-        pointer-events: none;
-        z-index: 0;
-        opacity: 0.6;
-      }
-
-      #sidebar::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(
-            circle at 20% 30%,
-            rgba(6, 182, 212, 0.12) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 80% 20%,
-            rgba(14, 165, 233, 0.1) 0%,
-            transparent 50%
-          ),
-          linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, transparent 100%);
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      #sidebar > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      /* OCEANA Logo Styling - Futuristic & Glassy */
-      #sidebar .logo-container {
-        position: relative;
-      }
-
-      #sidebar .logo-container::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 120%;
-        height: 120%;
-        background: radial-gradient(
-          circle,
-          rgba(6, 182, 212, 0.3) 0%,
-          rgba(14, 165, 233, 0.2) 40%,
-          transparent 70%
-        );
-        border-radius: 50%;
-        z-index: -1;
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        filter: blur(20px);
-      }
-
-      #sidebar .logo-container:hover::before {
-        opacity: 0.8;
-      }
-
-      #sidebar .logo-container img {
-        filter: brightness(1.15) contrast(1.1)
-          drop-shadow(0 6px 20px rgba(6, 182, 212, 0.4))
-          drop-shadow(0 0 30px rgba(14, 165, 233, 0.3));
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: crisp-edges;
-        position: relative;
-        z-index: 1;
-      }
-
-      #sidebar .logo-container:hover img {
-        transform: scale(1.08) translateY(-2px);
-        filter: brightness(1.25) contrast(1.15)
-          drop-shadow(0 8px 30px rgba(6, 182, 212, 0.6))
-          drop-shadow(0 0 40px rgba(14, 165, 233, 0.5));
-      }
-
-      /* Memastikan dropdown kategori bisa diklik */
-      #kategori-wrapper {
-        position: relative;
-        z-index: 50;
-      }
-
-      #kategori-dropdown {
-        pointer-events: auto !important;
-      }
-
-      #kategori-dropdown a {
-        cursor: pointer;
-        pointer-events: auto;
-      }
-
-      /* Modern Header with Glassmorphism */
-      header {
-        position: relative;
-        overflow: visible;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        z-index: 10;
-      }
-
-      header::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(
-            circle at 10% 50%,
-            rgba(99, 102, 241, 0.1) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 90% 50%,
-            rgba(59, 130, 246, 0.1) 0%,
-            transparent 50%
-          );
-        pointer-events: none;
-      }
-
-      header > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      /* Modern Icon Buttons */
-      header button {
-        transition: all 0.3s ease;
-        color: rgba(255, 255, 255, 0.9);
-      }
-
-      header button:hover {
-        transform: scale(1.15);
-        color: #06b6d4;
-        filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
-      }
-
-      /* Override header button styles for dropdown items so text stays dark */
-      #userDropdown button {
-        color: #0f172a !important; /* slate-900 */
-        transform: none !important;
-        filter: none !important;
-      }
-      #userDropdown button:hover {
-        color: #0f172a !important;
-      }
-
-      /* Main Area with Glassmorphism Background */
-      main {
-        position: relative;
-        overflow: hidden;
-        background: rgba(255, 255, 255, 0.02);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
-
-      main::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(
-            circle at 20% 30%,
-            rgba(99, 102, 241, 0.06) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 80% 70%,
-            rgba(59, 130, 246, 0.06) 0%,
-            transparent 50%
-          );
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      main > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      /* Modern Dropdown Items with Glassmorphism */
-      .dropdown-item {
-        position: relative;
-        transition: all 0.3s ease;
-        border-radius: 12px;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
-
-      .dropdown-item::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: linear-gradient(180deg, #06b6d4, #0891b2);
-        transform: scaleY(0);
-        transition: transform 0.3s ease;
-        border-radius: 0 4px 4px 0;
-        box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
-      }
-
-      .dropdown-item:hover::before {
-        transform: scaleY(1);
-      }
-
-      .dropdown-item:hover {
-        transform: translateX(6px);
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
-      }
-
-      /* Modern Scrollbar */
-      #kategori-dropdown::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      #kategori-dropdown::-webkit-scrollbar-track {
-        background: rgba(241, 245, 249, 0.5);
-        border-radius: 10px;
-        margin: 4px 0;
-      }
-
-      #kategori-dropdown::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #06b6d4, #0891b2);
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
-      }
-
-      #kategori-dropdown::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #22d3ee, #06b6d4);
-      }
-
-      /* Modern Dropdown Animation */
-      #kategori-dropdown:not(.hidden) {
-        animation: dropdownFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      @keyframes dropdownFadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-15px) scale(0.95);
+        @keyframes subtlePulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.4;
+            }
         }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
+
+        body > * {
+            position: relative;
+            z-index: 1;
         }
-      }
 
-      /* Modern Category Buttons */
-      .category-button {
-        position: relative;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        border-radius: 16px;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
-
-      .category-button::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: linear-gradient(180deg, #06b6d4, #0891b2);
-        transform: scaleY(0);
-        transition: transform 0.3s ease;
-        border-radius: 0 4px 4px 0;
-        box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
-      }
-
-      .category-button:hover::before {
-        transform: scaleY(1);
-      }
-
-      .category-button:hover {
-        transform: translateX(6px);
-        box-shadow: 0 8px 24px rgba(6, 182, 212, 0.25);
-      }
-
-      /* Modern Bot Avatar with Blue Highlights */
-      .bot-avatar {
-        animation: avatarPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        position: relative;
-      }
-
-      .bot-avatar::before {
-        content: "";
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        background: linear-gradient(135deg, #06b6d4, #0891b2, #0e7490);
-        border-radius: 50%;
-        opacity: 0;
-        z-index: -1;
-        transition: opacity 0.3s ease;
-        filter: blur(8px);
-      }
-
-      .bot-avatar:hover::before {
-        opacity: 0.6;
-      }
-
-      @keyframes avatarPopIn {
-        0% {
-          opacity: 0;
-          transform: scale(0) rotate(-180deg);
+        /* Modern Sidebar with Glassmorphism - OCEANA Theme */
+        #sidebar {
+            position: relative;
+            background: linear-gradient(180deg, rgba(12, 74, 110, 0.95) 0%, rgba(7, 89, 133, 0.92) 50%, rgba(3, 105, 161, 0.95) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-right: 1px solid rgba(14, 165, 233, 0.2);
+            box-shadow: 4px 0 32px rgba(0, 0, 0, 0.25),
+                        inset 0 0 60px rgba(6, 182, 212, 0.1);
         }
-        50% {
-          transform: scale(1.15) rotate(10deg);
+
+        #sidebar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: 
+                radial-gradient(circle at 30% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 70% 90%, rgba(14, 165, 233, 0.12) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
         }
-        100% {
-          opacity: 1;
-          transform: scale(1) rotate(0deg);
+
+        #sidebar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 0;
         }
-      }
 
-      /* Modern Bot Message Container */
-      .bot-message-container {
-        animation: messageSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      @keyframes messageSlideIn {
-        from {
-          opacity: 0;
-          transform: translateX(-30px) scale(0.95);
+        #sidebar > * {
+            position: relative;
+            z-index: 1;
         }
-        to {
-          opacity: 1;
-          transform: translateX(0) scale(1);
+
+        /* OCEANA Logo Styling - Futuristic & Glassy */
+        #sidebar .logo-container {
+            position: relative;
         }
-      }
 
-      /* Modern Bot Avatar Image */
-      .bot-avatar img {
-        filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
-        transition: transform 0.3s ease, filter 0.3s ease;
-      }
-
-      .bot-avatar:hover img {
-        transform: scale(1.1) rotate(5deg);
-        filter: drop-shadow(0 6px 20px rgba(6, 182, 212, 0.6));
-      }
-
-      .bot-bubble:hover .bot-avatar {
-        transform: scale(1.05);
-      }
-
-      /* Modern User Avatar */
-      .user-avatar {
-        animation: avatarPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      /* Modern User Message Container */
-      .user-message-container {
-        animation: messageSlideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      @keyframes messageSlideInRight {
-        from {
-          opacity: 0;
-          transform: translateX(30px) scale(0.95);
+        #sidebar .logo-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, rgba(14, 165, 233, 0.2) 40%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            filter: blur(20px);
         }
-        to {
-          opacity: 1;
-          transform: translateX(0) scale(1);
+
+        #sidebar .logo-container:hover::before {
+            opacity: 0.8;
         }
-      }
 
-      /* Modern User Avatar Image */
-      .user-avatar img {
-        filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.4));
-        transition: transform 0.3s ease, filter 0.3s ease;
-      }
-
-      .user-avatar:hover img {
-        transform: scale(1.1);
-        filter: drop-shadow(0 6px 20px rgba(59, 130, 246, 0.6));
-      }
-
-      .user-message-container:hover .user-avatar {
-        transform: scale(1.05);
-      }
-
-      /* Modern Chat Bubbles with Glassmorphism */
-      .bot-bubble .bg-white {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 32px rgba(6, 182, 212, 0.15);
-      }
-
-      .user-message-container .bg-gradient-to-r {
-        background: linear-gradient(
-          135deg,
-          #06b6d4 0%,
-          #0891b2 50%,
-          #0e7490 100%
-        );
-        box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-      }
-
-      .user-message-container:hover .bg-gradient-to-r {
-        background: linear-gradient(
-          135deg,
-          #22d3ee 0%,
-          #06b6d4 50%,
-          #0891b2 100%
-        );
-        box-shadow: 0 12px 40px rgba(6, 182, 212, 0.4);
-      }
-
-      /* Modern Welcome Panel with Glassmorphism */
-      .welcome-panel {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(30px);
-        -webkit-backdrop-filter: blur(30px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
-          0 0 40px rgba(6, 182, 212, 0.2);
-        border-radius: 24px;
-        padding: 3rem;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .welcome-panel::before {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(
-          circle,
-          rgba(6, 182, 212, 0.1) 0%,
-          transparent 70%
-        );
-        animation: rotateGlow 20s linear infinite;
-      }
-
-      @keyframes rotateGlow {
-        from {
-          transform: rotate(0deg);
+        #sidebar .logo-container img {
+            filter: brightness(1.15) contrast(1.1) drop-shadow(0 6px 20px rgba(6, 182, 212, 0.4)) drop-shadow(0 0 30px rgba(14, 165, 233, 0.3));
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            position: relative;
+            z-index: 1;
         }
-        to {
-          transform: rotate(360deg);
+
+        #sidebar .logo-container:hover img {
+            transform: scale(1.08) translateY(-2px);
+            filter: brightness(1.25) contrast(1.15) drop-shadow(0 8px 30px rgba(6, 182, 212, 0.6)) drop-shadow(0 0 40px rgba(14, 165, 233, 0.5));
         }
-      }
 
-      .welcome-panel > * {
-        position: relative;
-        z-index: 1;
-      }
-
-      /* Premium Typography */
-      h1,
-      h2,
-      h3 {
-        font-weight: 600;
-        letter-spacing: -0.02em;
-      }
-
-      body {
-        font-weight: 400;
-        letter-spacing: 0.01em;
-        line-height: 1.6;
-      }
-
-      /* Modern Rounded Cards for Sidebar */
-      .glass-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 16px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-      }
-
-      .glass-card:hover {
-        background: rgba(255, 255, 255, 0.15);
-        box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
-        transform: translateY(-2px);
-      }
-
-      /* Compact Floating Chatbot Input Bar - Dribbble Style */
-      .input-area-wrapper {
-        position: fixed;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60%;
-        max-width: 800px;
-        min-width: 320px;
-        z-index: 100;
-        animation: slideUpFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      @keyframes slideUpFadeIn {
-        from {
-          opacity: 0;
-          transform: translateX(-50%) translateY(20px);
+        /* Memastikan dropdown kategori bisa diklik */
+        #kategori-wrapper {
+            position: relative;
+            z-index: 50;
         }
-        to {
-          opacity: 1;
-          transform: translateX(-50%) translateY(0);
+
+        #kategori-dropdown {
+            pointer-events: auto !important;
         }
-      }
 
-      .input-area-container {
-        background: rgba(255, 255, 255, 0.12);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        border-radius: 50px; /* Perfect pill shape */
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
-          0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        padding: 6px 20px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .input-area-container::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.1) 0%,
-          transparent 50%
-        );
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-      }
-
-      .input-area-container:focus-within {
-        border-color: rgba(6, 182, 212, 0.4);
-        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.16),
-          0 4px 16px rgba(6, 182, 212, 0.2),
-          inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        transform: translateY(-1px);
-        background: rgba(255, 255, 255, 0.15);
-      }
-
-      .input-area-container:focus-within::before {
-        opacity: 1;
-      }
-
-      /* File Preview Container - Above Input */
-      #file-previews {
-        position: absolute;
-        bottom: calc(100% + 12px);
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        max-width: 100%;
-        justify-content: center;
-      }
-
-      /* Elegant Icon Buttons - Left Side (Dribbble Style) */
-      .icon-upload-btn {
-        background: transparent;
-        border: none;
-        color: rgba(255, 255, 255, 0.65);
-        cursor: pointer;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        padding: 6px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        flex-shrink: 0;
-        width: 32px;
-        height: 32px;
-      }
-
-      .icon-upload-btn:hover {
-        color: rgba(255, 255, 255, 0.95);
-        background: rgba(255, 255, 255, 0.08);
-        transform: scale(1.15) rotate(5deg);
-      }
-
-      .icon-upload-btn:active {
-        transform: scale(1.05) rotate(0deg);
-      }
-
-      .icon-upload-btn input[type="file"] {
-        position: absolute;
-        opacity: 0;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-      }
-
-      .icon-upload-btn svg {
-        width: 18px;
-        height: 18px;
-        pointer-events: none;
-        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-      }
-
-      /* Text Input Field - Center (Auto-expanding, No Scrollbar) */
-      .manual-input {
-        flex: 1;
-        background: transparent;
-        border: none;
-        outline: none;
-        color: rgba(255, 255, 255, 0.95);
-        resize: none;
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 1.5;
-        padding: 6px 8px;
-        min-height: 24px;
-        max-height: 120px;
-        overflow: hidden; /* No scrollbar - auto-expand only */
-        transition: all 0.3s ease;
-        font-family: "Inter", sans-serif;
-      }
-
-      .manual-input::-webkit-scrollbar {
-        display: none; /* Hide scrollbar for webkit browsers */
-      }
-
-      .manual-input {
-        -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
-        scrollbar-width: none; /* Hide scrollbar for Firefox */
-      }
-
-      .manual-input::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-        font-weight: 400;
-      }
-
-      /* Elegant Send Button - Circular Right Side (Dribbble Style) */
-      .send-btn {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border: none;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 12px rgba(118, 75, 162, 0.35),
-          0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        flex-shrink: 0;
-      }
-
-      .send-btn::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: translate(-50%, -50%);
-        transition: width 0.4s ease, height 0.4s ease;
-      }
-
-      .send-btn:hover:not(:disabled)::before {
-        width: 100%;
-        height: 100%;
-      }
-
-      .send-btn:hover:not(:disabled) {
-        background: linear-gradient(135deg, #7c8df1 0%, #8b5fbf 100%);
-        box-shadow: 0 6px 20px rgba(118, 75, 162, 0.5),
-          0 2px 6px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-        transform: scale(1.1) translateY(-1px);
-      }
-
-      .send-btn:active:not(:disabled) {
-        transform: scale(1.05) translateY(0);
-      }
-
-      .send-btn:disabled {
-        opacity: 0.35;
-        cursor: not-allowed;
-        background: rgba(148, 163, 184, 0.3);
-        box-shadow: none;
-        transform: none;
-      }
-
-      .send-btn svg {
-        width: 16px;
-        height: 16px;
-        position: relative;
-        z-index: 1;
-        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-      }
-
-      @keyframes badgeSlideIn {
-        from {
-          opacity: 0;
-          transform: translateY(-10px) scale(0.9);
+        #kategori-dropdown a {
+            cursor: pointer;
+            pointer-events: auto;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
+
+        /* Modern Header with Glassmorphism */
+        header {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-      }
 
-      /* Drag and Drop Zone */
-      .input-area-container.drag-over {
-        border-color: rgba(6, 182, 212, 0.7);
-        background: rgba(255, 255, 255, 0.12);
-        box-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
-      }
-
-      /* Loading Shimmer Effect */
-      .loading-shimmer {
-        background: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.05) 0%,
-          rgba(255, 255, 255, 0.15) 50%,
-          rgba(255, 255, 255, 0.05) 100%
-        );
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-        border-radius: 12px;
-        min-height: 60px;
-      }
-
-      @keyframes shimmer {
-        0% {
-          background-position: -200% 0;
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
-        100% {
-          background-position: 200% 0;
+
+        header > * {
+            position: relative;
+            z-index: 1;
         }
-      }
 
-      /* File Preview Badges - Dribbble Style (Above Input) */
-      .file-preview-badge {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(12px) saturate(180%);
-        -webkit-backdrop-filter: blur(12px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 20px; /* Pill shape matching input */
-        padding: 6px 12px;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        animation: badgeSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        font-size: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        max-width: 200px;
-      }
+        /* Modern Icon Buttons */
+        header button {
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.9);
+        }
 
-      .file-preview-badge:hover {
-        background: rgba(255, 255, 255, 0.22);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(6, 182, 212, 0.25);
-      }
+        header button:hover {
+            transform: scale(1.15);
+            color: #06b6d4;
+            filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
+        }
 
-      .file-remove-btn {
-        background: rgba(255, 255, 255, 0.15);
-        border: none;
-        border-radius: 50%;
-        width: 16px;
-        height: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        padding: 0;
-        margin-left: 4px;
-        flex-shrink: 0;
-      }
+        /* Main Area with Glassmorphism Background */
+        main {
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
 
-      .file-remove-btn:hover {
-        background: rgba(239, 68, 68, 0.85);
-        transform: scale(1.2) rotate(90deg);
-      }
+        main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-      .file-remove-btn svg {
-        width: 9px;
-        height: 9px;
-      }
+        main > * {
+            position: relative;
+            z-index: 1;
+        }
 
-      /* Responsive Design - Mobile First */
-      @media (max-width: 768px) {
+        /* Modern Dropdown Items with Glassmorphism */
+        .dropdown-item {
+            position: relative;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #06b6d4, #0891b2);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+        }
+
+        .dropdown-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .dropdown-item:hover {
+            transform: translateX(6px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
+        }
+
+        /* Modern Scrollbar */
+        #kategori-dropdown::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #kategori-dropdown::-webkit-scrollbar-track {
+            background: rgba(241, 245, 249, 0.5);
+            border-radius: 10px;
+            margin: 4px 0;
+        }
+
+        #kategori-dropdown::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #06b6d4, #0891b2);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+        }
+
+        #kategori-dropdown::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #22d3ee, #06b6d4);
+        }
+
+        /* Modern Dropdown Animation */
+        #kategori-dropdown:not(.hidden) {
+            animation: dropdownFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-15px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Modern Category Buttons */
+        .category-button {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .category-button::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #06b6d4, #0891b2);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+        }
+
+        .category-button:hover::before {
+            transform: scaleY(1);
+        }
+
+        .category-button:hover {
+            transform: translateX(6px);
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.25);
+        }
+
+        /* Modern Bot Avatar with Blue Highlights */
+        .bot-avatar {
+            animation: avatarPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .bot-avatar::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2, #0e7490);
+            border-radius: 50%;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            filter: blur(8px);
+        }
+
+        .bot-avatar:hover::before {
+            opacity: 0.6;
+        }
+
+        @keyframes avatarPopIn {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            50% {
+                transform: scale(1.15) rotate(10deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Modern Bot Message Container */
+        .bot-message-container {
+            animation: messageSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        /* Modern Bot Avatar Image */
+        .bot-avatar img {
+            filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .bot-avatar:hover img {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 6px 20px rgba(6, 182, 212, 0.6));
+        }
+
+        .bot-bubble:hover .bot-avatar {
+            transform: scale(1.05);
+        }
+
+        /* Modern User Avatar */
+        .user-avatar {
+            animation: avatarPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Modern User Message Container */
+        .user-message-container {
+            animation: messageSlideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes messageSlideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        /* Modern User Avatar Image */
+        .user-avatar img {
+            filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.4));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .user-avatar:hover img {
+            transform: scale(1.1);
+            filter: drop-shadow(0 6px 20px rgba(59, 130, 246, 0.6));
+        }
+
+        .user-message-container:hover .user-avatar {
+            transform: scale(1.05);
+        }
+
+        /* Modern Chat Bubbles with Glassmorphism */
+        .bot-bubble .bg-white {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.15);
+        }
+
+        .user-message-container .bg-gradient-to-r {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-message-container:hover .bg-gradient-to-r {
+            background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #0891b2 100%);
+            box-shadow: 0 12px 40px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Modern Welcome Panel with Glassmorphism */
+        .welcome-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                        0 0 40px rgba(6, 182, 212, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            animation: rotateGlow 20s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .welcome-panel > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Premium Typography */
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        body {
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            line-height: 1.6;
+        }
+
+        /* Modern Rounded Cards for Sidebar */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Compact Floating Chatbot Input Bar - Dribbble Style */
         .input-area-wrapper {
-          width: calc(100% - 32px);
-          bottom: 16px;
-          max-width: none;
-          min-width: 280px;
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            max-width: 800px;
+            min-width: 320px;
+            z-index: 100;
+            animation: slideUpFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUpFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
         }
 
         .input-area-container {
-          padding: 5px 16px;
-          gap: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50px; /* Perfect pill shape */
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 6px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
         }
 
+        .input-area-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .input-area-container:focus-within {
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 
+                0 12px 48px rgba(0, 0, 0, 0.16),
+                0 4px 16px rgba(6, 182, 212, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .input-area-container:focus-within::before {
+            opacity: 1;
+        }
+
+        /* File Preview Container - Above Input */
+        #file-previews {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-width: 100%;
+            justify-content: center;
+        }
+
+        /* Elegant Icon Buttons - Left Side (Dribbble Style) */
         .icon-upload-btn {
-          padding: 5px;
-          width: 28px;
-          height: 28px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.65);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 6px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+        }
+
+        .icon-upload-btn:hover {
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .icon-upload-btn:active {
+            transform: scale(1.05) rotate(0deg);
+        }
+
+        .icon-upload-btn input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            top: 0;
+            left: 0;
         }
 
         .icon-upload-btn svg {
-          width: 16px;
-          height: 16px;
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        /* Text Input Field - Center (Auto-expanding, No Scrollbar) */
+        .manual-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: rgba(255, 255, 255, 0.95);
+            resize: none;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 6px 8px;
+            min-height: 24px;
+            max-height: 120px;
+            overflow: hidden; /* No scrollbar - auto-expand only */
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .manual-input::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for webkit browsers */
         }
 
         .manual-input {
-          font-size: 14px;
-          padding: 5px 6px;
+            -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
         }
 
+        .manual-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+        }
+
+        /* Elegant Send Button - Circular Right Side (Dribbble Style) */
         .send-btn {
-          width: 32px;
-          height: 32px;
-          min-width: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 4px 12px rgba(118, 75, 162, 0.35),
+                0 2px 4px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .send-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .send-btn:hover:not(:disabled)::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #7c8df1 0%, #8b5fbf 100%);
+            box-shadow: 
+                0 6px 20px rgba(118, 75, 162, 0.5),
+                0 2px 6px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            transform: scale(1.1) translateY(-1px);
+        }
+
+        .send-btn:active:not(:disabled) {
+            transform: scale(1.05) translateY(0);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            background: rgba(148, 163, 184, 0.3);
+            box-shadow: none;
+            transform: none;
         }
 
         .send-btn svg {
-          width: 14px;
-          height: 14px;
+            width: 16px;
+            height: 16px;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
         }
 
-        #file-previews {
-          bottom: calc(100% + 8px);
-          gap: 6px;
+        @keyframes badgeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
-      }
 
-      /* Ensure chat container doesn't overlap with floating input */
-      #chat-container {
-        padding-bottom: 120px !important;
-      }
+        /* Drag and Drop Zone */
+        .input-area-container.drag-over {
+            border-color: rgba(6, 182, 212, 0.7);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Loading Shimmer Effect */
+        .loading-shimmer {
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(255, 255, 255, 0.15) 50%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 12px;
+            min-height: 60px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* File Preview Badges - Dribbble Style (Above Input) */
+        .file-preview-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px; /* Pill shape matching input */
+            padding: 6px 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: badgeSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 200px;
+        }
+
+        .file-preview-badge:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(6, 182, 212, 0.25);
+        }
+
+        .file-remove-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0;
+            margin-left: 4px;
+            flex-shrink: 0;
+        }
+
+        .file-remove-btn:hover {
+            background: rgba(239, 68, 68, 0.85);
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        .file-remove-btn svg {
+            width: 9px;
+            height: 9px;
+        }
+
+        /* Responsive Design - Mobile First */
+        @media (max-width: 768px) {
+            .input-area-wrapper {
+                width: calc(100% - 32px);
+                bottom: 16px;
+                max-width: none;
+                min-width: 280px;
+            }
+
+            .input-area-container {
+                padding: 5px 16px;
+                gap: 10px;
+            }
+
+            .icon-upload-btn {
+                padding: 5px;
+                width: 28px;
+                height: 28px;
+            }
+
+            .icon-upload-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .manual-input {
+                font-size: 14px;
+                padding: 5px 6px;
+            }
+
+            .send-btn {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+            }
+
+            .send-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            #file-previews {
+                bottom: calc(100% + 8px);
+                gap: 6px;
+            }
+        }
+
+        /* Ensure chat container doesn't overlap with floating input */
+        #chat-container {
+            padding-bottom: 120px !important;
+        }
     </style>
-  </head>
-  <body class="overflow-hidden">
+</head>
+<body class="overflow-hidden">
     <div class="flex h-screen">
-      <!-- Overlay untuk mobile saat sidebar terbuka -->
-      <div
-        id="overlay"
-        class="fixed inset-0 bg-black opacity-50 z-10 hidden md:hidden"
-      ></div>
+        <!-- Overlay untuk mobile saat sidebar terbuka -->
+        <div id="overlay" class="fixed inset-0 bg-black opacity-50 z-10 hidden md:hidden"></div>
 
-      <!-- Sidebar -->
-      <aside
-        id="sidebar"
-        class="w-72 text-white p-6 flex flex-col h-full fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-20"
-      >
-        <!-- Logo OCEANA - Compact & Modern -->
-        <div
-          class="logo-container mb-8 pt-2 pb-6 flex items-center justify-center border-b border-white/10"
-        >
-          <img
-            src="images/OCEANA.png"
-            alt="OCEANA Logo"
-            class="max-h-20 w-auto object-contain max-w-full"
-          />
-        </div>
-
-        <!-- Tombol Chat Baru - Glass Card -->
-        <button
-          id="chat-baru-btn"
-          class="glass-card text-white font-semibold py-3.5 px-5 rounded-xl mb-5 w-full text-left flex items-center gap-3 hover:scale-[1.02] transition-all duration-300"
-        >
-          <!-- Ikon Chat Baru - Modern -->
-          <div
-            class="flex-shrink-0 w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="text-cyan-300"
-            >
-              <path
-                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"
-              ></path>
-              <line x1="12" y1="7" x2="12" y2="13"></line>
-              <line x1="9" y1="10" x2="15" y2="10"></line>
-            </svg>
-          </div>
-          <span class="text-white/95">Chat Baru</span>
-        </button>
-
-        <!-- Pilihan Kategori - Modern Glass Card Dropdown -->
-        <div class="relative mb-6" id="kategori-wrapper">
-          <!-- Tombol yang terlihat - Glass Card -->
-          <button
-            id="kategori-button"
-            class="glass-card appearance-none text-white text-sm rounded-xl focus:ring-2 focus:ring-cyan-400 focus:outline-none block w-full p-4 pr-12 flex justify-between items-center text-left transition-all duration-300 hover:scale-[1.02]"
-          >
-            <span
-              id="kategori-selected-text"
-              class="truncate font-medium text-white/95"
-              >Pilih Kategori...</span
-            >
-            <!-- Ikon panah dropdown - Modern -->
-            <div
-              class="flex-shrink-0 w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20"
-            >
-              <svg
-                id="kategori-arrow"
-                class="w-5 h-5 text-cyan-300 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2.5"
-                  d="M19 9l-7 7-7-7"
-                ></path>
-              </svg>
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-72 text-white p-6 flex flex-col h-full fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-20">
+            
+            <!-- Logo OCEANA - Compact & Modern -->
+            <div class="logo-container mb-8 pt-2 pb-6 flex items-center justify-center border-b border-white/10">
+                <img src="images/OCEANA.png" alt="OCEANA Logo" class="max-h-20 w-auto object-contain max-w-full">
             </div>
-          </button>
 
-          <!-- Panel Dropdown - Glass Card -->
-          <div
-            id="kategori-dropdown"
-            class="hidden absolute z-50 w-full mt-3 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl max-h-64 overflow-y-auto transition-all duration-400 ease-out transform opacity-0 scale-95 border border-white/20"
-            style="
-              pointer-events: auto;
-              box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            "
-          >
-            <div class="p-2">
-              <!-- Opsi-opsi -->
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="A"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">A.</span>
-                  <span>DASAR KPI (Basic – Untuk Semua Pekerja)</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="B"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">B.</span>
-                  <span>PENYUSUNAN & CASCADING KPI</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="C"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">C.</span>
-                  <span>PORTAVERSE</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="D"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">D.</span>
-                  <span>FORMULA, POLARITAS, & PERHITUNGAN KPI</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="E"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">E.</span>
-                  <span>BOUNDARY INDICATOR</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="F"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">F.</span>
-                  <span>ADDITIONAL POINT</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="G"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">G.</span>
-                  <span>PENILAIAN & REVIEW KPI</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="H"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">H.</span>
-                  <span>KHUSUS PEKERJA OPERASIONAL & NON-OPERASIONAL</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="I"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">I.</span>
-                  <span>PEKERJA BARU / MUTASI / PROMOSI</span>
-                </span>
-              </a>
-              <a
-                href="#"
-                class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100"
-                data-value="J"
-              >
-                <span class="flex items-center gap-2">
-                  <span class="text-indigo-600 font-bold">J.</span>
-                  <span>MASALAH UMUM</span>
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Riwayat Chat -->
-        <nav class="flex-grow overflow-y-auto space-y-4">
-          <!-- Bagian Today dan Yesterday telah dihapus -->
-        </nav>
-      </aside>
-
-      <!-- Konten Utama -->
-      <main class="flex-1 flex flex-col h-full">
-        <!-- Glow Effect -->
-        <div class="glow-effect"></div>
-
-        <!-- Header Konten Utama - Glassmorphism -->
-        <header
-          class="h-16 flex justify-between md:justify-end items-center px-6"
-        >
-          <!-- Tombol Buka Sidebar (hanya di mobile) -->
-          <button
-            id="open-sidebar-btn"
-            class="p-2 text-white/90 md:hidden hover:text-cyan-300 transition-colors"
-          >
-            <svg
-              class="w-6 h-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-          </button>
-
-          <!-- Ikon di Kanan Atas - Modern -->
-          <div class="flex items-center gap-5">
-            <!-- Ikon Grid -->
-            <button
-              class="p-2 rounded-lg hover:bg-white/10 transition-all duration-300"
-            >
-              <svg
-                class="w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-              </svg>
-            </button>
-            <!-- Ikon User + Dropdown -->
-            <div class="relative z-50" id="userMenuWrapper">
-              <button
-                id="userMenuButton"
-                class="p-2 rounded-lg hover:bg-white/10 transition-all duration-300"
-              >
-                <svg
-                  class="w-6 h-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
+            <!-- Tombol Chat Baru - Glass Card -->
+            <button id="chat-baru-btn" class="glass-card text-white font-semibold py-3.5 px-5 rounded-xl mb-5 w-full text-left flex items-center gap-3 hover:scale-[1.02] transition-all duration-300">
+                <!-- Ikon Chat Baru - Modern -->
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-300">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"></path>
+                    <line x1="12" y1="7" x2="12" y2="13"></line>
+                    <line x1="9" y1="10" x2="15" y2="10"></line>
                 </svg>
-              </button>
-              <!-- Dropdown -->
-              <div
-                id="userDropdown"
-                class="hidden absolute right-0 mt-2 w-40 rounded-xl overflow-hidden bg-red-600 text-white shadow-xl border border-red-500/40 z-50 pointer-events-auto"
-              >
-                <a
-                  id="logoutBtn"
-                  href="login.html"
-                  class="block w-full px-4 py-2.5 hover:bg-red-700 cursor-pointer select-none"
-                  onclick="window.location.href='login.html'; return false;"
-                  >Logout</a>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <!-- Area Konten Dinamis (Diubah menjadi Chat Interface) -->
-        <div class="flex-grow p-4 md:p-8 overflow-y-auto" id="chat-container">
-          <!-- 1. Tampilan Awal (Initial State) - Modern Welcome Panel -->
-          <div
-            id="initial-state"
-            class="flex flex-col justify-center items-center h-full text-center px-4"
-          >
-            <div class="welcome-panel max-w-2xl w-full">
-              <!-- Modern Chatbot Icon with Blue Highlights -->
-              <div class="mb-6 flex justify-center">
-                <div class="relative">
-                  <div
-                    class="w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-2xl border-4 border-white/20"
-                  >
-                    <svg
-                      class="w-12 h-12 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <div
-                    class="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-gradient-to-br from-cyan-300 to-blue-500 border-2 border-white/30 animate-pulse"
-                  ></div>
                 </div>
-              </div>
-              <h2 class="text-3xl font-semibold text-white mb-3">
-                Selamat Datang di SPMT AskHR
-              </h2>
-              <p class="text-white/80 text-lg mt-2 leading-relaxed">
-                Silakan pilih kategori pada panel di sebelah kiri untuk memulai
-                percakapan dengan asisten HR kami.
-              </p>
-            </div>
-          </div>
-
-          <!-- Pesan-pesan chat akan ditambahkan di sini oleh JavaScript -->
-        </div>
-
-        <!-- Compact Floating Chatbot Input Bar - Dribbble Style -->
-        <!-- File Preview Badges Container (Positioned Above Input) -->
-        <div id="file-previews" class="flex flex-wrap gap-2 min-h-[40px]"></div>
-
-        <!-- Floating Input Container - Center Bottom, 60% Width -->
-        <div class="input-area-wrapper">
-          <div id="input-area-container" class="input-area-container">
-            <!-- Elegant Icon Buttons - Left Side -->
-            <label
-              class="icon-upload-btn"
-              title="Upload File (PDF, DOCX, XLSX)"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"
-                ></path>
-              </svg>
-              <input
-                type="file"
-                id="file-input"
-                accept=".pdf,.docx,.xlsx"
-                multiple
-              />
-            </label>
-
-            <label
-              class="icon-upload-btn"
-              title="Upload Gambar (PNG, JPG, JPEG, GIF, WEBP)"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
-              <input
-                type="file"
-                id="image-input"
-                accept=".png,.jpg,.jpeg,.gif,.webp"
-                multiple
-              />
-            </label>
-
-            <!-- Auto-expanding Text Input - Center -->
-            <textarea
-              id="manual-input"
-              class="manual-input"
-              placeholder="Tulis pertanyaan Anda di sini..."
-              rows="1"
-            ></textarea>
-
-            <!-- Elegant Send Button - Circular Right Side -->
-            <button id="send-btn" class="send-btn" disabled>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="white"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-              </svg>
+                <span class="text-white/95">Chat Baru</span>
             </button>
-          </div>
-        </div>
-      </main>
+
+            <!-- Pilihan Kategori - Modern Glass Card Dropdown -->
+            <div class="relative mb-6" id="kategori-wrapper">
+                <!-- Tombol yang terlihat - Glass Card -->
+                <button id="kategori-button" class="glass-card appearance-none text-white text-sm rounded-xl focus:ring-2 focus:ring-cyan-400 focus:outline-none block w-full p-4 pr-12 flex justify-between items-center text-left transition-all duration-300 hover:scale-[1.02]">
+                    <span id="kategori-selected-text" class="truncate font-medium text-white/95">Pilih Kategori...</span>
+                    <!-- Ikon panah dropdown - Modern -->
+                    <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                        <svg id="kategori-arrow" class="w-5 h-5 text-cyan-300 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                    </div>
+                </button>
+                
+                <!-- Panel Dropdown - Glass Card -->
+                <div id="kategori-dropdown" class="hidden absolute z-50 w-full mt-3 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl max-h-64 overflow-y-auto transition-all duration-400 ease-out transform opacity-0 scale-95 border border-white/20" style="pointer-events: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
+                    <div class="p-2">
+                        <!-- Opsi-opsi -->
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="A">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">A.</span>
+                                <span>DASAR KPI (Basic – Untuk Semua Pekerja)</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="B">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">B.</span>
+                                <span>PENYUSUNAN & CASCADING KPI</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="C">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">C.</span>
+                                <span>PORTAVERSE</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="D">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">D.</span>
+                                <span>FORMULA, POLARITAS, & PERHITUNGAN KPI</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="E">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">E.</span>
+                                <span>BOUNDARY INDICATOR</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="F">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">F.</span>
+                                <span>ADDITIONAL POINT</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="G">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">G.</span>
+                                <span>PENILAIAN & REVIEW KPI</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="H">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">H.</span>
+                                <span>KHUSUS PEKERJA OPERASIONAL & NON-OPERASIONAL</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="I">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">I.</span>
+                                <span>PEKERJA BARU / MUTASI / PROMOSI</span>
+                            </span>
+                        </a>
+                        <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="J">
+                            <span class="flex items-center gap-2">
+                                <span class="text-indigo-600 font-bold">J.</span>
+                                <span>MASALAH UMUM</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Riwayat Chat -->
+            <nav class="flex-grow overflow-y-auto space-y-4">
+                <!-- Bagian Today dan Yesterday telah dihapus -->
+            </nav>
+
+        </aside>
+
+        <!-- Konten Utama -->
+        <main class="flex-1 flex flex-col h-full">
+            
+            <!-- Glow Effect -->
+            <div class="glow-effect"></div>
+            
+            <!-- Header Konten Utama - Glassmorphism -->
+            <header class="h-16 flex justify-between md:justify-end items-center px-6">
+                <!-- Tombol Buka Sidebar (hanya di mobile) -->
+                <button id="open-sidebar-btn" class="p-2 text-white/90 md:hidden hover:text-cyan-300 transition-colors">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+                
+                <!-- Ikon di Kanan Atas - Modern -->
+                <div class="flex items-center gap-5">
+                    <!-- Ikon Grid -->
+                    <button class="p-2 rounded-lg hover:bg-white/10 transition-all duration-300">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </button>
+                    <!-- Ikon User -->
+                    <button class="p-2 rounded-lg hover:bg-white/10 transition-all duration-300">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Area Konten Dinamis (Diubah menjadi Chat Interface) -->
+            <div class="flex-grow p-4 md:p-8 overflow-y-auto" id="chat-container">
+                
+                <!-- 1. Tampilan Awal (Initial State) - Modern Welcome Panel -->
+                <div id="initial-state" class="flex flex-col justify-center items-center h-full text-center px-4">
+                    <div class="welcome-panel max-w-2xl w-full">
+                        <!-- Modern Chatbot Icon with Blue Highlights -->
+                        <div class="mb-6 flex justify-center">
+                            <div class="relative">
+                                <div class="w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-2xl border-4 border-white/20">
+                                    <svg class="w-12 h-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                                </div>
+                                <div class="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-gradient-to-br from-cyan-300 to-blue-500 border-2 border-white/30 animate-pulse"></div>
+                            </div>
+                        </div>
+                        <h2 class="text-3xl font-semibold text-white mb-3">Selamat Datang di SPMT AskHR</h2>
+                        <p class="text-white/80 text-lg mt-2 leading-relaxed">Silakan pilih kategori pada panel di sebelah kiri untuk memulai percakapan dengan asisten HR kami.</p>
+                    </div>
+                </div>
+
+                <!-- Pesan-pesan chat akan ditambahkan di sini oleh JavaScript -->
+
+            </div>
+
+            <!-- Compact Floating Chatbot Input Bar - Dribbble Style -->
+            <!-- File Preview Badges Container (Positioned Above Input) -->
+            <div id="file-previews" class="flex flex-wrap gap-2 min-h-[40px]"></div>
+
+            <!-- Floating Input Container - Center Bottom, 60% Width -->
+            <div class="input-area-wrapper">
+                <div id="input-area-container" class="input-area-container">
+                    <!-- Elegant Icon Buttons - Left Side -->
+                    <label class="icon-upload-btn" title="Upload File (PDF, DOCX, XLSX)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                        </svg>
+                        <input type="file" id="file-input" accept=".pdf,.docx,.xlsx" multiple>
+                    </label>
+
+                    <label class="icon-upload-btn" title="Upload Gambar (PNG, JPG, JPEG, GIF, WEBP)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <input type="file" id="image-input" accept=".png,.jpg,.jpeg,.gif,.webp" multiple>
+                    </label>
+
+                    <!-- Auto-expanding Text Input - Center -->
+                    <textarea 
+                        id="manual-input" 
+                        class="manual-input"
+                        placeholder="Tulis pertanyaan Anda di sini..."
+                        rows="1"
+                    ></textarea>
+
+                    <!-- Elegant Send Button - Circular Right Side -->
+                    <button id="send-btn" class="send-btn" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+        </main>
     </div>
 
     <!-- JavaScript untuk fungsionalitas -->
     <script>
-      // --- Skrip Sidebar Mobile (Tetap Sama) ---
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-      const openBtn = document.getElementById("open-sidebar-btn");
-      const closeBtn = document.getElementById("close-sidebar-btn");
+        // --- Skrip Sidebar Mobile (Tetap Sama) ---
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const openBtn = document.getElementById('open-sidebar-btn');
+        const closeBtn = document.getElementById('close-sidebar-btn');
 
-      function toggleSidebar() {
-        sidebar.classList.toggle("-translate-x-full");
-        overlay.classList.toggle("hidden");
-      }
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
 
-      if (openBtn) {
-        openBtn.addEventListener("click", toggleSidebar);
-      }
-      if (closeBtn) {
-        closeBtn.addEventListener("click", toggleSidebar);
-      }
-      if (overlay) {
-        overlay.addEventListener("click", toggleSidebar);
-      }
+        if (openBtn) {
+            openBtn.addEventListener('click', toggleSidebar);
+        }
+        if (closeBtn) {
+            closeBtn.addEventListener('click', toggleSidebar);
+        }
+        if (overlay) {
+            overlay.addEventListener('click', toggleSidebar);
+        }
 
-      // --- DATA FAQ MOCKUP ---
-      // Anda bisa mengganti ini dengan data Anda
-      const mockFaqData = {
-        A: {
-          title: "A. DASAR KPI",
-          questions: [
-            {
-              q: "Apa itu KPI?",
-              a: "<p>KPI (Key Performance Indicator) adalah indikator kinerja utama yang digunakan untuk mengukur pencapaian target kinerja individu sesuai sasaran organisasi.</p>",
-            },
-            {
-              q: "Apa tujuan penilaian KPI di SPMT/Pelindo?",
-              a: "<p>Penilaian KPI bertujuan memastikan kontribusi individu selaras dengan strategi organisasi serta sebagai dasar evaluasi kinerja dan pengembangan pekerja.</p>",
-            },
-            {
-              q: "Siapa yang menentukan KPI saya?",
-              a: "<p>KPI ditetapkan oleh atasan langsung melalui proses cascading berdasarkan target unit kerja dan arahan manajemen.</p>",
-            },
-            {
-              q: "Berapa jumlah minimal dan maksimal KPI individu?",
-              a: "<p>Jumlah KPI individu antara 3–10 item dengan total bobot 100%.</p>",
-            },
-            {
-              q: "Apa itu KPI Utama dan KPI Tambahan?",
-              a: "<p>KPI Utama adalah indikator utama yang berdampak langsung pada sasaran organisasi. KPI Tambahan merupakan indikator pendukung yang melengkapi KPI utama.</p>",
-            },
-            {
-              q: "Apa itu KPI Perilaku (Behavioral)?",
-              a: "<p>KPI Perilaku adalah penilaian terhadap perilaku kerja sesuai nilai AKHLAK dengan bobot 20% dari total penilaian.</p>",
-            },
-            {
-              q: "Kapan periode penetapan KPI dilakukan?",
-              a: "<p>Penetapan KPI dilakukan pada awal tahun melalui tahap Performance Planning.</p>",
-            },
-            {
-              q: "Kapan periode evaluasi KPI dilakukan?",
-              a: "<p>Evaluasi akhir dilakukan pada tahap Performance Evaluation di akhir tahun.</p>",
-            },
-            {
-              q: "Apa perbedaan KPI Triwulan dan KPI Tahunan?",
-              a: "<p>KPI Triwulan memiliki target penilaian setiap 3 bulan, sedangkan KPI Tahunan dinilai pada akhir tahun.</p>",
-            },
-            {
-              q: "Apa itu BSC (Balanced Scorecard)?",
-              a: "<p>BSC adalah kerangka penyusunan KPI berdasarkan empat perspektif: Financial, Customer, Internal Process, dan Learning & Growth.</p>",
-            },
-            {
-              q: "Apakah setiap pekerja wajib memiliki KPI?",
-              a: "<p>Ya, seluruh pekerja wajib memiliki KPI sesuai jabatan masing-masing.</p>",
-            },
-            {
-              q: "Apakah pekerja operasional juga punya KPI yang sama dengan non-operasional?",
-              a: "<p>Tidak. KPI disesuaikan dengan karakteristik fungsi dan tanggung jawab setiap jabatan.</p>",
-            },
-            {
-              q: "Bagaimana cara mengetahui KPI saya sudah disetujui atau belum?",
-              a: "<p>Status persetujuan dapat dilihat pada Portaverse melalui menu KPI Review.</p>",
-            },
-          ],
-        },
-        B: {
-          title: "B. PENYUSUNAN & CASCADING KPI",
-          questions: [
-            {
-              q: "Apa itu cascading KPI?",
-              a: "<p>Cascading KPI adalah proses penurunan KPI dari atasan ke bawahan agar sasaran individu selaras dengan sasaran organisasi.</p>",
-            },
-            {
-              q: "Bagaimana cara KPI atasan diturunkan menjadi KPI bawahan?",
-              a: "<p>KPI diturunkan melalui metode duplikasi, disaggregated, atau indirect sesuai tanggung jawab masing-masing jabatan.</p>",
-            },
-            {
-              q: "Apa itu duplikasi KPI?",
-              a: "<p>Duplikasi KPI adalah penyalinan KPI atasan secara langsung kepada bawahan tanpa perubahan metrik.</p>",
-            },
-            {
-              q: "Apa itu disaggregated KPI?",
-              a: "<p>Disaggregated KPI adalah turunan KPI atasan menjadi indikator kuantitatif pada level bawahan.</p>",
-            },
-            {
-              q: "Apa itu indirect cascade?",
-              a: "<p>Indirect cascade adalah KPI bawahan yang mendukung pencapaian KPI atasan melalui aktivitas pendukung.</p>",
-            },
-            {
-              q: "Bagaimana menentukan bobot KPI?",
-              a: "<p>Bobot ditentukan berdasarkan prioritas target dan kontribusi masing-masing KPI terhadap sasaran unit kerja.</p>",
-            },
-            {
-              q: "Apakah bobot KPI harus genap?",
-              a: "<p>Tidak. Bobot dapat bervariasi selama total mencapai 100%.</p>",
-            },
-            {
-              q: "Bagaimana menentukan target KPI yang realistis?",
-              a: "<p>Target ditentukan berdasarkan historical data, kapasitas unit kerja, dan arahan manajemen.</p>",
-            },
-            {
-              q: "Apakah KPI boleh diubah setelah disetujui?",
-              a: "<p>Perubahan dapat dilakukan dalam kondisi tertentu dengan persetujuan atasan dan Unit SDM.</p>",
-            },
-            {
-              q: "Bagaimana prosedur permintaan perubahan KPI?",
-              a: "<p>Pekerja mengajukan perubahan melalui Portaverse disertai alasan serta bukti pendukung untuk validasi atasan.</p>",
-            },
-            {
-              q: "Apa yang harus dilakukan jika KPI saya tidak sesuai tugas?",
-              a: "<p>Pekerja dapat mengajukan revisi kepada atasan dengan justifikasi yang sesuai.</p>",
-            },
-            {
-              q: "Apakah KPI saya harus sama dengan rekan satu unit?",
-              a: "<p>Tidak. KPI ditentukan berdasarkan peran masing-masing pekerja.</p>",
-            },
-            {
-              q: "Apa itu SMART KPI?",
-              a: "<p>KPI yang memenuhi unsur Specific, Measurable, Achievable, Relevant, dan Time-Bound.</p>",
-            },
-            {
-              q: "Bagaimana memastikan KPI SMART?",
-              a: "<p>KPI harus memiliki definisi jelas, formula, target, satuan, periode, dan bukti data.</p>",
-            },
-            {
-              q: "Apakah aktivitas rutin bisa dijadikan KPI?",
-              a: "<p>Bisa, apabila aktivitas tersebut berdampak signifikan terhadap sasaran unit.</p>",
-            },
-            {
-              q: "Apakah proyek khusus bisa menjadi KPI?",
-              a: "<p>Bisa, apabila proyek tersebut merupakan prioritas organisasi.</p>",
-            },
-            {
-              q: "Bagaimana penyusunan KPI pekerja baru?",
-              a: "<p>KPI pekerja baru disesuaikan dengan masa adaptasi dan tugas utama yang diberikan atasan.</p>",
-            },
-          ],
-        },
-        C: {
-          title: "C. PORTAVERSE",
-          questions: [
-            {
-              q: "Bagaimana cara login Portaverse?",
-              a: "<p>Login dilakukan menggunakan akun perusahaan melalui portal Portaverse.</p>",
-            },
-            {
-              q: "Bagaimana cara melihat KPI saya di Portaverse?",
-              a: "<p>KPI dapat dilihat melalui menu Performance Management → KPI.</p>",
-            },
-            {
-              q: "Bagaimana cara menginput KPI baru?",
-              a: "<p>Penginputan dilakukan pada menu KPI Planning dengan mengisi formula, bobot, dan target.</p>",
-            },
-            {
-              q: "Bagaimana cara mengubah KPI yang sudah disubmit?",
-              a: "<p>Perubahan hanya dapat dilakukan melalui menu Request Change sebelum disetujui atasan.</p>",
-            },
-            {
-              q: "Bagaimana mengetahui status persetujuan KPI?",
-              a: "<p>Status terlihat pada kolom Approval Status di Portaverse.</p>",
-            },
-            {
-              q: "Bagaimana melihat bobot dan formula KPI?",
-              a: "<p>Informasi bobot dan formula tersedia pada halaman detail KPI di Portaverse.</p>",
-            },
-            {
-              q: "Apa itu Kamus KPI di Portaverse?",
-              a: "<p>Kamus KPI adalah database indikator KPI yang dapat digunakan sebagai referensi penyusunan KPI.</p>",
-            },
-            {
-              q: "Apa yang harus dilakukan jika KPI saya tidak ada di Kamus KPI?",
-              a: "<p>Pekerja dapat mengajukan penambahan item melalui atasan dan Unit SDM.</p>",
-            },
-            {
-              q: "Bagaimana mengunggah bukti data KPI?",
-              a: "<p>Bukti data diunggah pada menu KPI Realization dengan format dokumen yang disyaratkan.</p>",
-            },
-            {
-              q: "Bagaimana melihat nilai final KPI?",
-              a: "<p>Nilai akhir tersedia setelah proses evaluasi pada menu Performance Result.</p>",
-            },
-          ],
-        },
-        D: {
-          title: "D. FORMULA, POLARITAS, & PERHITUNGAN KPI",
-          questions: [
-            {
-              q: "Apa itu polaritas KPI?",
-              a: "<p>Polaritas KPI adalah arah pencapaian target, yaitu: Maximize (semakin tinggi semakin baik), Minimize (semakin rendah semakin baik), atau Maintain (dipertahankan pada level tertentu).</p>",
-            },
-            {
-              q: "Bagaimana menentukan satuan KPI?",
-              a: "<p>Satuan KPI ditetapkan sesuai metode pengukuran, seperti %, jumlah, hari, jam, atau indeks, berdasarkan karakteristik indikator.</p>",
-            },
-            {
-              q: "Apa itu baseline KPI?",
-              a: "<p>Baseline adalah nilai awal atau kondisi dasar yang digunakan sebagai acuan penetapan target KPI.</p>",
-            },
-            {
-              q: "Bagaimana membaca formula KPI di Portaverse?",
-              a: "<p>Formula KPI dapat dilihat pada kolom Formula Description yang menjelaskan cara perhitungan hasil kinerja.</p>",
-            },
-            {
-              q: "Bagaimana menentukan target KPI berbasis angka?",
-              a: "<p>Target ditentukan berdasarkan data historis, tren kinerja, dan arahan strategis unit kerja.</p>",
-            },
-            {
-              q: "Bagaimana mengukur KPI berbasis kualitas?",
-              a: "<p>KPI kualitatif diukur menggunakan parameter spesifik seperti checklist, skor evaluasi, atau tingkat pemenuhan standar.</p>",
-            },
-            {
-              q: "Apa perbedaan leading indicator dan lagging indicator?",
-              a: "<p>Leading indicator mengukur aktivitas yang mendorong hasil. Lagging indicator mengukur hasil akhir setelah aktivitas dilakukan.</p>",
-            },
-            {
-              q: "Siapa yang menetapkan formula KPI?",
-              a: "<p>Formula KPI ditetapkan oleh atasan bersama Unit SDM sesuai pedoman KPI Pelindo.</p>",
-            },
-            {
-              q: "Apa itu data producer?",
-              a: "<p>Data producer adalah pihak atau unit yang menghasilkan data yang menjadi dasar penilaian KPI.</p>",
-            },
-            {
-              q: "Apakah target KPI boleh lebih rendah dari tahun lalu?",
-              a: "<p>Penetapan target mempertimbangkan prioritas organisasi dan justifikasi yang relevan; penurunan target harus disetujui atasan dan SDM.</p>",
-            },
-            {
-              q: "Bagaimana cara mengukur KPI tanpa data pendukung?",
-              a: "<p>KPI tanpa data pendukung tidak dapat dinilai dan wajib dilengkapi bukti berdasarkan sumber data yang kredibel.</p>",
-            },
-          ],
-        },
-        E: {
-          title: "E. BOUNDARY INDICATOR",
-          questions: [
-            {
-              q: "Apa itu Boundary Indicator?",
-              a: "<p>Boundary Indicator adalah indikator wajib yang mempengaruhi nilai akhir kinerja jika tidak dipenuhi.</p>",
-            },
-            {
-              q: "Berapa besar pengurangan nilai jika boundary tidak terpenuhi?",
-              a: "<p>Pengurangan nilai maksimal sebesar 20% sesuai ketentuan Performance Management Pelindo.</p>",
-            },
-            {
-              q: "Apa saja jenis boundary KPI di Pelindo/SPMT?",
-              a: "<p>Boundary meliputi: Pelindo Fit 100%, Learning Hour ≥ 50 jam/tahun, pemenuhan mitigasi risiko, serta Survey Pemahaman GCG minimal nilai yang ditetapkan.</p>",
-            },
-            {
-              q: "Apakah Learning Hour wajib untuk semua pekerja?",
-              a: "<p>Ya, seluruh pekerja wajib memenuhi standar minimal Learning Hour.</p>",
-            },
-            {
-              q: "Bagaimana menghitung Learning Hour minimal?",
-              a: "<p>Learning Hour dihitung berdasarkan total jam pelatihan yang telah diselesaikan melalui LMS atau pelatihan terverifikasi lainnya.</p>",
-            },
-            {
-              q: "Apa itu Survey Pemahaman GCG?",
-              a: "<p>Survey Pemahaman GCG adalah penilaian kepatuhan terhadap prinsip tata kelola perusahaan yang wajib diikuti seluruh pekerja.</p>",
-            },
-            {
-              q: "Bagaimana melaporkan pemenuhan mitigasi risiko?",
-              a: "<p>Pekerja wajib mengunggah bukti pemenuhan mitigasi risiko ke sistem yang ditentukan unit risiko perusahaan.</p>",
-            },
-            {
-              q: "Bagaimana memastikan Poin Pelindo Fit terpenuhi?",
-              a: "<p>Poin Pelindo Fit dapat dilihat melalui aplikasi Pelindo Fit dan wajib mencapai skor 100%.</p>",
-            },
-            {
-              q: "Apa yang terjadi jika hanya satu boundary tidak terpenuhi?",
-              a: "<p>Nilai akhir kinerja tetap dikenakan pengurangan sesuai ketentuan.</p>",
-            },
-            {
-              q: "Apakah boundary berlaku untuk semua level pekerja?",
-              a: "<p>Ya, boundary berlaku untuk seluruh pekerja tanpa pengecualian.</p>",
-            },
-          ],
-        },
-        F: {
-          title: "F. ADDITIONAL POINT",
-          questions: [
-            {
-              q: "Apa itu Additional Point?",
-              a: "<p>Additional Point adalah poin tambahan penilaian kinerja yang diberikan atas kontribusi di luar tugas utama.</p>",
-            },
-            {
-              q: "Apa syarat mendapatkan Additional Point?",
-              a: "<p>Pekerja harus memenuhi seluruh boundary, memiliki nilai kinerja ≥ 95, dan melakukan aktivitas tambahan yang tervalidasi.</p>",
-            },
-            {
-              q: "Apa jenis aktivitas yang dapat memberi Additional Point?",
-              a: "<p>Aktivitas seperti menjadi internal auditor, SME, relawan Bakti BUMN, pengajar, atau peserta program inovasi.</p>",
-            },
-            {
-              q: "Bagaimana cara melaporkan aktivitas Additional Point?",
-              a: "<p>Pekerja mengajukan bukti aktivitas melalui Portaverse atau formulir yang ditentukan Unit SDM.</p>",
-            },
-            {
-              q: "Siapa yang memvalidasi aktivitas Additional Point?",
-              a: "<p>Validasi dilakukan oleh atasan langsung dan Unit SDM.</p>",
-            },
-            {
-              q: "Apakah Additional Point wajib?",
-              a: "<p>Tidak wajib, tetapi dapat meningkatkan nilai akhir kinerja.</p>",
-            },
-            {
-              q: "Berapa maksimal nilai tambahan dari Additional Point?",
-              a: "<p>Nilai tambahan maksimal adalah 10 poin.</p>",
-            },
-          ],
-        },
-        G: {
-          title: "G. PENILAIAN & REVIEW KPI",
-          questions: [
-            {
-              q: "Kapan review KPI dilakukan?",
-              a: "<p>Review dilakukan setiap triwulan pada periode yang ditetapkan perusahaan.</p>",
-            },
-            {
-              q: "Apa itu Performance Review Triwulan?",
-              a: "<p>Review Triwulan adalah evaluasi berkala terhadap pencapaian KPI untuk memastikan keselarasan dengan target unit.</p>",
-            },
-            {
-              q: "Apa yang harus dipersiapkan untuk review KPI?",
-              a: "<p>Pekerja menyiapkan bukti kinerja, data pendukung, dan laporan capaian sesuai target.</p>",
-            },
-            {
-              q: "Siapa yang menilai KPI saya?",
-              a: "<p>Penilaian dilakukan oleh atasan langsung sesuai struktur organisasi.</p>",
-            },
-            {
-              q: "Bagaimana membaca nilai KPI triwulan?",
-              a: "<p>Nilai triwulan menunjukkan persentase pencapaian target pada periode tersebut.</p>",
-            },
-            {
-              q: "Bagaimana perhitungan nilai akhir KPI?",
-              a: "<p>Nilai akhir dihitung berdasarkan pencapaian KPI, bobot, boundary, dan additional point.</p>",
-            },
-            {
-              q: "Bagaimana penggabungan nilai KPI dan perilaku?",
-              a: "<p>Nilai akhir terdiri dari 80% KPI dan 20% perilaku kerja (AKHLAK).</p>",
-            },
-            {
-              q: "Apa itu Performance Evaluation?",
-              a: "<p>Performance Evaluation adalah penilaian keseluruhan kinerja pekerja pada akhir tahun.</p>",
-            },
-            {
-              q: "Apakah pekerja bisa mengajukan keberatan terhadap nilai KPI?",
-              a: "<p>Bisa, melalui mekanisme keberatan resmi kepada atasan dan Unit SDM.</p>",
-            },
-            {
-              q: "Bagaimana prosedur mengajukan keberatan nilai KPI?",
-              a: "<p>Pekerja menyampaikan bukti pendukung dan argumentasi kepada atasan untuk ditinjau kembali.</p>",
-            },
-            {
-              q: "Siapa yang memutuskan hasil akhir nilai kinerja?",
-              a: "<p>Penetapan nilai akhir ditentukan oleh atasan bersama Unit SDM dan Manajemen.</p>",
-            },
-          ],
-        },
-        H: {
-          title: "H. KHUSUS PEKERJA OPERASIONAL & NON-OPERASIONAL",
-          questions: [
-            {
-              q: "Apakah pekerja operasional memiliki KPI berbeda?",
-              a: "<p>Ya, KPI disesuaikan dengan karakteristik pekerjaan operasional.</p>",
-            },
-            {
-              q: "Apakah pekerja shift memiliki KPI tambahan?",
-              a: "<p>KPI pekerja shift mengikuti indikator operasional yang relevan dengan pola kerja.</p>",
-            },
-            {
-              q: "Bagaimana KPI untuk pekerja layanan terminal?",
-              a: "<p>KPI mencakup indikator produktivitas, pelayanan operasional, dan kepatuhan SOP.</p>",
-            },
-            {
-              q: "Bagaimana KPI untuk pekerja administrasi?",
-              a: "<p>KPI berfokus pada ketepatan proses, kualitas layanan, dan penyelesaian pekerjaan administratif.</p>",
-            },
-            {
-              q: "Apakah KPI manager berbeda dari staff?",
-              a: "<p>Ya, KPI manager berfokus pada target strategis dan pengelolaan unit, sedangkan staff pada eksekusi operasional.</p>",
-            },
-          ],
-        },
-        I: {
-          title: "I. PEKERJA BARU / MUTASI / PROMOSI",
-          questions: [
-            {
-              q: "Bagaimana KPI pekerja baru?",
-              a: "<p>KPI disusun berdasarkan tugas awal dan masa adaptasi pekerja baru.</p>",
-            },
-            {
-              q: "Bagaimana KPI bagi pekerja mutasi?",
-              a: "<p>KPI disesuaikan dengan fungsi baru yang dijalankan setelah mutasi.</p>",
-            },
-            {
-              q: "Bagaimana KPI pekerja yang baru dipromosikan?",
-              a: "<p>KPI mengikuti tanggung jawab jabatan baru dan arahan atasan.</p>",
-            },
-            {
-              q: "Apakah KPI bisa berubah saat pindah jabatan?",
-              a: "<p>Ya, KPI akan diperbarui sesuai jabatan baru pekerja.</p>",
-            },
-          ],
-        },
-        J: {
-          title: "J. MASALAH UMUM",
-          questions: [
-            {
-              q: "Bagaimana jika saya tidak menginput KPI tepat waktu?",
-              a: "<p>Keterlambatan dapat mempengaruhi proses penilaian dan merupakan kewajiban pekerja untuk menyelesaikannya sesuai jadwal.</p>",
-            },
-            {
-              q: "Apa yang terjadi jika KPI tidak disetujui atasan?",
-              a: "<p>KPI harus direvisi sesuai catatan atasan hingga memenuhi ketentuan.</p>",
-            },
-            {
-              q: "Bagaimana jika target KPI tidak tercapai?",
-              a: "<p>Pekerja wajib memberikan penjelasan berdasarkan data dan upaya perbaikan yang telah dilakukan.</p>",
-            },
-            {
-              q: "Apakah KPI mempengaruhi bonus atau reward?",
-              a: "<p>Ya, penilaian kinerja menjadi salah satu dasar pemberian reward perusahaan.</p>",
-            },
-            {
-              q: "Bagaimana jika data pendukung KPI hilang?",
-              a: "<p>Pekerja wajib mengganti atau melengkapi bukti melalui sumber data resmi.</p>",
-            },
-            {
-              q: "Apakah KPI boleh dikosongkan?",
-              a: "<p>Tidak. Seluruh pekerja wajib memiliki KPI yang lengkap.</p>",
-            },
-            {
-              q: "Bagaimana jika KPI saya tidak relevan dengan pekerjaan?",
-              a: "<p>Pekerja dapat meminta revisi KPI kepada atasan sesuai tanggung jawab jabatan.</p>",
-            },
-            {
-              q: "Siapa yang dapat membantu jika saya mengalami kendala dalam KPI?",
-              a: "<p>Kendala dapat dikonsultasikan kepada atasan atau Unit SDM.</p>",
-            },
-          ],
-        },
-      };
+        // --- DATA FAQ MOCKUP ---
+        // Anda bisa mengganti ini dengan data Anda
+        const mockFaqData = {
+            "A": {
+                title: "A. DASAR KPI",
+                questions: [
+                    { q: "Apa itu KPI?", a: "<p>KPI (Key Performance Indicator) adalah indikator kinerja utama yang digunakan untuk mengukur pencapaian target kinerja individu sesuai sasaran organisasi.</p>" },
+                    { q: "Apa tujuan penilaian KPI di SPMT/Pelindo?", a: "<p>Penilaian KPI bertujuan memastikan kontribusi individu selaras dengan strategi organisasi serta sebagai dasar evaluasi kinerja dan pengembangan pekerja.</p>" },
+                    { q: "Siapa yang menentukan KPI saya?", a: "<p>KPI ditetapkan oleh atasan langsung melalui proses cascading berdasarkan target unit kerja dan arahan manajemen.</p>" },
+                    { q: "Berapa jumlah minimal dan maksimal KPI individu?", a: "<p>Jumlah KPI individu antara 3–10 item dengan total bobot 100%.</p>" },
+                    { q: "Apa itu KPI Utama dan KPI Tambahan?", a: "<p>KPI Utama adalah indikator utama yang berdampak langsung pada sasaran organisasi. KPI Tambahan merupakan indikator pendukung yang melengkapi KPI utama.</p>" },
+                    { q: "Apa itu KPI Perilaku (Behavioral)?", a: "<p>KPI Perilaku adalah penilaian terhadap perilaku kerja sesuai nilai AKHLAK dengan bobot 20% dari total penilaian.</p>" },
+                    { q: "Kapan periode penetapan KPI dilakukan?", a: "<p>Penetapan KPI dilakukan pada awal tahun melalui tahap Performance Planning.</p>" },
+                    { q: "Kapan periode evaluasi KPI dilakukan?", a: "<p>Evaluasi akhir dilakukan pada tahap Performance Evaluation di akhir tahun.</p>" },
+                    { q: "Apa perbedaan KPI Triwulan dan KPI Tahunan?", a: "<p>KPI Triwulan memiliki target penilaian setiap 3 bulan, sedangkan KPI Tahunan dinilai pada akhir tahun.</p>" },
+                    { q: "Apa itu BSC (Balanced Scorecard)?", a: "<p>BSC adalah kerangka penyusunan KPI berdasarkan empat perspektif: Financial, Customer, Internal Process, dan Learning & Growth.</p>" },
+                    { q: "Apakah setiap pekerja wajib memiliki KPI?", a: "<p>Ya, seluruh pekerja wajib memiliki KPI sesuai jabatan masing-masing.</p>" },
+                    { q: "Apakah pekerja operasional juga punya KPI yang sama dengan non-operasional?", a: "<p>Tidak. KPI disesuaikan dengan karakteristik fungsi dan tanggung jawab setiap jabatan.</p>" },
+                    { q: "Bagaimana cara mengetahui KPI saya sudah disetujui atau belum?", a: "<p>Status persetujuan dapat dilihat pada Portaverse melalui menu KPI Review.</p>" }
+                ]
+            },
+            "B": {
+                title: "B. PENYUSUNAN & CASCADING KPI",
+                questions: [
+                    { q: "Apa itu cascading KPI?", a: "<p>Cascading KPI adalah proses penurunan KPI dari atasan ke bawahan agar sasaran individu selaras dengan sasaran organisasi.</p>" },
+                    { q: "Bagaimana cara KPI atasan diturunkan menjadi KPI bawahan?", a: "<p>KPI diturunkan melalui metode duplikasi, disaggregated, atau indirect sesuai tanggung jawab masing-masing jabatan.</p>" },
+                    { q: "Apa itu duplikasi KPI?", a: "<p>Duplikasi KPI adalah penyalinan KPI atasan secara langsung kepada bawahan tanpa perubahan metrik.</p>" },
+                    { q: "Apa itu disaggregated KPI?", a: "<p>Disaggregated KPI adalah turunan KPI atasan menjadi indikator kuantitatif pada level bawahan.</p>" },
+                    { q: "Apa itu indirect cascade?", a: "<p>Indirect cascade adalah KPI bawahan yang mendukung pencapaian KPI atasan melalui aktivitas pendukung.</p>" },
+                    { q: "Bagaimana menentukan bobot KPI?", a: "<p>Bobot ditentukan berdasarkan prioritas target dan kontribusi masing-masing KPI terhadap sasaran unit kerja.</p>" },
+                    { q: "Apakah bobot KPI harus genap?", a: "<p>Tidak. Bobot dapat bervariasi selama total mencapai 100%.</p>" },
+                    { q: "Bagaimana menentukan target KPI yang realistis?", a: "<p>Target ditentukan berdasarkan historical data, kapasitas unit kerja, dan arahan manajemen.</p>" },
+                    { q: "Apakah KPI boleh diubah setelah disetujui?", a: "<p>Perubahan dapat dilakukan dalam kondisi tertentu dengan persetujuan atasan dan Unit SDM.</p>" },
+                    { q: "Bagaimana prosedur permintaan perubahan KPI?", a: "<p>Pekerja mengajukan perubahan melalui Portaverse disertai alasan serta bukti pendukung untuk validasi atasan.</p>" },
+                    { q: "Apa yang harus dilakukan jika KPI saya tidak sesuai tugas?", a: "<p>Pekerja dapat mengajukan revisi kepada atasan dengan justifikasi yang sesuai.</p>" },
+                    { q: "Apakah KPI saya harus sama dengan rekan satu unit?", a: "<p>Tidak. KPI ditentukan berdasarkan peran masing-masing pekerja.</p>" },
+                    { q: "Apa itu SMART KPI?", a: "<p>KPI yang memenuhi unsur Specific, Measurable, Achievable, Relevant, dan Time-Bound.</p>" },
+                    { q: "Bagaimana memastikan KPI SMART?", a: "<p>KPI harus memiliki definisi jelas, formula, target, satuan, periode, dan bukti data.</p>" },
+                    { q: "Apakah aktivitas rutin bisa dijadikan KPI?", a: "<p>Bisa, apabila aktivitas tersebut berdampak signifikan terhadap sasaran unit.</p>" },
+                    { q: "Apakah proyek khusus bisa menjadi KPI?", a: "<p>Bisa, apabila proyek tersebut merupakan prioritas organisasi.</p>" },
+                    { q: "Bagaimana penyusunan KPI pekerja baru?", a: "<p>KPI pekerja baru disesuaikan dengan masa adaptasi dan tugas utama yang diberikan atasan.</p>" }
+                ]
+            },
+            "C": {
+                title: "C. PORTAVERSE",
+                questions: [
+                    { q: "Bagaimana cara login Portaverse?", a: "<p>Login dilakukan menggunakan akun perusahaan melalui portal Portaverse.</p>" },
+                    { q: "Bagaimana cara melihat KPI saya di Portaverse?", a: "<p>KPI dapat dilihat melalui menu Performance Management → KPI.</p>" },
+                    { q: "Bagaimana cara menginput KPI baru?", a: "<p>Penginputan dilakukan pada menu KPI Planning dengan mengisi formula, bobot, dan target.</p>" },
+                    { q: "Bagaimana cara mengubah KPI yang sudah disubmit?", a: "<p>Perubahan hanya dapat dilakukan melalui menu Request Change sebelum disetujui atasan.</p>" },
+                    { q: "Bagaimana mengetahui status persetujuan KPI?", a: "<p>Status terlihat pada kolom Approval Status di Portaverse.</p>" },
+                    { q: "Bagaimana melihat bobot dan formula KPI?", a: "<p>Informasi bobot dan formula tersedia pada halaman detail KPI di Portaverse.</p>" },
+                    { q: "Apa itu Kamus KPI di Portaverse?", a: "<p>Kamus KPI adalah database indikator KPI yang dapat digunakan sebagai referensi penyusunan KPI.</p>" },
+                    { q: "Apa yang harus dilakukan jika KPI saya tidak ada di Kamus KPI?", a: "<p>Pekerja dapat mengajukan penambahan item melalui atasan dan Unit SDM.</p>" },
+                    { q: "Bagaimana mengunggah bukti data KPI?", a: "<p>Bukti data diunggah pada menu KPI Realization dengan format dokumen yang disyaratkan.</p>" },
+                    { q: "Bagaimana melihat nilai final KPI?", a: "<p>Nilai akhir tersedia setelah proses evaluasi pada menu Performance Result.</p>" }
+                ]
+            },
+            "D": {
+                title: "D. FORMULA, POLARITAS, & PERHITUNGAN KPI",
+                questions: [
+                    { q: "Apa itu polaritas KPI?", a: "<p>Polaritas KPI adalah arah pencapaian target, yaitu: Maximize (semakin tinggi semakin baik), Minimize (semakin rendah semakin baik), atau Maintain (dipertahankan pada level tertentu).</p>" },
+                    { q: "Bagaimana menentukan satuan KPI?", a: "<p>Satuan KPI ditetapkan sesuai metode pengukuran, seperti %, jumlah, hari, jam, atau indeks, berdasarkan karakteristik indikator.</p>" },
+                    { q: "Apa itu baseline KPI?", a: "<p>Baseline adalah nilai awal atau kondisi dasar yang digunakan sebagai acuan penetapan target KPI.</p>" },
+                    { q: "Bagaimana membaca formula KPI di Portaverse?", a: "<p>Formula KPI dapat dilihat pada kolom Formula Description yang menjelaskan cara perhitungan hasil kinerja.</p>" },
+                    { q: "Bagaimana menentukan target KPI berbasis angka?", a: "<p>Target ditentukan berdasarkan data historis, tren kinerja, dan arahan strategis unit kerja.</p>" },
+                    { q: "Bagaimana mengukur KPI berbasis kualitas?", a: "<p>KPI kualitatif diukur menggunakan parameter spesifik seperti checklist, skor evaluasi, atau tingkat pemenuhan standar.</p>" },
+                    { q: "Apa perbedaan leading indicator dan lagging indicator?", a: "<p>Leading indicator mengukur aktivitas yang mendorong hasil. Lagging indicator mengukur hasil akhir setelah aktivitas dilakukan.</p>" },
+                    { q: "Siapa yang menetapkan formula KPI?", a: "<p>Formula KPI ditetapkan oleh atasan bersama Unit SDM sesuai pedoman KPI Pelindo.</p>" },
+                    { q: "Apa itu data producer?", a: "<p>Data producer adalah pihak atau unit yang menghasilkan data yang menjadi dasar penilaian KPI.</p>" },
+                    { q: "Apakah target KPI boleh lebih rendah dari tahun lalu?", a: "<p>Penetapan target mempertimbangkan prioritas organisasi dan justifikasi yang relevan; penurunan target harus disetujui atasan dan SDM.</p>" },
+                    { q: "Bagaimana cara mengukur KPI tanpa data pendukung?", a: "<p>KPI tanpa data pendukung tidak dapat dinilai dan wajib dilengkapi bukti berdasarkan sumber data yang kredibel.</p>" }
+                ]
+            },
+            "E": {
+                title: "E. BOUNDARY INDICATOR",
+                questions: [
+                    { q: "Apa itu Boundary Indicator?", a: "<p>Boundary Indicator adalah indikator wajib yang mempengaruhi nilai akhir kinerja jika tidak dipenuhi.</p>" },
+                    { q: "Berapa besar pengurangan nilai jika boundary tidak terpenuhi?", a: "<p>Pengurangan nilai maksimal sebesar 20% sesuai ketentuan Performance Management Pelindo.</p>" },
+                    { q: "Apa saja jenis boundary KPI di Pelindo/SPMT?", a: "<p>Boundary meliputi: Pelindo Fit 100%, Learning Hour ≥ 50 jam/tahun, pemenuhan mitigasi risiko, serta Survey Pemahaman GCG minimal nilai yang ditetapkan.</p>" },
+                    { q: "Apakah Learning Hour wajib untuk semua pekerja?", a: "<p>Ya, seluruh pekerja wajib memenuhi standar minimal Learning Hour.</p>" },
+                    { q: "Bagaimana menghitung Learning Hour minimal?", a: "<p>Learning Hour dihitung berdasarkan total jam pelatihan yang telah diselesaikan melalui LMS atau pelatihan terverifikasi lainnya.</p>" },
+                    { q: "Apa itu Survey Pemahaman GCG?", a: "<p>Survey Pemahaman GCG adalah penilaian kepatuhan terhadap prinsip tata kelola perusahaan yang wajib diikuti seluruh pekerja.</p>" },
+                    { q: "Bagaimana melaporkan pemenuhan mitigasi risiko?", a: "<p>Pekerja wajib mengunggah bukti pemenuhan mitigasi risiko ke sistem yang ditentukan unit risiko perusahaan.</p>" },
+                    { q: "Bagaimana memastikan Poin Pelindo Fit terpenuhi?", a: "<p>Poin Pelindo Fit dapat dilihat melalui aplikasi Pelindo Fit dan wajib mencapai skor 100%.</p>" },
+                    { q: "Apa yang terjadi jika hanya satu boundary tidak terpenuhi?", a: "<p>Nilai akhir kinerja tetap dikenakan pengurangan sesuai ketentuan.</p>" },
+                    { q: "Apakah boundary berlaku untuk semua level pekerja?", a: "<p>Ya, boundary berlaku untuk seluruh pekerja tanpa pengecualian.</p>" }
+                ]
+            },
+            "F": {
+                title: "F. ADDITIONAL POINT",
+                questions: [
+                    { q: "Apa itu Additional Point?", a: "<p>Additional Point adalah poin tambahan penilaian kinerja yang diberikan atas kontribusi di luar tugas utama.</p>" },
+                    { q: "Apa syarat mendapatkan Additional Point?", a: "<p>Pekerja harus memenuhi seluruh boundary, memiliki nilai kinerja ≥ 95, dan melakukan aktivitas tambahan yang tervalidasi.</p>" },
+                    { q: "Apa jenis aktivitas yang dapat memberi Additional Point?", a: "<p>Aktivitas seperti menjadi internal auditor, SME, relawan Bakti BUMN, pengajar, atau peserta program inovasi.</p>" },
+                    { q: "Bagaimana cara melaporkan aktivitas Additional Point?", a: "<p>Pekerja mengajukan bukti aktivitas melalui Portaverse atau formulir yang ditentukan Unit SDM.</p>" },
+                    { q: "Siapa yang memvalidasi aktivitas Additional Point?", a: "<p>Validasi dilakukan oleh atasan langsung dan Unit SDM.</p>" },
+                    { q: "Apakah Additional Point wajib?", a: "<p>Tidak wajib, tetapi dapat meningkatkan nilai akhir kinerja.</p>" },
+                    { q: "Berapa maksimal nilai tambahan dari Additional Point?", a: "<p>Nilai tambahan maksimal adalah 10 poin.</p>" }
+                ]
+            },
+            "G": {
+                title: "G. PENILAIAN & REVIEW KPI",
+                questions: [
+                    { q: "Kapan review KPI dilakukan?", a: "<p>Review dilakukan setiap triwulan pada periode yang ditetapkan perusahaan.</p>" },
+                    { q: "Apa itu Performance Review Triwulan?", a: "<p>Review Triwulan adalah evaluasi berkala terhadap pencapaian KPI untuk memastikan keselarasan dengan target unit.</p>" },
+                    { q: "Apa yang harus dipersiapkan untuk review KPI?", a: "<p>Pekerja menyiapkan bukti kinerja, data pendukung, dan laporan capaian sesuai target.</p>" },
+                    { q: "Siapa yang menilai KPI saya?", a: "<p>Penilaian dilakukan oleh atasan langsung sesuai struktur organisasi.</p>" },
+                    { q: "Bagaimana membaca nilai KPI triwulan?", a: "<p>Nilai triwulan menunjukkan persentase pencapaian target pada periode tersebut.</p>" },
+                    { q: "Bagaimana perhitungan nilai akhir KPI?", a: "<p>Nilai akhir dihitung berdasarkan pencapaian KPI, bobot, boundary, dan additional point.</p>" },
+                    { q: "Bagaimana penggabungan nilai KPI dan perilaku?", a: "<p>Nilai akhir terdiri dari 80% KPI dan 20% perilaku kerja (AKHLAK).</p>" },
+                    { q: "Apa itu Performance Evaluation?", a: "<p>Performance Evaluation adalah penilaian keseluruhan kinerja pekerja pada akhir tahun.</p>" },
+                    { q: "Apakah pekerja bisa mengajukan keberatan terhadap nilai KPI?", a: "<p>Bisa, melalui mekanisme keberatan resmi kepada atasan dan Unit SDM.</p>" },
+                    { q: "Bagaimana prosedur mengajukan keberatan nilai KPI?", a: "<p>Pekerja menyampaikan bukti pendukung dan argumentasi kepada atasan untuk ditinjau kembali.</p>" },
+                    { q: "Siapa yang memutuskan hasil akhir nilai kinerja?", a: "<p>Penetapan nilai akhir ditentukan oleh atasan bersama Unit SDM dan Manajemen.</p>" }
+                ]
+            },
+            "H": {
+                title: "H. KHUSUS PEKERJA OPERASIONAL & NON-OPERASIONAL",
+                questions: [
+                    { q: "Apakah pekerja operasional memiliki KPI berbeda?", a: "<p>Ya, KPI disesuaikan dengan karakteristik pekerjaan operasional.</p>" },
+                    { q: "Apakah pekerja shift memiliki KPI tambahan?", a: "<p>KPI pekerja shift mengikuti indikator operasional yang relevan dengan pola kerja.</p>" },
+                    { q: "Bagaimana KPI untuk pekerja layanan terminal?", a: "<p>KPI mencakup indikator produktivitas, pelayanan operasional, dan kepatuhan SOP.</p>" },
+                    { q: "Bagaimana KPI untuk pekerja administrasi?", a: "<p>KPI berfokus pada ketepatan proses, kualitas layanan, dan penyelesaian pekerjaan administratif.</p>" },
+                    { q: "Apakah KPI manager berbeda dari staff?", a: "<p>Ya, KPI manager berfokus pada target strategis dan pengelolaan unit, sedangkan staff pada eksekusi operasional.</p>" }
+                ]
+            },
+            "I": {
+                title: "I. PEKERJA BARU / MUTASI / PROMOSI",
+                questions: [
+                    { q: "Bagaimana KPI pekerja baru?", a: "<p>KPI disusun berdasarkan tugas awal dan masa adaptasi pekerja baru.</p>" },
+                    { q: "Bagaimana KPI bagi pekerja mutasi?", a: "<p>KPI disesuaikan dengan fungsi baru yang dijalankan setelah mutasi.</p>" },
+                    { q: "Bagaimana KPI pekerja yang baru dipromosikan?", a: "<p>KPI mengikuti tanggung jawab jabatan baru dan arahan atasan.</p>" },
+                    { q: "Apakah KPI bisa berubah saat pindah jabatan?", a: "<p>Ya, KPI akan diperbarui sesuai jabatan baru pekerja.</p>" }
+                ]
+            },
+            "J": {
+                title: "J. MASALAH UMUM",
+                questions: [
+                    { q: "Bagaimana jika saya tidak menginput KPI tepat waktu?", a: "<p>Keterlambatan dapat mempengaruhi proses penilaian dan merupakan kewajiban pekerja untuk menyelesaikannya sesuai jadwal.</p>" },
+                    { q: "Apa yang terjadi jika KPI tidak disetujui atasan?", a: "<p>KPI harus direvisi sesuai catatan atasan hingga memenuhi ketentuan.</p>" },
+                    { q: "Bagaimana jika target KPI tidak tercapai?", a: "<p>Pekerja wajib memberikan penjelasan berdasarkan data dan upaya perbaikan yang telah dilakukan.</p>" },
+                    { q: "Apakah KPI mempengaruhi bonus atau reward?", a: "<p>Ya, penilaian kinerja menjadi salah satu dasar pemberian reward perusahaan.</p>" },
+                    { q: "Bagaimana jika data pendukung KPI hilang?", a: "<p>Pekerja wajib mengganti atau melengkapi bukti melalui sumber data resmi.</p>" },
+                    { q: "Apakah KPI boleh dikosongkan?", a: "<p>Tidak. Seluruh pekerja wajib memiliki KPI yang lengkap.</p>" },
+                    { q: "Bagaimana jika KPI saya tidak relevan dengan pekerjaan?", a: "<p>Pekerja dapat meminta revisi KPI kepada atasan sesuai tanggung jawab jabatan.</p>" },
+                    { q: "Siapa yang dapat membantu jika saya mengalami kendala dalam KPI?", a: "<p>Kendala dapat dikonsultasikan kepada atasan atau Unit SDM.</p>" }
+                ]
+            }
+        };
 
-      // --- Elemen Tampilan ---
-      const chatContainer = document.getElementById("chat-container");
-      const initialStateHtml = chatContainer.innerHTML; // Simpan tampilan awal
-      const chatBaruBtn = document.getElementById("chat-baru-btn");
+        // --- Elemen Tampilan ---
+        const chatContainer = document.getElementById('chat-container');
+        const initialStateHtml = chatContainer.innerHTML; // Simpan tampilan awal
+        const chatBaruBtn = document.getElementById('chat-baru-btn');
 
-      let currentQuestions = []; // Menyimpan sisa pertanyaan di kategori saat ini
+        let currentQuestions = []; // Menyimpan sisa pertanyaan di kategori saat ini
 
-      // --- Fungsi-fungsi Chat ---
+        // --- Fungsi-fungsi Chat ---
 
-      // Fungsi untuk scroll ke bawah
-      function scrollToBottom() {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-      }
+        // Fungsi untuk scroll ke bawah
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
 
-      // Fungsi untuk menampilkan pilihan kategori
-      function showCategorySelection() {
-        const categories = [
-          { key: "A", label: "DASAR KPI (Basic – Untuk Semua Pekerja)" },
-          { key: "B", label: "PENYUSUNAN & CASCADING KPI" },
-          { key: "C", label: "PORTAVERSE" },
-          { key: "E", label: "BOUNDARY INDICATOR" },
-          { key: "G", label: "PENILAIAN & REVIEW KPI" },
-          { key: "H", label: "KHUSUS PEKERJA OPERASIONAL & NON-OPERASIONAL" },
-          { key: "I", label: "PEKERJA BARU / MUTASI / PROMOSI" },
-          { key: "J", label: "MASALAH UMUM" },
-        ];
+        // Fungsi untuk menampilkan pilihan kategori
+        function showCategorySelection() {
+            const categories = [
+                { key: 'A', label: 'DASAR KPI (Basic – Untuk Semua Pekerja)' },
+                { key: 'B', label: 'PENYUSUNAN & CASCADING KPI' },
+                { key: 'C', label: 'PORTAVERSE' },
+                { key: 'E', label: 'BOUNDARY INDICATOR' },
+                { key: 'G', label: 'PENILAIAN & REVIEW KPI' },
+                { key: 'H', label: 'KHUSUS PEKERJA OPERASIONAL & NON-OPERASIONAL' },
+                { key: 'I', label: 'PEKERJA BARU / MUTASI / PROMOSI' },
+                { key: 'J', label: 'MASALAH UMUM' }
+            ];
 
-        const buttonsHtml = categories
-          .map((cat) => {
-            return `<button class="category-button w-full text-left p-4 border-2 border-gray-200 rounded-xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium text-sm hover:border-indigo-300" data-category="${cat.key}">
+            const buttonsHtml = categories.map(cat => {
+                return `<button class="category-button w-full text-left p-4 border-2 border-gray-200 rounded-xl hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium text-sm hover:border-indigo-300" data-category="${cat.key}">
                     <span class="flex items-center gap-2">
                         <span class="text-indigo-600 font-bold">${cat.key}.</span>
                         <span>${cat.label}</span>
                     </span>
                 </button>`;
-          })
-          .join("");
+            }).join('');
 
-        addBotMessage(`
+            addBotMessage(`
                 <p class="text-gray-800 mb-3 font-semibold text-xl">Selamat Datang di SPMT AskHR! 👋</p>
                 <p class="text-gray-600 mb-5">Silakan pilih kategori yang ingin Anda tanyakan:</p>
                 <div class="flex flex-col gap-3 mt-4">
                     ${buttonsHtml}
                 </div>
             `);
-      }
-
-      // Fungsi untuk memulai chat baru (dipakai oleh tombol "Chat Baru")
-      function startNewChat() {
-        chatContainer.innerHTML = "";
-        currentQuestions = [];
-        // Reset pilihan dropdown
-        document.getElementById("kategori-selected-text").textContent =
-          "Pilih Kategori...";
-        // Tampilkan pilihan kategori
-        setTimeout(() => {
-          showCategorySelection();
-        }, 100);
-      }
-
-      // Fungsi untuk menambah gelembung chat Bot (kiri)
-      function addBotMessage(htmlContent) {
-        // Hapus tampilan awal jika masih ada
-        const initialState = document.getElementById("initial-state");
-        if (initialState) {
-          initialState.remove();
         }
 
-        const botBubble = document.createElement("div");
-        botBubble.className =
-          "flex justify-start mb-6 gap-4 bot-bubble bot-message-container";
-        botBubble.innerHTML = `
+        // Fungsi untuk memulai chat baru (dipakai oleh tombol "Chat Baru")
+        function startNewChat() {
+            chatContainer.innerHTML = '';
+            currentQuestions = [];
+            // Reset pilihan dropdown
+            document.getElementById('kategori-selected-text').textContent = 'Pilih Kategori...';
+            // Tampilkan pilihan kategori
+            setTimeout(() => {
+                showCategorySelection();
+            }, 100);
+        }
+
+        // Fungsi untuk menambah gelembung chat Bot (kiri)
+        function addBotMessage(htmlContent) {
+            // Hapus tampilan awal jika masih ada
+            const initialState = document.getElementById('initial-state');
+            if (initialState) {
+                initialState.remove();
+            }
+
+            const botBubble = document.createElement('div');
+            botBubble.className = "flex justify-start mb-6 gap-4 bot-bubble bot-message-container";
+            botBubble.innerHTML = `
                 <!-- Avatar Bot - Modern with Blue Highlights -->
                 <div class="flex-shrink-0">
                     <div class="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-xl border-2 border-cyan-300/50 bot-avatar overflow-hidden">
@@ -2012,16 +1413,15 @@
                     </div>
                 </div>
             `;
-        chatContainer.appendChild(botBubble);
-        scrollToBottom();
-      }
+            chatContainer.appendChild(botBubble);
+            scrollToBottom();
+        }
 
-      // Fungsi untuk menambah gelembung chat User (kanan)
-      function addUserMessage(text) {
-        const userBubble = document.createElement("div");
-        userBubble.className =
-          "flex justify-end mb-6 gap-4 user-message-container";
-        userBubble.innerHTML = `
+        // Fungsi untuk menambah gelembung chat User (kanan)
+        function addUserMessage(text) {
+            const userBubble = document.createElement('div');
+            userBubble.className = "flex justify-end mb-6 gap-4 user-message-container";
+            userBubble.innerHTML = `
                 <!-- Pesan User - Modern Gradient -->
                 <div class="flex-1 max-w-2xl">
                     <div class="bg-gradient-to-r from-cyan-500 to-blue-600 text-white p-6 rounded-2xl shadow-xl font-medium">
@@ -2035,312 +1435,281 @@
                     </div>
                 </div>
             `;
-        chatContainer.appendChild(userBubble);
-        scrollToBottom();
-      }
-
-      // Fungsi untuk menampilkan daftar pertanyaan sebagai tombol
-      function showQuestionButtons(questions, categoryKey, introductoryText) {
-        if (questions.length === 0) {
-          addBotMessage(
-            "Semua pertanyaan untuk kategori ini telah terjawab. Silakan pilih kategori baru dari sidebar."
-          );
-          return;
+            chatContainer.appendChild(userBubble);
+            scrollToBottom();
         }
 
-        // Buat HTML untuk tombol-tombol - Modern Style
-        const buttonsHtml = questions
-          .map((item, index) => {
-            // Cari indeks asli dari pertanyaan ini
-            const originalIndex = mockFaqData[categoryKey].questions.findIndex(
-              (q) => q.q === item.q
-            );
-            return `<button class="w-full text-left p-4 border-2 border-gray-200 rounded-xl hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 hover:text-cyan-700 transition-all duration-300 text-gray-800 font-medium hover:border-cyan-300 hover:shadow-lg" data-category="${categoryKey}" data-index="${originalIndex}">
+        // Fungsi untuk menampilkan daftar pertanyaan sebagai tombol
+        function showQuestionButtons(questions, categoryKey, introductoryText) {
+            if (questions.length === 0) {
+                addBotMessage("Semua pertanyaan untuk kategori ini telah terjawab. Silakan pilih kategori baru dari sidebar.");
+                return;
+            }
+
+            // Buat HTML untuk tombol-tombol - Modern Style
+            const buttonsHtml = questions.map((item, index) => {
+                // Cari indeks asli dari pertanyaan ini
+                const originalIndex = mockFaqData[categoryKey].questions.findIndex(q => q.q === item.q);
+                return `<button class="w-full text-left p-4 border-2 border-gray-200 rounded-xl hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 hover:text-cyan-700 transition-all duration-300 text-gray-800 font-medium hover:border-cyan-300 hover:shadow-lg" data-category="${categoryKey}" data-index="${originalIndex}">
                     ${item.q}
                 </button>`;
-          })
-          .join("");
+            }).join('');
 
-        addBotMessage(`
+            addBotMessage(`
                 <p>${introductoryText}</p>
                 <div class="flex flex-col gap-3 mt-4">
                     ${buttonsHtml}
                 </div>
             `);
-      }
+        }
+        
+        // Fungsi yang dipanggil saat tombol pertanyaan diklik
+        function handleQuestionClick(categoryKey, questionIndex) {
+            const questionData = mockFaqData[categoryKey].questions[questionIndex];
+            
+            // 1. Tampilkan pertanyaan user
+            addUserMessage(questionData.q);
 
-      // Fungsi yang dipanggil saat tombol pertanyaan diklik
-      function handleQuestionClick(categoryKey, questionIndex) {
-        const questionData = mockFaqData[categoryKey].questions[questionIndex];
+            // 2. Hapus pertanyaan ini dari daftar sisa pertanyaan
+            currentQuestions = currentQuestions.filter(q => q.q !== questionData.q);
 
-        // 1. Tampilkan pertanyaan user
-        addUserMessage(questionData.q);
+            // 3. Tampilkan jawaban bot (dengan sedikit jeda)
+            setTimeout(() => {
+                addBotMessage(questionData.a);
 
-        // 2. Hapus pertanyaan ini dari daftar sisa pertanyaan
-        currentQuestions = currentQuestions.filter(
-          (q) => q.q !== questionData.q
-        );
+                // 4. Tampilkan sisa pertanyaan
+                setTimeout(() => {
+                    showQuestionButtons(currentQuestions, categoryKey, "Apakah ada lagi yang ingin Anda tanyakan dari kategori ini?");
+                }, 500); // Jeda sebelum menampilkan sisa pertanyaan
 
-        // 3. Tampilkan jawaban bot (dengan sedikit jeda)
-        setTimeout(() => {
-          addBotMessage(questionData.a);
+            }, 700); // Jeda untuk simulasi "berpikir"
+        }
 
-          // 4. Tampilkan sisa pertanyaan
-          setTimeout(() => {
-            showQuestionButtons(
-              currentQuestions,
-              categoryKey,
-              "Apakah ada lagi yang ingin Anda tanyakan dari kategori ini?"
-            );
-          }, 500); // Jeda sebelum menampilkan sisa pertanyaan
-        }, 700); // Jeda untuk simulasi "berpikir"
-      }
+        // --- Event Listeners ---
 
-      // --- Event Listeners ---
+        // Event listener untuk tombol "Chat Baru"
+        chatBaruBtn.addEventListener('click', startNewChat);
 
-      // Event listener untuk tombol "Chat Baru"
-      chatBaruBtn.addEventListener("click", startNewChat);
-
-      // Event delegation untuk tombol pertanyaan dan kategori yang dinamis
-      chatContainer.addEventListener("click", function (e) {
-        const targetButton = e.target.closest("button[data-category]");
-        if (targetButton) {
-          const categoryKey = targetButton.dataset.category;
-          const questionIndex = targetButton.dataset.index;
-
-          // Cek apakah ini tombol kategori atau tombol pertanyaan
-          if (questionIndex === undefined) {
-            // Ini adalah tombol kategori
-            const categoryButton = targetButton.closest(".category-button");
-            if (categoryButton) {
-              // Hapus gelembung chat yang berisi tombol-tombol kategori
-              categoryButton.closest(".flex.justify-start").remove();
-
-              // Tampilkan pertanyaan dari kategori yang dipilih
-              const data = mockFaqData[categoryKey];
-              if (data) {
-                currentQuestions = [...data.questions];
-                showQuestionButtons(
-                  currentQuestions,
-                  categoryKey,
-                  `Anda telah memilih <strong>${data.title}</strong>. Silakan pilih salah satu pertanyaan di bawah ini:`
-                );
-              }
+        // Event delegation untuk tombol pertanyaan dan kategori yang dinamis
+        chatContainer.addEventListener('click', function(e) {
+            const targetButton = e.target.closest('button[data-category]');
+            if (targetButton) {
+                const categoryKey = targetButton.dataset.category;
+                const questionIndex = targetButton.dataset.index;
+                
+                // Cek apakah ini tombol kategori atau tombol pertanyaan
+                if (questionIndex === undefined) {
+                    // Ini adalah tombol kategori
+                    const categoryButton = targetButton.closest('.category-button');
+                    if (categoryButton) {
+                        // Hapus gelembung chat yang berisi tombol-tombol kategori
+                        categoryButton.closest('.flex.justify-start').remove();
+                        
+                        // Tampilkan pertanyaan dari kategori yang dipilih
+                        const data = mockFaqData[categoryKey];
+                        if (data) {
+                            currentQuestions = [...data.questions];
+                            showQuestionButtons(currentQuestions, categoryKey, `Anda telah memilih <strong>${data.title}</strong>. Silakan pilih salah satu pertanyaan di bawah ini:`);
+                        }
+                    }
+                } else {
+                    // Ini adalah tombol pertanyaan
+                // Hapus gelembung chat yang berisi tombol-tombol
+                targetButton.closest('.flex.justify-start').remove();
+                    handleQuestionClick(categoryKey, parseInt(questionIndex, 10));
+                }
             }
-          } else {
-            // Ini adalah tombol pertanyaan
-            // Hapus gelembung chat yang berisi tombol-tombol
-            targetButton.closest(".flex.justify-start").remove();
-            handleQuestionClick(categoryKey, parseInt(questionIndex, 10));
-          }
-        }
-      });
-
-      // --- Skrip Dropdown Kategori Modern (Diperbarui) ---
-      const kategoriWrapper = document.getElementById("kategori-wrapper");
-      const kategoriButton = document.getElementById("kategori-button");
-      const kategoriDropdown = document.getElementById("kategori-dropdown");
-      const kategoriSelectedText = document.getElementById(
-        "kategori-selected-text"
-      );
-      const kategoriArrow = document.getElementById("kategori-arrow");
-      const kategoriOptions = kategoriDropdown.querySelectorAll("a"); // <-- Variabel yang hilang
-
-      // Fungsi untuk menampilkan/menyembunyikan dropdown
-      function toggleDropdown(isOpen) {
-        if (isOpen) {
-          kategoriDropdown.classList.remove("hidden", "opacity-0", "scale-95");
-          kategoriDropdown.classList.add("opacity-100", "scale-100");
-          kategoriArrow.classList.add("rotate-180");
-          kategoriDropdown.style.pointerEvents = "auto";
-          kategoriDropdown.style.zIndex = "50";
-        } else {
-          kategoriDropdown.classList.add("opacity-0", "scale-95");
-          kategoriArrow.classList.remove("rotate-180");
-          kategoriDropdown.style.pointerEvents = "none";
-          // Kasih jeda sebelum 'hidden' agar transisi 'opacity' terlihat
-          setTimeout(() => {
-            kategoriDropdown.classList.add("hidden");
-          }, 200); // Harus sama dengan durasi transisi
-        }
-      }
-
-      // Event listener untuk tombol
-      kategoriButton.addEventListener("click", (e) => {
-        e.stopPropagation(); // Mencegah window.click dieksekusi
-        const isOpen = kategoriDropdown.classList.contains("hidden");
-        toggleDropdown(isOpen);
-      });
-
-      // Event listener untuk setiap opsi
-      kategoriOptions.forEach((option) => {
-        option.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation(); // Mencegah event bubbling
-          kategoriSelectedText.textContent = option.textContent; // Update teks tombol
-          toggleDropdown(false); // Sembunyikan dropdown
-
-          // === INI BAGIAN YANG DIPERBARUI ===
-          const selectedValue = option.dataset.value;
-          const data = mockFaqData[selectedValue];
-
-          if (data) {
-            // 1. Bersihkan chat
-            chatContainer.innerHTML = "";
-            // 2. Salin daftar pertanyaan
-            currentQuestions = [...data.questions];
-            // 3. Mulai percakapan
-            showQuestionButtons(
-              currentQuestions,
-              selectedValue,
-              `Anda telah memilih <strong>${data.title}</strong>. Silakan pilih salah satu pertanyaan di bawah ini:`
-            );
-          } else {
-            chatContainer.innerHTML = ""; // Bersihkan chat
-            addBotMessage(
-              `Maaf, data untuk kategori ${selectedValue} tidak ditemukan.`
-            );
-          }
         });
-      });
 
-      // Event listener untuk menutup dropdown saat klik di luar
-      window.addEventListener("click", (e) => {
-        if (!kategoriWrapper.contains(e.target)) {
-          if (!kategoriDropdown.classList.contains("hidden")) {
-            toggleDropdown(false);
-          }
-        }
-      });
 
-      // Tampilkan pilihan kategori saat halaman pertama kali dimuat
-      window.addEventListener("DOMContentLoaded", function () {
-        setTimeout(() => {
-          showCategorySelection();
-        }, 300);
-      });
+        // --- Skrip Dropdown Kategori Modern (Diperbarui) ---
+        const kategoriWrapper = document.getElementById('kategori-wrapper');
+        const kategoriButton = document.getElementById('kategori-button');
+        const kategoriDropdown = document.getElementById('kategori-dropdown');
+        const kategoriSelectedText = document.getElementById('kategori-selected-text');
+        const kategoriArrow = document.getElementById('kategori-arrow');
+        const kategoriOptions = kategoriDropdown.querySelectorAll('a'); // <-- Variabel yang hilang
 
-      // --- Ask Manually Functionality ---
-      const manualInput = document.getElementById("manual-input");
-      const sendBtn = document.getElementById("send-btn");
-      const fileInput = document.getElementById("file-input");
-      const imageInput = document.getElementById("image-input");
-      const filePreviews = document.getElementById("file-previews");
-      const inputAreaContainer = document.getElementById(
-        "input-area-container"
-      );
-
-      let uploadedFiles = [];
-
-      // Enable/Disable Send Button based on input
-      manualInput.addEventListener("input", function () {
-        const hasText = this.value.trim().length > 0;
-        sendBtn.disabled = !hasText;
-      });
-
-      // Auto-expanding textarea - Smooth Vertical Expansion (No Scrollbar)
-      manualInput.addEventListener("input", function () {
-        // Reset height to auto to get correct scrollHeight
-        this.style.height = "auto";
-
-        // Calculate new height (min 24px, max 120px for compact look)
-        const newHeight = Math.min(Math.max(this.scrollHeight, 24), 120);
-        this.style.height = newHeight + "px";
-
-        // Smooth container padding adjustment for multi-line
-        const container = inputAreaContainer;
-        if (newHeight > 24) {
-          container.style.paddingTop = "10px";
-          container.style.paddingBottom = "10px";
-        } else {
-          container.style.paddingTop = "6px";
-          container.style.paddingBottom = "6px";
-        }
-      });
-
-      // Initialize textarea with minimal height
-      manualInput.style.height = "24px";
-
-      // Prevent scrollbar from appearing
-      manualInput.style.overflow = "hidden";
-
-      // File Input Handlers
-      fileInput.addEventListener("change", function (e) {
-        handleFiles(Array.from(e.target.files), "file");
-        this.value = ""; // Reset input
-      });
-
-      imageInput.addEventListener("change", function (e) {
-        handleFiles(Array.from(e.target.files), "image");
-        this.value = ""; // Reset input
-      });
-
-      // Handle File Uploads
-      function handleFiles(files, type) {
-        files.forEach((file) => {
-          // Validate file type
-          if (type === "file") {
-            const validTypes = [".pdf", ".docx", ".xlsx"];
-            const fileExt = "." + file.name.split(".").pop().toLowerCase();
-            if (!validTypes.includes(fileExt)) {
-              alert(
-                `File ${file.name} tidak didukung. Hanya PDF, DOCX, XLSX yang diizinkan.`
-              );
-              return;
+        // Fungsi untuk menampilkan/menyembunyikan dropdown
+        function toggleDropdown(isOpen) {
+            if (isOpen) {
+                kategoriDropdown.classList.remove('hidden', 'opacity-0', 'scale-95');
+                kategoriDropdown.classList.add('opacity-100', 'scale-100');
+                kategoriArrow.classList.add('rotate-180');
+                kategoriDropdown.style.pointerEvents = 'auto';
+                kategoriDropdown.style.zIndex = '50';
+            } else {
+                kategoriDropdown.classList.add('opacity-0', 'scale-95');
+                kategoriArrow.classList.remove('rotate-180');
+                kategoriDropdown.style.pointerEvents = 'none';
+                // Kasih jeda sebelum 'hidden' agar transisi 'opacity' terlihat
+                setTimeout(() => {
+                    kategoriDropdown.classList.add('hidden');
+                }, 200); // Harus sama dengan durasi transisi
             }
-          } else if (type === "image") {
-            const validTypes = [".png", ".jpg", ".jpeg", ".gif", ".webp"];
-            const fileExt = "." + file.name.split(".").pop().toLowerCase();
-            if (!validTypes.includes(fileExt)) {
-              alert(
-                `Gambar ${file.name} tidak didukung. Hanya PNG, JPG, JPEG, GIF, WEBP yang diizinkan.`
-              );
-              return;
-            }
-          }
+        }
 
-          // Check file size (max 10MB)
-          if (file.size > 10 * 1024 * 1024) {
-            alert(`File ${file.name} terlalu besar. Maksimal 10MB.`);
-            return;
-          }
-
-          // Add to uploaded files
-          uploadedFiles.push({
-            file: file,
-            type: type,
-            id: Date.now() + Math.random(),
-          });
-
-          // Create preview badge
-          createFilePreview(file, uploadedFiles[uploadedFiles.length - 1].id);
+        // Event listener untuk tombol
+        kategoriButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Mencegah window.click dieksekusi
+            const isOpen = kategoriDropdown.classList.contains('hidden');
+            toggleDropdown(isOpen);
         });
-      }
 
-      // Create File Preview Badge
-      function createFilePreview(file, id) {
-        const badge = document.createElement("div");
-        badge.className = "file-preview-badge";
-        badge.dataset.id = id;
+        // Event listener untuk setiap opsi
+        kategoriOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation(); // Mencegah event bubbling
+                kategoriSelectedText.textContent = option.textContent; // Update teks tombol
+                toggleDropdown(false); // Sembunyikan dropdown
+                
+                // === INI BAGIAN YANG DIPERBARUI ===
+                const selectedValue = option.dataset.value;
+                const data = mockFaqData[selectedValue];
+                
+                if (data) {
+                    // 1. Bersihkan chat
+                    chatContainer.innerHTML = '';
+                    // 2. Salin daftar pertanyaan
+                    currentQuestions = [...data.questions];
+                    // 3. Mulai percakapan
+                    showQuestionButtons(currentQuestions, selectedValue, `Anda telah memilih <strong>${data.title}</strong>. Silakan pilih salah satu pertanyaan di bawah ini:`);
+                } else {
+                    chatContainer.innerHTML = ''; // Bersihkan chat
+                    addBotMessage(`Maaf, data untuk kategori ${selectedValue} tidak ditemukan.`);
+                }
+            });
+        });
 
-        const icon = file.type.startsWith("image/")
-          ? `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        // Event listener untuk menutup dropdown saat klik di luar
+        window.addEventListener('click', (e) => {
+            if (!kategoriWrapper.contains(e.target)) {
+                if (!kategoriDropdown.classList.contains('hidden')) {
+                    toggleDropdown(false);
+                }
+            }
+        });
+
+        // Tampilkan pilihan kategori saat halaman pertama kali dimuat
+        window.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                showCategorySelection();
+            }, 300);
+        });
+
+        // --- Ask Manually Functionality ---
+        const manualInput = document.getElementById('manual-input');
+        const sendBtn = document.getElementById('send-btn');
+        const fileInput = document.getElementById('file-input');
+        const imageInput = document.getElementById('image-input');
+        const filePreviews = document.getElementById('file-previews');
+        const inputAreaContainer = document.getElementById('input-area-container');
+        
+        let uploadedFiles = [];
+
+        // Enable/Disable Send Button based on input
+        manualInput.addEventListener('input', function() {
+            const hasText = this.value.trim().length > 0;
+            sendBtn.disabled = !hasText;
+        });
+
+        // Auto-expanding textarea - Smooth Vertical Expansion (No Scrollbar)
+        manualInput.addEventListener('input', function() {
+            // Reset height to auto to get correct scrollHeight
+            this.style.height = 'auto';
+            
+            // Calculate new height (min 24px, max 120px for compact look)
+            const newHeight = Math.min(Math.max(this.scrollHeight, 24), 120);
+            this.style.height = newHeight + 'px';
+            
+            // Smooth container padding adjustment for multi-line
+            const container = inputAreaContainer;
+            if (newHeight > 24) {
+                container.style.paddingTop = '10px';
+                container.style.paddingBottom = '10px';
+            } else {
+                container.style.paddingTop = '6px';
+                container.style.paddingBottom = '6px';
+            }
+        });
+
+        // Initialize textarea with minimal height
+        manualInput.style.height = '24px';
+        
+        // Prevent scrollbar from appearing
+        manualInput.style.overflow = 'hidden';
+
+        // File Input Handlers
+        fileInput.addEventListener('change', function(e) {
+            handleFiles(Array.from(e.target.files), 'file');
+            this.value = ''; // Reset input
+        });
+
+        imageInput.addEventListener('change', function(e) {
+            handleFiles(Array.from(e.target.files), 'image');
+            this.value = ''; // Reset input
+        });
+
+        // Handle File Uploads
+        function handleFiles(files, type) {
+            files.forEach(file => {
+                // Validate file type
+                if (type === 'file') {
+                    const validTypes = ['.pdf', '.docx', '.xlsx'];
+                    const fileExt = '.' + file.name.split('.').pop().toLowerCase();
+                    if (!validTypes.includes(fileExt)) {
+                        alert(`File ${file.name} tidak didukung. Hanya PDF, DOCX, XLSX yang diizinkan.`);
+                        return;
+                    }
+                } else if (type === 'image') {
+                    const validTypes = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+                    const fileExt = '.' + file.name.split('.').pop().toLowerCase();
+                    if (!validTypes.includes(fileExt)) {
+                        alert(`Gambar ${file.name} tidak didukung. Hanya PNG, JPG, JPEG, GIF, WEBP yang diizinkan.`);
+                        return;
+                    }
+                }
+
+                // Check file size (max 10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert(`File ${file.name} terlalu besar. Maksimal 10MB.`);
+                    return;
+                }
+
+                // Add to uploaded files
+                uploadedFiles.push({
+                    file: file,
+                    type: type,
+                    id: Date.now() + Math.random()
+                });
+
+                // Create preview badge
+                createFilePreview(file, uploadedFiles[uploadedFiles.length - 1].id);
+            });
+        }
+
+        // Create File Preview Badge
+        function createFilePreview(file, id) {
+            const badge = document.createElement('div');
+            badge.className = 'file-preview-badge';
+            badge.dataset.id = id;
+
+            const icon = file.type.startsWith('image/') ? 
+                `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                     <circle cx="8.5" cy="8.5" r="1.5"></circle>
                     <polyline points="21 15 16 10 5 21"></polyline>
-                </svg>`
-          : `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                </svg>` :
+                `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
                     <polyline points="13 2 13 9 20 9"></polyline>
                 </svg>`;
 
-        const fileName =
-          file.name.length > 20
-            ? file.name.substring(0, 20) + "..."
-            : file.name;
-        const fileSize = (file.size / 1024).toFixed(1) + " KB";
+            const fileName = file.name.length > 20 ? file.name.substring(0, 20) + '...' : file.name;
+            const fileSize = (file.size / 1024).toFixed(1) + ' KB';
 
-        badge.innerHTML = `
+            badge.innerHTML = `
                 ${icon}
                 <span class="text-white/90 text-sm font-medium">${fileName}</span>
                 <span class="text-white/60 text-xs">${fileSize}</span>
@@ -2352,217 +1721,133 @@
                 </button>
             `;
 
-        filePreviews.appendChild(badge);
-      }
-
-      // Remove File Function (global for onclick)
-      window.removeFile = function (id) {
-        uploadedFiles = uploadedFiles.filter((f) => f.id != id);
-        const badge = filePreviews.querySelector(`[data-id="${id}"]`);
-        if (badge) {
-          badge.style.animation = "badgeSlideIn 0.3s ease-out reverse";
-          setTimeout(() => badge.remove(), 300);
+            filePreviews.appendChild(badge);
         }
-      };
 
-      // Drag and Drop Support
-      inputAreaContainer.addEventListener("dragover", function (e) {
-        e.preventDefault();
-        this.classList.add("drag-over");
-      });
+        // Remove File Function (global for onclick)
+        window.removeFile = function(id) {
+            uploadedFiles = uploadedFiles.filter(f => f.id != id);
+            const badge = filePreviews.querySelector(`[data-id="${id}"]`);
+            if (badge) {
+                badge.style.animation = 'badgeSlideIn 0.3s ease-out reverse';
+                setTimeout(() => badge.remove(), 300);
+            }
+        };
 
-      inputAreaContainer.addEventListener("dragleave", function (e) {
-        e.preventDefault();
-        this.classList.remove("drag-over");
-      });
+        // Drag and Drop Support
+        inputAreaContainer.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
+        });
 
-      inputAreaContainer.addEventListener("drop", function (e) {
-        e.preventDefault();
-        this.classList.remove("drag-over");
+        inputAreaContainer.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+        });
 
-        const files = Array.from(e.dataTransfer.files);
-        const imageFiles = files.filter((f) => f.type.startsWith("image/"));
-        const otherFiles = files.filter((f) => !f.type.startsWith("image/"));
+        inputAreaContainer.addEventListener('drop', function(e) {
+                e.preventDefault();
+            this.classList.remove('drag-over');
 
-        if (imageFiles.length > 0) {
-          handleFiles(imageFiles, "image");
-        }
-        if (otherFiles.length > 0) {
-          handleFiles(otherFiles, "file");
-        }
-      });
+            const files = Array.from(e.dataTransfer.files);
+            const imageFiles = files.filter(f => f.type.startsWith('image/'));
+            const otherFiles = files.filter(f => !f.type.startsWith('image/'));
 
-      // Send Button Handler
-      sendBtn.addEventListener("click", function () {
-        sendManualQuestion();
-      });
+            if (imageFiles.length > 0) {
+                handleFiles(imageFiles, 'image');
+            }
+            if (otherFiles.length > 0) {
+                handleFiles(otherFiles, 'file');
+            }
+        });
 
-      // Enter key to send (Shift+Enter for new line)
-      manualInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" && !e.shiftKey) {
-          e.preventDefault();
-          if (!sendBtn.disabled) {
+        // Send Button Handler
+        sendBtn.addEventListener('click', function() {
             sendManualQuestion();
-          }
-        }
-      });
-
-      // Send Manual Question Function
-      function sendManualQuestion() {
-        const questionText = manualInput.value.trim();
-
-        if (!questionText && uploadedFiles.length === 0) {
-          return;
-        }
-
-        // Show user message
-        if (questionText) {
-          addUserMessage(questionText);
-        }
-
-        // Show file attachments if any
-        if (uploadedFiles.length > 0) {
-          const fileNames = uploadedFiles
-            .map((f) => `• ${f.file.name} (${f.type})`)
-            .join("<br>");
-          addUserMessage(
-            `<div class="text-sm opacity-90">Lampiran:<br>${fileNames}</div>`
-          );
-        }
-
-        // Clear input
-        manualInput.value = "";
-        manualInput.style.height = "auto";
-        sendBtn.disabled = true;
-
-        // Show loading shimmer
-        showLoadingShimmer();
-
-        // Clear file previews
-        uploadedFiles = [];
-        filePreviews.innerHTML = "";
-
-        // Simulate bot response after delay
-        setTimeout(() => {
-          hideLoadingShimmer();
-
-          // Mock response based on question
-          let response = "<p>Terima kasih atas pertanyaan Anda!</p>";
-
-          // Simple keyword matching for demo
-          const lowerQuestion = questionText.toLowerCase();
-          if (lowerQuestion.includes("kpi")) {
-            response =
-              "<p>Berkenaan dengan KPI, silakan pilih kategori terkait KPI di sidebar untuk mendapatkan informasi lebih lengkap. Jika ada pertanyaan spesifik, mohon jelaskan lebih detail.</p>";
-          } else if (
-            lowerQuestion.includes("portaverse") ||
-            lowerQuestion.includes("porta")
-          ) {
-            response =
-              "<p>Untuk pertanyaan tentang Portaverse, silakan pilih kategori <strong>C. PORTAVERSE</strong> di sidebar untuk panduan lengkap.</p>";
-          } else if (lowerQuestion.includes("boundary")) {
-            response =
-              "<p>Informasi tentang Boundary Indicator dapat ditemukan di kategori <strong>E. BOUNDARY INDICATOR</strong>. Silakan pilih kategori tersebut di sidebar.</p>";
-          } else {
-            response =
-              "<p>Terima kasih atas pertanyaan Anda. Untuk mendapatkan jawaban yang lebih tepat, silakan pilih kategori yang relevan di sidebar, atau berikan detail lebih spesifik tentang pertanyaan Anda.</p>";
-          }
-
-          addBotMessage(response);
-        }, 1500);
-      }
-
-      // Loading Shimmer Functions
-      function showLoadingShimmer() {
-        const shimmer = document.createElement("div");
-        shimmer.id = "loading-shimmer";
-        shimmer.className = "loading-shimmer mb-6";
-        chatContainer.appendChild(shimmer);
-        scrollToBottom();
-      }
-
-      function hideLoadingShimmer() {
-        const shimmer = document.getElementById("loading-shimmer");
-        if (shimmer) {
-          shimmer.style.opacity = "0";
-          shimmer.style.transition = "opacity 0.3s ease";
-          setTimeout(() => shimmer.remove(), 300);
-        }
-      }
-
-      // --- User Menu Dropdown & Logout ---
-      const userMenuButton = document.getElementById("userMenuButton");
-      const userDropdown = document.getElementById("userDropdown");
-      const userMenuWrapper = document.getElementById("userMenuWrapper");
-      const logoutBtn = document.getElementById("logoutBtn");
-
-      if (userMenuButton && userDropdown && userMenuWrapper) {
-        // placeholder to restore DOM position
-        const placeholder = document.createElement('span');
-        placeholder.style.display = 'none';
-
-        const openUserMenu = () => {
-          // Move dropdown to body to escape any stacking/overflow contexts
-          if (!placeholder.isConnected) {
-            userDropdown.parentNode.insertBefore(placeholder, userDropdown);
-          }
-          if (userDropdown.parentNode !== document.body) {
-            document.body.appendChild(userDropdown);
-          }
-
-          userDropdown.classList.remove("hidden");
-          const rect = userMenuButton.getBoundingClientRect();
-          userDropdown.style.position = "fixed";
-          userDropdown.style.top = rect.bottom + 6 + "px";
-          // Align right edge of dropdown with button's right edge
-          const left = Math.min(rect.left, window.innerWidth - userDropdown.offsetWidth - 8);
-          userDropdown.style.left = Math.max(8, left) + "px";
-          userDropdown.style.right = "auto";
-          userDropdown.style.zIndex = "99999";
-          userDropdown.style.minWidth = "160px";
-          userDropdown.style.pointerEvents = "auto";
-          // Prevent underlying containers from catching events
-          try { if (window.chatContainer) { chatContainer.style.pointerEvents = 'none'; } } catch (_) {}
-        };
-
-        const closeUserMenu = () => {
-          userDropdown.classList.add("hidden");
-          // Restore dropdown back to original wrapper to keep DOM tidy
-          if (placeholder.isConnected && userDropdown.parentNode === document.body) {
-            placeholder.parentNode.insertBefore(userDropdown, placeholder);
-          }
-          // Restore pointer events
-          try { if (window.chatContainer) { chatContainer.style.pointerEvents = ''; } } catch (_) {}
-        };
-
-        userMenuButton.addEventListener("click", function (e) {
-          e.stopPropagation();
-          if (userDropdown.classList.contains("hidden")) {
-            openUserMenu();
-          } else {
-            closeUserMenu();
-          }
         });
 
-        // Close on outside click
-        window.addEventListener("click", function (e) {
-          if (!userMenuWrapper.contains(e.target) && e.target !== userDropdown && !userDropdown.contains(e.target)) {
-            closeUserMenu();
-          }
+        // Enter key to send (Shift+Enter for new line)
+        manualInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (!sendBtn.disabled) {
+                    sendManualQuestion();
+                }
+            }
         });
 
-        // Reposition/close on resize or scroll to avoid misplacement
-        window.addEventListener("resize", closeUserMenu);
-        window.addEventListener("scroll", closeUserMenu, true);
-      }
+        // Send Manual Question Function
+        function sendManualQuestion() {
+            const questionText = manualInput.value.trim();
+            
+            if (!questionText && uploadedFiles.length === 0) {
+                return;
+            }
 
-      if (logoutBtn) {
-        logoutBtn.addEventListener("click", function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          window.location.href = "login.html";
-        });
-      }
+            // Show user message
+            if (questionText) {
+                addUserMessage(questionText);
+            }
+
+            // Show file attachments if any
+            if (uploadedFiles.length > 0) {
+                const fileNames = uploadedFiles.map(f => `• ${f.file.name} (${f.type})`).join('<br>');
+                addUserMessage(`<div class="text-sm opacity-90">Lampiran:<br>${fileNames}</div>`);
+            }
+
+            // Clear input
+            manualInput.value = '';
+            manualInput.style.height = 'auto';
+            sendBtn.disabled = true;
+
+            // Show loading shimmer
+            showLoadingShimmer();
+
+            // Clear file previews
+            uploadedFiles = [];
+            filePreviews.innerHTML = '';
+
+            // Simulate bot response after delay
+                setTimeout(() => {
+                hideLoadingShimmer();
+                
+                // Mock response based on question
+                let response = "<p>Terima kasih atas pertanyaan Anda!</p>";
+                
+                // Simple keyword matching for demo
+                const lowerQuestion = questionText.toLowerCase();
+                if (lowerQuestion.includes('kpi')) {
+                    response = "<p>Berkenaan dengan KPI, silakan pilih kategori terkait KPI di sidebar untuk mendapatkan informasi lebih lengkap. Jika ada pertanyaan spesifik, mohon jelaskan lebih detail.</p>";
+                } else if (lowerQuestion.includes('portaverse') || lowerQuestion.includes('porta')) {
+                    response = "<p>Untuk pertanyaan tentang Portaverse, silakan pilih kategori <strong>C. PORTAVERSE</strong> di sidebar untuk panduan lengkap.</p>";
+                } else if (lowerQuestion.includes('boundary')) {
+                    response = "<p>Informasi tentang Boundary Indicator dapat ditemukan di kategori <strong>E. BOUNDARY INDICATOR</strong>. Silakan pilih kategori tersebut di sidebar.</p>";
+                } else {
+                    response = "<p>Terima kasih atas pertanyaan Anda. Untuk mendapatkan jawaban yang lebih tepat, silakan pilih kategori yang relevan di sidebar, atau berikan detail lebih spesifik tentang pertanyaan Anda.</p>";
+                }
+
+                addBotMessage(response);
+            }, 1500);
+        }
+
+        // Loading Shimmer Functions
+        function showLoadingShimmer() {
+            const shimmer = document.createElement('div');
+            shimmer.id = 'loading-shimmer';
+            shimmer.className = 'loading-shimmer mb-6';
+            chatContainer.appendChild(shimmer);
+            scrollToBottom();
+        }
+
+        function hideLoadingShimmer() {
+            const shimmer = document.getElementById('loading-shimmer');
+            if (shimmer) {
+                shimmer.style.opacity = '0';
+                shimmer.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => shimmer.remove(), 300);
+            }
+        }
+
     </script>
-  </body>
+</body>
 </html>
