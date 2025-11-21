@@ -32,31 +32,84 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Menggunakan font Inter sebagai default */
+        /* Modern Futuristic Background */
         body {
             font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #0c4a6e 0%, #075985 50%, #0369a1 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Styling untuk logo */
-        #sidebar img {
-            filter: brightness(1.1);
-            transition: transform 0.3s ease, filter 0.3s ease;
+        /* Soft Circular Light Effects - Similar to Login Page */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+            animation: subtleFloat 20s ease-in-out infinite;
         }
 
-        #sidebar:hover img {
-            transform: scale(1.02);
+        @keyframes subtleFloat {
+            0%, 100% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translate(20px, -15px);
+            }
         }
 
-        /* Memastikan logo tidak terdistorsi */
-        #sidebar img {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
+        /* Glow Effect for Background */
+        .glow-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            animation: subtlePulse 8s ease-in-out infinite;
+            pointer-events: none;
+            filter: blur(80px);
         }
 
-        /* Background batik untuk sidebar */
+        @keyframes subtlePulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.4;
+            }
+        }
+
+        body > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Modern Sidebar with Glassmorphism - OCEANA Theme */
         #sidebar {
             position: relative;
-            background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 50%, #1e3a8a 100%);
+            background: linear-gradient(180deg, rgba(12, 74, 110, 0.95) 0%, rgba(7, 89, 133, 0.92) 50%, rgba(3, 105, 161, 0.95) 100%);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-right: 1px solid rgba(14, 165, 233, 0.2);
+            box-shadow: 4px 0 32px rgba(0, 0, 0, 0.25),
+                        inset 0 0 60px rgba(6, 182, 212, 0.1);
         }
 
         #sidebar::before {
@@ -66,14 +119,12 @@
             left: 0;
             right: 0;
             height: 60%;
-            background-image: url('images/batik.png');
-            background-position: bottom left;
-            background-repeat: no-repeat;
-            background-size: 80% auto;
-            opacity: 0.12;
-            mix-blend-mode: screen;
+            background: 
+                radial-gradient(circle at 30% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 70% 90%, rgba(14, 165, 233, 0.12) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
+            opacity: 0.6;
         }
 
         #sidebar::after {
@@ -84,8 +135,9 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, transparent 100%);
             pointer-events: none;
             z-index: 0;
         }
@@ -93,6 +145,45 @@
         #sidebar > * {
             position: relative;
             z-index: 1;
+        }
+
+        /* OCEANA Logo Styling - Futuristic & Glassy */
+        #sidebar .logo-container {
+            position: relative;
+        }
+
+        #sidebar .logo-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, rgba(14, 165, 233, 0.2) 40%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            filter: blur(20px);
+        }
+
+        #sidebar .logo-container:hover::before {
+            opacity: 0.8;
+        }
+
+        #sidebar .logo-container img {
+            filter: brightness(1.15) contrast(1.1) drop-shadow(0 6px 20px rgba(6, 182, 212, 0.4)) drop-shadow(0 0 30px rgba(14, 165, 233, 0.3));
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            position: relative;
+            z-index: 1;
+        }
+
+        #sidebar .logo-container:hover img {
+            transform: scale(1.08) translateY(-2px);
+            filter: brightness(1.25) contrast(1.15) drop-shadow(0 8px 30px rgba(6, 182, 212, 0.6)) drop-shadow(0 0 40px rgba(14, 165, 233, 0.5));
         }
 
         /* Memastikan dropdown kategori bisa diklik */
@@ -110,10 +201,14 @@
             pointer-events: auto;
         }
 
-        /* Styling untuk header */
+        /* Modern Header with Glassmorphism */
         header {
             position: relative;
             overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         header::before {
@@ -124,8 +219,8 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 10% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 90% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 10% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -134,19 +229,25 @@
             z-index: 1;
         }
 
-        /* Efek hover untuk ikon di header */
+        /* Modern Icon Buttons */
         header button {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         header button:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
+            color: #06b6d4;
+            filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
         }
 
-        /* Styling untuk main area background */
+        /* Main Area with Glassmorphism Background */
         main {
             position: relative;
             overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         main::before {
@@ -158,8 +259,7 @@
             bottom: 0;
             background: 
                 radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%);
+                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -169,15 +269,13 @@
             z-index: 1;
         }
 
-        /* Background body yang lebih halus */
-        body {
-            background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ff 100%);
-        }
-
-        /* Styling untuk dropdown item */
+        /* Modern Dropdown Items with Glassmorphism */
         .dropdown-item {
             position: relative;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .dropdown-item::before {
@@ -186,11 +284,12 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, #6366f1, #3b82f6);
+            width: 4px;
+            background: linear-gradient(180deg, #06b6d4, #0891b2);
             transform: scaleY(0);
-            transition: transform 0.2s ease;
-            border-radius: 0 2px 2px 0;
+            transition: transform 0.3s ease;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
         }
 
         .dropdown-item:hover::before {
@@ -198,38 +297,41 @@
         }
 
         .dropdown-item:hover {
-            transform: translateX(4px);
+            transform: translateX(6px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
         }
 
-        /* Scrollbar untuk dropdown */
+        /* Modern Scrollbar */
         #kategori-dropdown::-webkit-scrollbar {
             width: 8px;
         }
 
         #kategori-dropdown::-webkit-scrollbar-track {
-            background: #f1f5f9;
+            background: rgba(241, 245, 249, 0.5);
             border-radius: 10px;
             margin: 4px 0;
         }
 
         #kategori-dropdown::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #cbd5e1, #94a3b8);
+            background: linear-gradient(180deg, #06b6d4, #0891b2);
             border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
         }
 
         #kategori-dropdown::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #94a3b8, #64748b);
+            background: linear-gradient(180deg, #22d3ee, #06b6d4);
         }
 
-        /* Animasi untuk dropdown saat terbuka */
+        /* Modern Dropdown Animation */
         #kategori-dropdown:not(.hidden) {
-            animation: dropdownFadeIn 0.3s ease-out;
+            animation: dropdownFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes dropdownFadeIn {
             from {
                 opacity: 0;
-                transform: translateY(-10px) scale(0.95);
+                transform: translateY(-15px) scale(0.95);
             }
             to {
                 opacity: 1;
@@ -237,15 +339,13 @@
             }
         }
 
-        /* Efek untuk tombol dropdown */
-        #kategori-button:active {
-            transform: scale(0.98);
-        }
-
-        /* Styling untuk tombol kategori */
+        /* Modern Category Buttons */
         .category-button {
             position: relative;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .category-button::before {
@@ -254,11 +354,12 @@
             left: 0;
             top: 0;
             bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, #6366f1, #3b82f6);
+            width: 4px;
+            background: linear-gradient(180deg, #06b6d4, #0891b2);
             transform: scaleY(0);
-            transition: transform 0.2s ease;
-            border-radius: 0 2px 2px 0;
+            transition: transform 0.3s ease;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
         }
 
         .category-button:hover::before {
@@ -266,12 +367,33 @@
         }
 
         .category-button:hover {
-            transform: translateX(4px);
+            transform: translateX(6px);
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.25);
         }
 
-        /* Styling untuk avatar bot */
+        /* Modern Bot Avatar with Blue Highlights */
         .bot-avatar {
-            animation: avatarPopIn 0.4s ease-out;
+            animation: avatarPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .bot-avatar::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2, #0e7490);
+            border-radius: 50%;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            filter: blur(8px);
+        }
+
+        .bot-avatar:hover::before {
+            opacity: 0.6;
         }
 
         @keyframes avatarPopIn {
@@ -280,7 +402,7 @@
                 transform: scale(0) rotate(-180deg);
             }
             50% {
-                transform: scale(1.1) rotate(10deg);
+                transform: scale(1.15) rotate(10deg);
             }
             100% {
                 opacity: 1;
@@ -288,71 +410,530 @@
             }
         }
 
-        /* Animasi untuk pesan bot */
+        /* Modern Bot Message Container */
         .bot-message-container {
-            animation: messageSlideIn 0.3s ease-out;
+            animation: messageSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes messageSlideIn {
             from {
                 opacity: 0;
-                transform: translateX(-20px);
+                transform: translateX(-30px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateX(0) scale(1);
             }
         }
 
-        /* Styling untuk gambar avatar bot */
+        /* Modern Bot Avatar Image */
         .bot-avatar img {
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-            transition: transform 0.3s ease;
+            filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.4));
+            transition: transform 0.3s ease, filter 0.3s ease;
         }
 
         .bot-avatar:hover img {
             transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 6px 20px rgba(6, 182, 212, 0.6));
         }
 
-        /* Hover effect untuk bubble bot */
         .bot-bubble:hover .bot-avatar {
             transform: scale(1.05);
         }
 
-        /* Styling untuk avatar user */
+        /* Modern User Avatar */
         .user-avatar {
-            animation: avatarPopIn 0.4s ease-out;
+            animation: avatarPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Animasi untuk pesan user */
+        /* Modern User Message Container */
         .user-message-container {
-            animation: messageSlideInRight 0.3s ease-out;
+            animation: messageSlideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes messageSlideInRight {
             from {
                 opacity: 0;
-                transform: translateX(20px);
+                transform: translateX(30px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateX(0) scale(1);
             }
         }
 
-        /* Styling untuk gambar avatar user */
+        /* Modern User Avatar Image */
         .user-avatar img {
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-            transition: transform 0.3s ease;
+            filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.4));
+            transition: transform 0.3s ease, filter 0.3s ease;
         }
 
         .user-avatar:hover img {
             transform: scale(1.1);
+            filter: drop-shadow(0 6px 20px rgba(59, 130, 246, 0.6));
         }
 
-        /* Hover effect untuk bubble user */
         .user-message-container:hover .user-avatar {
             transform: scale(1.05);
+        }
+
+        /* Modern Chat Bubbles with Glassmorphism */
+        .bot-bubble .bg-white {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.15);
+        }
+
+        .user-message-container .bg-gradient-to-r {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-message-container:hover .bg-gradient-to-r {
+            background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #0891b2 100%);
+            box-shadow: 0 12px 40px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Modern Welcome Panel with Glassmorphism */
+        .welcome-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                        0 0 40px rgba(6, 182, 212, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            animation: rotateGlow 20s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .welcome-panel > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Premium Typography */
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        body {
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            line-height: 1.6;
+        }
+
+        /* Modern Rounded Cards for Sidebar */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 40px rgba(6, 182, 212, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Compact Floating Chatbot Input Bar - Dribbble Style */
+        .input-area-wrapper {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            max-width: 800px;
+            min-width: 320px;
+            z-index: 100;
+            animation: slideUpFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUpFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .input-area-container {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 50px; /* Perfect pill shape */
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            padding: 6px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .input-area-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .input-area-container:focus-within {
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 
+                0 12px 48px rgba(0, 0, 0, 0.16),
+                0 4px 16px rgba(6, 182, 212, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .input-area-container:focus-within::before {
+            opacity: 1;
+        }
+
+        /* File Preview Container - Above Input */
+        #file-previews {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-width: 100%;
+            justify-content: center;
+        }
+
+        /* Elegant Icon Buttons - Left Side (Dribbble Style) */
+        .icon-upload-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.65);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 6px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+        }
+
+        .icon-upload-btn:hover {
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .icon-upload-btn:active {
+            transform: scale(1.05) rotate(0deg);
+        }
+
+        .icon-upload-btn input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+        }
+
+        .icon-upload-btn svg {
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        /* Text Input Field - Center (Auto-expanding, No Scrollbar) */
+        .manual-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: rgba(255, 255, 255, 0.95);
+            resize: none;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.5;
+            padding: 6px 8px;
+            min-height: 24px;
+            max-height: 120px;
+            overflow: hidden; /* No scrollbar - auto-expand only */
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .manual-input::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for webkit browsers */
+        }
+
+        .manual-input {
+            -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+
+        .manual-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+        }
+
+        /* Elegant Send Button - Circular Right Side (Dribbble Style) */
+        .send-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 4px 12px rgba(118, 75, 162, 0.35),
+                0 2px 4px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .send-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .send-btn:hover:not(:disabled)::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #7c8df1 0%, #8b5fbf 100%);
+            box-shadow: 
+                0 6px 20px rgba(118, 75, 162, 0.5),
+                0 2px 6px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            transform: scale(1.1) translateY(-1px);
+        }
+
+        .send-btn:active:not(:disabled) {
+            transform: scale(1.05) translateY(0);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            background: rgba(148, 163, 184, 0.3);
+            box-shadow: none;
+            transform: none;
+        }
+
+        .send-btn svg {
+            width: 16px;
+            height: 16px;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        @keyframes badgeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Drag and Drop Zone */
+        .input-area-container.drag-over {
+            border-color: rgba(6, 182, 212, 0.7);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Loading Shimmer Effect */
+        .loading-shimmer {
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                rgba(255, 255, 255, 0.15) 50%, 
+                rgba(255, 255, 255, 0.05) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 12px;
+            min-height: 60px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* File Preview Badges - Dribbble Style (Above Input) */
+        .file-preview-badge {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px; /* Pill shape matching input */
+            padding: 6px 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: badgeSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 200px;
+        }
+
+        .file-preview-badge:hover {
+            background: rgba(255, 255, 255, 0.22);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(6, 182, 212, 0.25);
+        }
+
+        .file-remove-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0;
+            margin-left: 4px;
+            flex-shrink: 0;
+        }
+
+        .file-remove-btn:hover {
+            background: rgba(239, 68, 68, 0.85);
+            transform: scale(1.2) rotate(90deg);
+        }
+
+        .file-remove-btn svg {
+            width: 9px;
+            height: 9px;
+        }
+
+        /* Responsive Design - Mobile First */
+        @media (max-width: 768px) {
+            .input-area-wrapper {
+                width: calc(100% - 32px);
+                bottom: 16px;
+                max-width: none;
+                min-width: 280px;
+            }
+
+            .input-area-container {
+                padding: 5px 16px;
+                gap: 10px;
+            }
+
+            .icon-upload-btn {
+                padding: 5px;
+                width: 28px;
+                height: 28px;
+            }
+
+            .icon-upload-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .manual-input {
+                font-size: 14px;
+                padding: 5px 6px;
+            }
+
+            .send-btn {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+            }
+
+            .send-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            #file-previews {
+                bottom: calc(100% + 8px);
+                gap: 6px;
+            }
+        }
+
+        /* Ensure chat container doesn't overlap with floating input */
+        #chat-container {
+            padding-bottom: 120px !important;
         }
     </style>
 </head>
@@ -362,38 +943,41 @@
         <div id="overlay" class="fixed inset-0 bg-black opacity-50 z-10 hidden md:hidden"></div>
 
         <!-- Sidebar -->
-        <aside id="sidebar" class
-="w-72 bg-pelindo-nav text-white p-4 flex flex-col h-full fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-20">
+        <aside id="sidebar" class="w-72 text-white p-6 flex flex-col h-full fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-20">
             
-            <!-- Logo Pelindo Multi Terminal -->
-            <div class="mb-6 pt-2 pb-4 border-b border-blue-800/30 flex items-center justify-center">
-                <img src="images/logo spmt fc (1).png" alt="Pelindo Multi Terminal" class="h-20 w-auto object-contain max-w-full">
+            <!-- Logo OCEANA - Compact & Modern -->
+            <div class="logo-container mb-8 pt-2 pb-6 flex items-center justify-center border-b border-white/10">
+                <img src="images/OCEANA.png" alt="OCEANA Logo" class="max-h-20 w-auto object-contain max-w-full">
             </div>
 
-            <!-- Tombol Chat Baru -->
-            <button id="chat-baru-btn" class="bg-pelindo-nav-hover hover:bg-blue-600 text-white font-semibold py-2.5 px-4 rounded-lg mb-4 w-full text-left flex items-center gap-3">
-                <!-- Ikon Chat Baru (Mirip di gambar: gelembung + plus) -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Tombol Chat Baru - Glass Card -->
+            <button id="chat-baru-btn" class="glass-card text-white font-semibold py-3.5 px-5 rounded-xl mb-5 w-full text-left flex items-center gap-3 hover:scale-[1.02] transition-all duration-300">
+                <!-- Ikon Chat Baru - Modern -->
+                <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-300">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2"></path>
                     <line x1="12" y1="7" x2="12" y2="13"></line>
                     <line x1="9" y1="10" x2="15" y2="10"></line>
                 </svg>
-                Chat Baru
+                </div>
+                <span class="text-white/95">Chat Baru</span>
             </button>
 
-            <!-- Pilihan Kategori (Modern Custom Dropdown) -->
-            <div class="relative mb-4" id="kategori-wrapper">
-                <!-- Tombol yang terlihat -->
-                <button id="kategori-button" class="appearance-none bg-gradient-to-r from-blue-900 to-blue-800 border border-blue-700 text-white text-sm rounded-xl focus:ring-2 focus:ring-blue-400 focus:outline-none block w-full p-3 pr-10 flex justify-between items-center text-left shadow-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-200">
-                    <span id="kategori-selected-text" class="truncate font-medium">Pilih Kategori...</span>
-                    <!-- Ikon panah dropdown kustom -->
-                    <svg id="kategori-arrow" class="w-5 h-5 text-blue-200 transition-transform duration-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pilihan Kategori - Modern Glass Card Dropdown -->
+            <div class="relative mb-6" id="kategori-wrapper">
+                <!-- Tombol yang terlihat - Glass Card -->
+                <button id="kategori-button" class="glass-card appearance-none text-white text-sm rounded-xl focus:ring-2 focus:ring-cyan-400 focus:outline-none block w-full p-4 pr-12 flex justify-between items-center text-left transition-all duration-300 hover:scale-[1.02]">
+                    <span id="kategori-selected-text" class="truncate font-medium text-white/95">Pilih Kategori...</span>
+                    <!-- Ikon panah dropdown - Modern -->
+                    <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                        <svg id="kategori-arrow" class="w-5 h-5 text-cyan-300 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                     </svg>
+                    </div>
                 </button>
                 
-                <!-- Panel Dropdown (Tersembunyi) -->
-                <div id="kategori-dropdown" class="hidden absolute z-50 w-full mt-2 bg-white rounded-xl shadow-2xl max-h-64 overflow-y-auto transition-all duration-300 ease-out transform opacity-0 scale-95 border border-gray-100" style="pointer-events: auto;">
+                <!-- Panel Dropdown - Glass Card -->
+                <div id="kategori-dropdown" class="hidden absolute z-50 w-full mt-3 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl max-h-64 overflow-y-auto transition-all duration-400 ease-out transform opacity-0 scale-95 border border-white/20" style="pointer-events: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);">
                     <div class="p-2">
                         <!-- Opsi-opsi -->
                         <a href="#" class="dropdown-item block px-4 py-3 text-sm text-gray-700 rounded-lg hover:bg-gradient-to-r hover:from-indigo-50 hover:to-blue-50 hover:text-indigo-700 transition-all duration-200 font-medium border border-transparent hover:border-indigo-100" data-value="A">
@@ -468,21 +1052,24 @@
         </aside>
 
         <!-- Konten Utama -->
-        <main class="flex-1 flex flex-col h-full bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+        <main class="flex-1 flex flex-col h-full">
             
-            <!-- Header Konten Utama -->
-            <header class="h-16 flex justify-between md:justify-end items-center p-4 bg-gradient-to-r from-white via-blue-50 to-indigo-50 border-b border-indigo-100 shadow-md">
+            <!-- Glow Effect -->
+            <div class="glow-effect"></div>
+            
+            <!-- Header Konten Utama - Glassmorphism -->
+            <header class="h-16 flex justify-between md:justify-end items-center px-6">
                 <!-- Tombol Buka Sidebar (hanya di mobile) -->
-                <button id="open-sidebar-btn" class="p-2 text-gray-700 md:hidden">
+                <button id="open-sidebar-btn" class="p-2 text-white/90 md:hidden hover:text-cyan-300 transition-colors">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
                 </button>
                 
-                <!-- Ikon di Kanan Atas -->
-                <div class="flex items-center gap-4">
+                <!-- Ikon di Kanan Atas - Modern -->
+                <div class="flex items-center gap-5">
                     <!-- Ikon Grid -->
-                    <button class="text-gray-600 hover:text-black">
+                    <button class="p-2 rounded-lg hover:bg-white/10 transition-all duration-300">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="3" width="7" height="7"></rect>
                             <rect x="14" y="3" width="7" height="7"></rect>
@@ -491,7 +1078,7 @@
                         </svg>
                     </button>
                     <!-- Ikon User -->
-                    <button class="text-gray-600 hover:text-black">
+                    <button class="p-2 rounded-lg hover:bg-white/10 transition-all duration-300">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
@@ -503,17 +1090,69 @@
             <!-- Area Konten Dinamis (Diubah menjadi Chat Interface) -->
             <div class="flex-grow p-4 md:p-8 overflow-y-auto" id="chat-container">
                 
-                <!-- 1. Tampilan Awal (Initial State) -->
-                <div id="initial-state" class="flex flex-col justify-center items-center h-full text-center">
-                    <svg class="w-16 h-16 text-gray-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <!-- 1. Tampilan Awal (Initial State) - Modern Welcome Panel -->
+                <div id="initial-state" class="flex flex-col justify-center items-center h-full text-center px-4">
+                    <div class="welcome-panel max-w-2xl w-full">
+                        <!-- Modern Chatbot Icon with Blue Highlights -->
+                        <div class="mb-6 flex justify-center">
+                            <div class="relative">
+                                <div class="w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-2xl border-4 border-white/20">
+                                    <svg class="w-12 h-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <h2 class="text-2xl font-semibold text-gray-700">Selamat Datang di SPMT AskHR</h2>
-                    <p class="text-gray-500 mt-2">Silakan pilih kategori pada panel di sebelah kiri untuk memulai percakapan.</p>
+                                </div>
+                                <div class="absolute -top-1 -right-1 w-8 h-8 rounded-full bg-gradient-to-br from-cyan-300 to-blue-500 border-2 border-white/30 animate-pulse"></div>
+                            </div>
+                        </div>
+                        <h2 class="text-3xl font-semibold text-white mb-3">Selamat Datang di SPMT AskHR</h2>
+                        <p class="text-white/80 text-lg mt-2 leading-relaxed">Silakan pilih kategori pada panel di sebelah kiri untuk memulai percakapan dengan asisten HR kami.</p>
+                    </div>
                 </div>
 
                 <!-- Pesan-pesan chat akan ditambahkan di sini oleh JavaScript -->
 
+            </div>
+
+            <!-- Compact Floating Chatbot Input Bar - Dribbble Style -->
+            <!-- File Preview Badges Container (Positioned Above Input) -->
+            <div id="file-previews" class="flex flex-wrap gap-2 min-h-[40px]"></div>
+
+            <!-- Floating Input Container - Center Bottom, 60% Width -->
+            <div class="input-area-wrapper">
+                <div id="input-area-container" class="input-area-container">
+                    <!-- Elegant Icon Buttons - Left Side -->
+                    <label class="icon-upload-btn" title="Upload File (PDF, DOCX, XLSX)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                        </svg>
+                        <input type="file" id="file-input" accept=".pdf,.docx,.xlsx" multiple>
+                    </label>
+
+                    <label class="icon-upload-btn" title="Upload Gambar (PNG, JPG, JPEG, GIF, WEBP)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <input type="file" id="image-input" accept=".png,.jpg,.jpeg,.gif,.webp" multiple>
+                    </label>
+
+                    <!-- Auto-expanding Text Input - Center -->
+                    <textarea 
+                        id="manual-input" 
+                        class="manual-input"
+                        placeholder="Tulis pertanyaan Anda di sini..."
+                        rows="1"
+                    ></textarea>
+
+                    <!-- Elegant Send Button - Circular Right Side -->
+                    <button id="send-btn" class="send-btn" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
             </div>
             
         </main>
@@ -730,8 +1369,8 @@
             }).join('');
 
             addBotMessage(`
-                <p class="text-gray-700 mb-4 font-semibold text-lg">Selamat Datang di SPMT AskHR! </p>
-                <p class="text-gray-600 mb-4">Silakan pilih kategori yang ingin Anda tanyakan:</p>
+                <p class="text-gray-800 mb-3 font-semibold text-xl">Selamat Datang di SPMT AskHR! 👋</p>
+                <p class="text-gray-600 mb-5">Silakan pilih kategori yang ingin Anda tanyakan:</p>
                 <div class="flex flex-col gap-3 mt-4">
                     ${buttonsHtml}
                 </div>
@@ -759,17 +1398,17 @@
             }
 
             const botBubble = document.createElement('div');
-            botBubble.className = "flex justify-start mb-6 gap-3 bot-bubble bot-message-container";
+            botBubble.className = "flex justify-start mb-6 gap-4 bot-bubble bot-message-container";
             botBubble.innerHTML = `
-                <!-- Avatar Bot -->
+                <!-- Avatar Bot - Modern with Blue Highlights -->
                 <div class="flex-shrink-0">
-                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-indigo-400 bot-avatar overflow-hidden">
-                        <img src="images/logo_bot terbaru.png" alt="Bot Avatar" class="w-10 h-10 object-contain p-1">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-xl border-2 border-cyan-300/50 bot-avatar overflow-hidden">
+                        <img src="images/logo_bot terbaru.png" alt="Bot Avatar" class="w-12 h-12 object-contain p-1.5">
                     </div>
                 </div>
-                <!-- Pesan Bot -->
+                <!-- Pesan Bot - Glassmorphism -->
                 <div class="flex-1 max-w-2xl">
-                    <div class="bg-white p-5 rounded-2xl shadow-md prose prose-indigo border-l-4 border-indigo-500">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg prose prose-indigo border-l-4 border-cyan-400" style="border-left: 4px solid #06b6d4;">
                     ${htmlContent}
                     </div>
                 </div>
@@ -781,17 +1420,17 @@
         // Fungsi untuk menambah gelembung chat User (kanan)
         function addUserMessage(text) {
             const userBubble = document.createElement('div');
-            userBubble.className = "flex justify-end mb-6 gap-3 user-message-container";
+            userBubble.className = "flex justify-end mb-6 gap-4 user-message-container";
             userBubble.innerHTML = `
-                <!-- Pesan User -->
+                <!-- Pesan User - Modern Gradient -->
                 <div class="flex-1 max-w-2xl">
-                    <div class="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-5 rounded-2xl shadow-md font-medium">
+                    <div class="bg-gradient-to-r from-cyan-500 to-blue-600 text-white p-6 rounded-2xl shadow-xl font-medium">
                         ${text}
                     </div>
                 </div>
-                <!-- Avatar User -->
+                <!-- Avatar User - Modern -->
                 <div class="flex-shrink-0">
-                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg border-2 border-blue-400 user-avatar overflow-hidden">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center shadow-xl border-2 border-cyan-300/50 user-avatar overflow-hidden">
                         <img src="images/user.jpg" alt="User Avatar" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -807,18 +1446,18 @@
                 return;
             }
 
-            // Buat HTML untuk tombol-tombol
+            // Buat HTML untuk tombol-tombol - Modern Style
             const buttonsHtml = questions.map((item, index) => {
                 // Cari indeks asli dari pertanyaan ini
                 const originalIndex = mockFaqData[categoryKey].questions.findIndex(q => q.q === item.q);
-                return `<button class="w-full text-left p-3 border rounded-lg hover:bg-indigo-50 transition-all text-gray-800 font-medium" data-category="${categoryKey}" data-index="${originalIndex}">
+                return `<button class="w-full text-left p-4 border-2 border-gray-200 rounded-xl hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 hover:text-cyan-700 transition-all duration-300 text-gray-800 font-medium hover:border-cyan-300 hover:shadow-lg" data-category="${categoryKey}" data-index="${originalIndex}">
                     ${item.q}
                 </button>`;
             }).join('');
 
             addBotMessage(`
                 <p>${introductoryText}</p>
-                <div class="flex flex-col gap-2 mt-3">
+                <div class="flex flex-col gap-3 mt-4">
                     ${buttonsHtml}
                 </div>
             `);
@@ -959,241 +1598,256 @@
             }, 300);
         });
 
-    </script>
-</body>
-</html>
+        // --- Ask Manually Functionality ---
+        const manualInput = document.getElementById('manual-input');
+        const sendBtn = document.getElementById('send-btn');
+        const fileInput = document.getElementById('file-input');
+        const imageInput = document.getElementById('image-input');
+        const filePreviews = document.getElementById('file-previews');
+        const inputAreaContainer = document.getElementById('input-area-container');
+        
+        let uploadedFiles = [];
 
-
-
-            }, 700); // Jeda untuk simulasi "berpikir"
-
-        }
-
-
-
-        // --- Event Listeners ---
-
-
-
-        // Event listener untuk tombol "Chat Baru"
-
-        chatBaruBtn.addEventListener('click', startNewChat);
-
-
-
-        // Event delegation untuk tombol pertanyaan yang dinamis
-
-        chatContainer.addEventListener('click', function(e) {
-
-            const targetButton = e.target.closest('button[data-category]');
-
-            if (targetButton) {
-
-                // Hapus gelembung chat yang berisi tombol-tombol
-
-                targetButton.closest('.flex.justify-start').remove();
-
-
-
-                const categoryKey = targetButton.dataset.category;
-
-                const questionIndex = parseInt(targetButton.dataset.index, 10);
-
-                
-                
-                handleQuestionClick(categoryKey, questionIndex);
-
-            }
-
+        // Enable/Disable Send Button based on input
+        manualInput.addEventListener('input', function() {
+            const hasText = this.value.trim().length > 0;
+            sendBtn.disabled = !hasText;
         });
 
-
-
-
-
-        // --- Skrip Dropdown Kategori Modern (Diperbarui) ---
-
-        const kategoriWrapper = document.getElementById('kategori-wrapper');
-
-        const kategoriButton = document.getElementById('kategori-button');
-
-        const kategoriDropdown = document.getElementById('kategori-dropdown');
-
-        const kategoriSelectedText = document.getElementById('kategori-selected-text');
-
-        const kategoriArrow = document.getElementById('kategori-arrow');
-
-        const kategoriOptions = kategoriDropdown.querySelectorAll('a'); // <-- Variabel yang hilang
-
-
-
-        // Fungsi untuk menampilkan/menyembunyikan dropdown
-
-        function toggleDropdown(isOpen) {
-
-            if (isOpen) {
-
-                kategoriDropdown.classList.remove('hidden', 'opacity-0', 'scale-95');
-
-                kategoriDropdown.classList.add('opacity-100', 'scale-100');
-
-                kategoriArrow.classList.add('rotate-180');
-
+        // Auto-expanding textarea - Smooth Vertical Expansion (No Scrollbar)
+        manualInput.addEventListener('input', function() {
+            // Reset height to auto to get correct scrollHeight
+            this.style.height = 'auto';
+            
+            // Calculate new height (min 24px, max 120px for compact look)
+            const newHeight = Math.min(Math.max(this.scrollHeight, 24), 120);
+            this.style.height = newHeight + 'px';
+            
+            // Smooth container padding adjustment for multi-line
+            const container = inputAreaContainer;
+            if (newHeight > 24) {
+                container.style.paddingTop = '10px';
+                container.style.paddingBottom = '10px';
             } else {
-
-                kategoriDropdown.classList.add('opacity-0', 'scale-95');
-
-                kategoriArrow.classList.remove('rotate-180');
-
-                // Kasih jeda sebelum 'hidden' agar transisi 'opacity' terlihat
-
-                setTimeout(() => {
-
-                    kategoriDropdown.classList.add('hidden');
-
-                }, 200); // Harus sama dengan durasi transisi
-
+                container.style.paddingTop = '6px';
+                container.style.paddingBottom = '6px';
             }
+        });
 
+        // Initialize textarea with minimal height
+        manualInput.style.height = '24px';
+        
+        // Prevent scrollbar from appearing
+        manualInput.style.overflow = 'hidden';
+
+        // File Input Handlers
+        fileInput.addEventListener('change', function(e) {
+            handleFiles(Array.from(e.target.files), 'file');
+            this.value = ''; // Reset input
+        });
+
+        imageInput.addEventListener('change', function(e) {
+            handleFiles(Array.from(e.target.files), 'image');
+            this.value = ''; // Reset input
+        });
+
+        // Handle File Uploads
+        function handleFiles(files, type) {
+            files.forEach(file => {
+                // Validate file type
+                if (type === 'file') {
+                    const validTypes = ['.pdf', '.docx', '.xlsx'];
+                    const fileExt = '.' + file.name.split('.').pop().toLowerCase();
+                    if (!validTypes.includes(fileExt)) {
+                        alert(`File ${file.name} tidak didukung. Hanya PDF, DOCX, XLSX yang diizinkan.`);
+                        return;
+                    }
+                } else if (type === 'image') {
+                    const validTypes = ['.png', '.jpg', '.jpeg', '.gif', '.webp'];
+                    const fileExt = '.' + file.name.split('.').pop().toLowerCase();
+                    if (!validTypes.includes(fileExt)) {
+                        alert(`Gambar ${file.name} tidak didukung. Hanya PNG, JPG, JPEG, GIF, WEBP yang diizinkan.`);
+                        return;
+                    }
+                }
+
+                // Check file size (max 10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert(`File ${file.name} terlalu besar. Maksimal 10MB.`);
+                    return;
+                }
+
+                // Add to uploaded files
+                uploadedFiles.push({
+                    file: file,
+                    type: type,
+                    id: Date.now() + Math.random()
+                });
+
+                // Create preview badge
+                createFilePreview(file, uploadedFiles[uploadedFiles.length - 1].id);
+            });
         }
 
+        // Create File Preview Badge
+        function createFilePreview(file, id) {
+            const badge = document.createElement('div');
+            badge.className = 'file-preview-badge';
+            badge.dataset.id = id;
 
+            const icon = file.type.startsWith('image/') ? 
+                `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>` :
+                `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                </svg>`;
 
-        // Event listener untuk tombol
+            const fileName = file.name.length > 20 ? file.name.substring(0, 20) + '...' : file.name;
+            const fileSize = (file.size / 1024).toFixed(1) + ' KB';
 
-        kategoriButton.addEventListener('click', (e) => {
+            badge.innerHTML = `
+                ${icon}
+                <span class="text-white/90 text-sm font-medium">${fileName}</span>
+                <span class="text-white/60 text-xs">${fileSize}</span>
+                <button class="file-remove-btn ml-1" onclick="removeFile('${id}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            `;
 
-            e.stopPropagation(); // Mencegah window.click dieksekusi
+            filePreviews.appendChild(badge);
+        }
 
-            const isOpen = kategoriDropdown.classList.contains('hidden');
+        // Remove File Function (global for onclick)
+        window.removeFile = function(id) {
+            uploadedFiles = uploadedFiles.filter(f => f.id != id);
+            const badge = filePreviews.querySelector(`[data-id="${id}"]`);
+            if (badge) {
+                badge.style.animation = 'badgeSlideIn 0.3s ease-out reverse';
+                setTimeout(() => badge.remove(), 300);
+            }
+        };
 
-            toggleDropdown(isOpen);
-
+        // Drag and Drop Support
+        inputAreaContainer.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
         });
 
+        inputAreaContainer.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+        });
 
-
-        // Event listener untuk setiap opsi
-
-        kategoriOptions.forEach(option => {
-
-            option.addEventListener('click', (e) => {
-
+        inputAreaContainer.addEventListener('drop', function(e) {
                 e.preventDefault();
+            this.classList.remove('drag-over');
 
-                kategoriSelectedText.textContent = option.textContent; // Update teks tombol
+            const files = Array.from(e.dataTransfer.files);
+            const imageFiles = files.filter(f => f.type.startsWith('image/'));
+            const otherFiles = files.filter(f => !f.type.startsWith('image/'));
 
-                toggleDropdown(false); // Sembunyikan dropdown
-
-                
-                
-                // === INI BAGIAN YANG DIPERBARUI ===
-
-                const selectedValue = option.dataset.value;
-
-                const data = mockFaqData[selectedValue];
-
-                
-                
-                if (data) {
-
-                    // 1. Bersihkan chat
-
-                    chatContainer.innerHTML = '';
-
-                    // 2. Salin daftar pertanyaan
-
-                    currentQuestions = [...data.questions];
-
-                    // 3. Mulai percakapan
-
-                    showQuestionButtons(currentQuestions, selectedValue, `Anda telah memilih <strong>${data.title}</strong>. Silakan pilih salah satu pertanyaan di bawah ini:`);
-
-                } else {
-
-                    chatContainer.innerHTML = ''; // Bersihkan chat
-
-                    addBotMessage(`Maaf, data untuk kategori ${selectedValue} tidak ditemukan.`);
-
-                }
-
-            });
-
+            if (imageFiles.length > 0) {
+                handleFiles(imageFiles, 'image');
+            }
+            if (otherFiles.length > 0) {
+                handleFiles(otherFiles, 'file');
+            }
         });
 
+        // Send Button Handler
+        sendBtn.addEventListener('click', function() {
+            sendManualQuestion();
+        });
 
-
-        // Event listener untuk menutup dropdown saat klik di luar
-
-        window.addEventListener('click', (e) => {
-
-            if (!kategoriWrapper.contains(e.target)) {
-
-                if (!kategoriDropdown.classList.contains('hidden')) {
-
-                    toggleDropdown(false);
-
+        // Enter key to send (Shift+Enter for new line)
+        manualInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (!sendBtn.disabled) {
+                    sendManualQuestion();
                 }
+            }
+        });
 
+        // Send Manual Question Function
+        function sendManualQuestion() {
+            const questionText = manualInput.value.trim();
+            
+            if (!questionText && uploadedFiles.length === 0) {
+                return;
             }
 
-        });
+            // Show user message
+            if (questionText) {
+                addUserMessage(questionText);
+            }
 
+            // Show file attachments if any
+            if (uploadedFiles.length > 0) {
+                const fileNames = uploadedFiles.map(f => `• ${f.file.name} (${f.type})`).join('<br>');
+                addUserMessage(`<div class="text-sm opacity-90">Lampiran:<br>${fileNames}</div>`);
+            }
 
+            // Clear input
+            manualInput.value = '';
+            manualInput.style.height = 'auto';
+            sendBtn.disabled = true;
+
+            // Show loading shimmer
+            showLoadingShimmer();
+
+            // Clear file previews
+            uploadedFiles = [];
+            filePreviews.innerHTML = '';
+
+            // Simulate bot response after delay
+                setTimeout(() => {
+                hideLoadingShimmer();
+                
+                // Mock response based on question
+                let response = "<p>Terima kasih atas pertanyaan Anda!</p>";
+                
+                // Simple keyword matching for demo
+                const lowerQuestion = questionText.toLowerCase();
+                if (lowerQuestion.includes('kpi')) {
+                    response = "<p>Berkenaan dengan KPI, silakan pilih kategori terkait KPI di sidebar untuk mendapatkan informasi lebih lengkap. Jika ada pertanyaan spesifik, mohon jelaskan lebih detail.</p>";
+                } else if (lowerQuestion.includes('portaverse') || lowerQuestion.includes('porta')) {
+                    response = "<p>Untuk pertanyaan tentang Portaverse, silakan pilih kategori <strong>C. PORTAVERSE</strong> di sidebar untuk panduan lengkap.</p>";
+                } else if (lowerQuestion.includes('boundary')) {
+                    response = "<p>Informasi tentang Boundary Indicator dapat ditemukan di kategori <strong>E. BOUNDARY INDICATOR</strong>. Silakan pilih kategori tersebut di sidebar.</p>";
+                } else {
+                    response = "<p>Terima kasih atas pertanyaan Anda. Untuk mendapatkan jawaban yang lebih tepat, silakan pilih kategori yang relevan di sidebar, atau berikan detail lebih spesifik tentang pertanyaan Anda.</p>";
+                }
+
+                addBotMessage(response);
+            }, 1500);
+        }
+
+        // Loading Shimmer Functions
+        function showLoadingShimmer() {
+            const shimmer = document.createElement('div');
+            shimmer.id = 'loading-shimmer';
+            shimmer.className = 'loading-shimmer mb-6';
+            chatContainer.appendChild(shimmer);
+            scrollToBottom();
+        }
+
+        function hideLoadingShimmer() {
+            const shimmer = document.getElementById('loading-shimmer');
+            if (shimmer) {
+                shimmer.style.opacity = '0';
+                shimmer.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => shimmer.remove(), 300);
+            }
+        }
 
     </script>
-
 </body>
-
 </html>
-
-                setTimeout(() => {
-
-                    showQuestionButtons(currentQuestions, categoryKey, "Apakah ada lagi yang ingin Anda tanyakan dari kategori ini?");
-
-                }, 500); // Jeda sebelum menampilkan sisa pertanyaan
-
-
-
-            }, 700); // Jeda untuk simulasi "berpikir"
-
-        }
-
-
-
-        // --- Event Listeners ---
-
-
-
-        // Event listener untuk tombol "Chat Baru"
-
-        chatBaruBtn.addEventListener('click', startNewChat);
-
-
-
-        // Event delegation untuk tombol pertanyaan yang dinamis
-
-        chatContainer.addEventListener('click', function(e) {
-
-            const targetButton = e.target.closest('button[data-category]');
-
-            if (targetButton) {
-
-                // Hapus gelembung chat yang berisi tombol-tombol
-
-                targetButton.closest('.flex.justify-start').remove();
-
-
-
-                const categoryKey = targetButton.dataset.category;
-
-                const questionIndex = parseInt(targetButton.dataset.index, 10);
-
-                
-
-                handleQuestionClick(categoryKey, questionIndex);
-
-            }
-
-        });
-

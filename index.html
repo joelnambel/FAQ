@@ -28,10 +28,13 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 50%, #bfdbfe 100%);
+            background: linear-gradient(180deg, #0c4a6e 0%, #075985 50%, #0369a1 100%);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
         
+        /* Minimalist Modern Background - Subtle Gradient Overlay */
         body::before {
             content: '';
             position: fixed;
@@ -40,10 +43,49 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
+            animation: subtleFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes subtleFloat {
+            0%, 100% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translate(20px, -15px);
+            }
+        }
+
+        /* Minimalist Glow Effect - Very Subtle */
+        .glow-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            animation: subtlePulse 8s ease-in-out infinite;
+            pointer-events: none;
+            filter: blur(80px);
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.4;
+            }
         }
         
         body > * {
@@ -52,29 +94,25 @@
         }
 
         .signin-button {
-            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 50%, #0e7490 100%);
             transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
         }
 
         .signin-button:hover {
-            background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3);
+            background: linear-gradient(135deg, #22d3ee 0%, #06b6d4 50%, #0891b2 100%);
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
         }
 
         .login-button {
-            background: white;
-            border: 2px solid #1e3a8a;
-            color: #1e3a8a;
             transition: all 0.3s ease;
         }
 
         .login-button:hover {
-            background: #f0f4ff;
-            border-color: #2563eb;
-            color: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.15);
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 12px 32px rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         .icon-button {
@@ -82,17 +120,127 @@
         }
 
         .icon-button:hover {
-            transform: scale(1.1);
-            color: #1e3a8a;
+            transform: scale(1.15);
+            color: #06b6d4;
+        }
+
+        /* Modern Logo Animation Styles - Ocean Theme */
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .logo-img {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(14, 165, 233, 0.3)) drop-shadow(0 4px 12px rgba(6, 182, 212, 0.2));
+            animation: logoEntrance 1.2s ease-out, logoFloat 6s ease-in-out infinite 1.2s;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes logoEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.8) rotate(-5deg);
+            }
+            60% {
+                transform: translateY(5px) scale(1.05) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-12px) rotate(1deg);
+            }
+            50% {
+                transform: translateY(-8px) rotate(-1deg);
+            }
+            75% {
+                transform: translateY(-15px) rotate(0.5deg);
+            }
+        }
+
+        .logo-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, rgba(6, 182, 212, 0.15) 50%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: logoGlow 3s ease-in-out infinite;
+            filter: blur(30px);
+        }
+
+        @keyframes logoGlow {
+            0%, 100% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                opacity: 0.9;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        .logo-shimmer {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                transparent 100%);
+            animation: logoShimmer 4s ease-in-out infinite;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        @keyframes logoShimmer {
+            0% {
+                left: -100%;
+            }
+            50% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        .logo-container:hover .logo-img {
+            transform: translateY(-5px) scale(1.05);
+            filter: drop-shadow(0 15px 40px rgba(14, 165, 233, 0.4)) drop-shadow(0 8px 20px rgba(6, 182, 212, 0.3));
+        }
+
+        .logo-container:hover .logo-glow {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.2);
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
+    <!-- Minimalist Modern Background Elements -->
+    <div class="glow-effect"></div>
+    
     <!-- Header dengan Ikon -->
-    <header class="flex justify-end p-6">
+    <header class="flex justify-end items-center p-6">
         <div class="flex items-center gap-4">
             <!-- Ikon Grid -->
-            <button class="icon-button text-gray-600 hover:text-gray-900">
+            <button class="icon-button text-white hover:text-cyan-200">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="3" width="7" height="7"></rect>
                     <rect x="14" y="3" width="7" height="7"></rect>
@@ -101,7 +249,7 @@
                 </svg>
             </button>
             <!-- Ikon User -->
-            <button class="icon-button text-gray-600 hover:text-gray-900">
+            <button class="icon-button text-white hover:text-cyan-200">
                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
@@ -111,19 +259,31 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 flex items-center justify-center px-4 py-12">
-        <div class="text-center w-full max-w-2xl">
+    <main class="flex-1 flex flex-col items-center justify-center px-4 py-8 md:py-12">
+        <div class="text-center w-full max-w-4xl">
+            <!-- Logo OCEANA -->
+            <div class="logo-container mb-8">
+                <div class="logo-glow"></div>
+                <div class="logo-shimmer"></div>
+                <img src="images/OCEANA.png" alt="OCEANA Logo" class="logo-img">
+            </div>
+            
             <!-- Judul -->
-            <h1 class="text-5xl md:text-6xl font-bold text-pelindo-title mb-12">
-                SPMT AskHR
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">
+                OCEANA
             </h1>
+            
+            <!-- Subtitle -->
+            <p class="text-xl md:text-2xl text-cyan-100 mb-12 font-light">
+                Solusi HR yang Terdepan untuk Masa Depan
+            </p>
 
             <!-- Tombol Sign In dan Log In -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+            <div class="flex flex-col sm:flex-row gap-5 justify-center items-center mb-8">
                 <!-- Sign In Button -->
                 <button 
                     id="signInButton"
-                    class="signin-button text-white font-semibold py-4 px-12 rounded-full text-lg w-full sm:w-auto min-w-[200px]"
+                    class="signin-button text-white font-semibold py-4 px-12 rounded-full text-lg w-full sm:w-auto min-w-[220px] shadow-2xl"
                 >
                     Sign In
                 </button>
@@ -131,7 +291,7 @@
                 <!-- Log In Button -->
                 <button 
                     id="loginButton"
-                    class="login-button font-semibold py-4 px-12 rounded-full text-lg w-full sm:w-auto min-w-[200px]"
+                    class="login-button font-semibold py-4 px-12 rounded-full text-lg w-full sm:w-auto min-w-[220px] shadow-2xl bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white/20"
                 >
                     Log In
                 </button>
@@ -141,7 +301,7 @@
 
     <!-- Footer -->
     <footer class="text-center py-6">
-        <p class="text-gray-600 text-sm">Copyright 2024</p>
+        <p class="text-cyan-100 text-sm opacity-80">Copyright 2024 © OCEANA</p>
     </footer>
 
     <script>
